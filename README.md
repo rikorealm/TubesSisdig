@@ -1,2 +1,2 @@
 # TubesSisdig
-Project of simple Photoshop-alike functionalities employed in Cyclone IV FPGA.
+A project of simple Photoshop-alike functionalities implemented in Cyclone IV FPGA.
