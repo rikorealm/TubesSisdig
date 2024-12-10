@@ -1,1 +1,35 @@
+##### PC #####
+Naythan & Kiyo
+-> Imgprocessing [V]
+   Python RGB to binary matrix
+-> Imgserial
+   - Python image binary to UART (PC TX)
+   - PC RX (Done/Ready)
+   - Tx depends on RX done/ready value
+-> Main
+   Combine every py script
+
+##### FPGA #####
+Berwyn & sendi
+-> IR [V] : Berwyn & Sendi
+
+-> UART Comm
+   - UART RX/TX: Berwyn
+
+   - RX: Berwyn
+
+   - TX: Sendi
+     Selalu kirim done/ready
+
+-> Clock Divider : Berwyn
+
+-> Controller/FSM [.2] : Berwyn
+
+-> IMG Control & Source Selector (mains) : Berwyn
+
+-> PIB & Image Memory: Naythan Kiyo
+
+-> Buzzer [V] : Berwyn
+
+-> VGA Controller [V] : Berwyn
 
