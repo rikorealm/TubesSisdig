@@ -1,0 +1,16 @@
+Power - 21
+Up - 110
+Down - 111
+Left - 117
+Right - 116
+CH+ - 16
+CH- - 17
+VOL+ - 18
+VOL- - 19
+Mute - 20
+1~0 - 0~9
+Menu - 96
+Source - 37
+OK - 124
+Display - 58
+Replace - 59
