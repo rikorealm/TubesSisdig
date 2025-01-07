@@ -1,0 +1,30 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate "E:\Studies\ITB\Matkul\Sems 3\Sisdig\Tubes\FPGA-Side\Codes\PLL25.qsys" --block-symbol-file --output-directory="E:\Studies\ITB\Matkul\Sems 3\Sisdig\Tubes\FPGA-Side\Codes\PLL25" --family="Cyclone IV E" --part=EP4CE6E22C8
+Progress: Loading Codes/PLL25.qsys
+Progress: Reading input file
+Progress: Adding altpll_0 [altpll 23.1]
+Progress: Parameterizing module altpll_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: PLL25.altpll_0: altpll_0.pll_slave must be connected to an Avalon-MM master
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate "E:\Studies\ITB\Matkul\Sems 3\Sisdig\Tubes\FPGA-Side\Codes\PLL25.qsys" --synthesis=VHDL --output-directory="E:\Studies\ITB\Matkul\Sems 3\Sisdig\Tubes\FPGA-Side\Codes\PLL25\synthesis" --family="Cyclone IV E" --part=EP4CE6E22C8
+Progress: Loading Codes/PLL25.qsys
+Progress: Reading input file
+Progress: Adding altpll_0 [altpll 23.1]
+Progress: Parameterizing module altpll_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: PLL25.altpll_0: altpll_0.pll_slave must be connected to an Avalon-MM master
+Info: PLL25: Generating PLL25 "PLL25" for QUARTUS_SYNTH
+Info: altpll_0: "PLL25" instantiated altpll "altpll_0"
+Info: PLL25: Done "PLL25" with 2 modules, 2 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis
