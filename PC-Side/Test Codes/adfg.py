@@ -3,13 +3,21 @@ import numpy as np
 from PIL import Image
 
 # read image data
-img = Image.open("PC-Side\Test Codes\stiv.png")  # Replace with your image path
+# Creepy.png 5x5
+# Memario.png HD
+# car 4:3
+# jamur 6:4
+# stiv 4:6
+
+# input image
+img = Image.open("PC-Side\Test Codes\jamur.png")  # Replace with your image path
 original_img_array = np.array(img)
 print(original_img_array)
 original_height, original_width, channels = original_img_array.shape
 print(original_height, original_width, channels)
 # image_data = np.zeros( (9,9,3), dtype=np.uint8)
 # image_data[4,4] = [255,0,0]
+
 
 # canvas size (640 x 480)
 final_width = 640
@@ -38,6 +46,8 @@ else:
 # output scaling algorithm
 expected_width = int(original_width * ratio)
 expected_height = int(original_height *ratio)
+center_width = int((final_width - expected_width) / 2)
+center_height = int((final_height - expected_height) / 2)
 # expected_img_array = np.zeros((expected_height, expected_width, channels), dtype=original_img_array.dtype)
 
 for height in range (0, expected_height, ratio):
@@ -47,7 +57,8 @@ for height in range (0, expected_height, ratio):
         print(original_height_now, original_width_now)
         for i in range (height, height + ratio):
             for j in range (width, width + ratio):
-                final_img_array[i, j] = original_img_array[original_height_now, original_width_now]
+                final_img_array[center_height + i, center_width + j] = original_img_array[original_height_now, original_width_now]
 
+# display
 plt.imshow(final_img_array, interpolation='nearest')
 plt.show()
