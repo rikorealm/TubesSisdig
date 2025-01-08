@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 
 # read image data
-img = Image.open("PC-Side\Test Codes\vroom.png")  # Replace with your image path
+img = Image.open("PC-Side\Test Codes\stiv.png")  # Replace with your image path
 original_img_array = np.array(img)
 print(original_img_array)
 original_height, original_width, channels = original_img_array.shape
@@ -19,14 +19,26 @@ for a in range (0, final_width):
     for b in range (0, final_height):
         final_img_array[b, a] = [0, 0, 0, 255]
 
+width_ratio = final_width/original_width
+height_ratio = final_height/original_height
+
+# condition
+test_ww = original_width * width_ratio
+test_hw = original_height * width_ratio
+test_wh = original_width * height_ratio
+test_hh = original_height * height_ratio
+
+if test_ww < final_width and test_hw < final_width:
+    ratio = int(width_ratio)
+elif test_wh < final_width and test_hh < final_width:
+    ratio = int(height_ratio)
+else:
+    ratio = int(width_ratio)
 
 # output scaling algorithm
-expected_width = 480
-expected_height = 480
+expected_width = int(original_width * ratio)
+expected_height = int(original_height *ratio)
 # expected_img_array = np.zeros((expected_height, expected_width, channels), dtype=original_img_array.dtype)
-
-ratio = int(expected_width / original_width)
-print(ratio)
 
 for height in range (0, expected_height, ratio):
     for width in range (0, expected_width, ratio):
