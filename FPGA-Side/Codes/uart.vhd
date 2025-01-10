@@ -82,7 +82,6 @@ begin
 		i_log_ADDR			=>	s_log_addr			,
 		o_sig_CRRP_DATA		=>	o_sig_CRRP_DATA		,
 		o_BUSY				=>	o_sig_RX_BUSY
-		
 	);
 	
 	o_DATA_recv <= s_rx_data;
@@ -99,9 +98,6 @@ begin
 	-- end process;
 	-- - end of delay process
 
-	---	The transmission sub-routine chacks for avaliability to send something before sending it,
-	---everything else is handled internally.
-	--- process: untuk menampilkan data di RX Buffer. alamat buffer dipilih menggunakan switch. perintah display menggunakan button key_1.
 	-- p_DISPLAY_RX	:	process	(i_CLOCK) begin
 	-- 	if(rising_edge(i_CLOCK)) then
 	-- 		if(
@@ -112,7 +108,6 @@ begin
 	-- 		end if;
 	-- 	end if;
 	-- end process;
-	-- --- end of process
 	
 	--- process: untuk melakukan pengiriman data. input data diatur dari switch. perintah pengiriman menggunakan button key_0.
 	-- p_TRANSMIT	:	process(i_CLOCK) begin
