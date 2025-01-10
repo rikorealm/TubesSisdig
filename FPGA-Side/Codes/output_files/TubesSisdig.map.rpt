@@ -1,5 +1,5 @@
 Analysis & Synthesis report for TubesSisdig
-Tue Jan  7 16:00:43 2025
+Fri Jan 10 10:41:05 2025
 Quartus Prime Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
 
 
@@ -13,13 +13,22 @@ Quartus Prime Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. General Register Statistics
-  9. Parameter Settings for User Entity Instance: Top-level Entity: |main
- 10. Port Connectivity Checks: "clockmodifier:clockmodifier_module"
- 11. Port Connectivity Checks: "ir_decoder:ir_decoder_module"
- 12. Post-Synthesis Netlist Statistics for Top Partition
- 13. Elapsed Time Per Partition
- 14. Analysis & Synthesis Messages
+  8. State Machine - |main|uart:uart_module|uart_rx:u_RX|img_state
+  9. Registers Removed During Synthesis
+ 10. Removed Registers Triggering Further Register Optimizations
+ 11. General Register Statistics
+ 12. Inverted Register Statistics
+ 13. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 14. Parameter Settings for User Entity Instance: Top-level Entity: |main
+ 15. Parameter Settings for User Entity Instance: controller:controller_module
+ 16. Port Connectivity Checks: "uart:uart_module|uart_rx:u_RX"
+ 17. Port Connectivity Checks: "uart:uart_module"
+ 18. Port Connectivity Checks: "clockmodifier:clockmodifier_module"
+ 19. Port Connectivity Checks: "ir_decoder:ir_decoder_module"
+ 20. Port Connectivity Checks: "controller:controller_module"
+ 21. Post-Synthesis Netlist Statistics for Top Partition
+ 22. Elapsed Time Per Partition
+ 23. Analysis & Synthesis Messages
 
 
 
@@ -46,16 +55,16 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Jan  7 16:00:43 2025          ;
+; Analysis & Synthesis Status        ; Successful - Fri Jan 10 10:41:05 2025          ;
 ; Quartus Prime Version              ; 23.1std.1 Build 993 05/14/2024 SC Lite Edition ;
 ; Revision Name                      ; TubesSisdig                                    ;
 ; Top-level Entity Name              ; main                                           ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; 50                                             ;
-;     Total combinational functions  ; 50                                             ;
-;     Dedicated logic registers      ; 34                                             ;
-; Total registers                    ; 34                                             ;
-; Total pins                         ; 39                                             ;
+; Total logic elements               ; 325                                            ;
+;     Total combinational functions  ; 314                                            ;
+;     Dedicated logic registers      ; 184                                            ;
+; Total registers                    ; 184                                            ;
+; Total pins                         ; 46                                             ;
 ; Total virtual pins                 ; 0                                              ;
 ; Total memory bits                  ; 0                                              ;
 ; Embedded Multiplier 9-bit elements ; 0                                              ;
@@ -171,6 +180,11 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------+---------+
 ; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                ; Library ;
 +----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------+---------+
+; sevseg.vhd                       ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/sevseg.vhd        ;         ;
+; uart_tx.vhd                      ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_tx.vhd       ;         ;
+; uart_rx.vhd                      ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd       ;         ;
+; uart.vhd                         ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd          ;         ;
+; controller.vhd                   ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd    ;         ;
 ; IR.vhd                           ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/IR.vhd            ;         ;
 ; clockmodifier.vhd                ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/clockmodifier.vhd ;         ;
 ; main.vhd                         ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd          ;         ;
@@ -183,30 +197,30 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+-------------+
 ; Resource                                    ; Usage       ;
 +---------------------------------------------+-------------+
-; Estimated Total logic elements              ; 50          ;
+; Estimated Total logic elements              ; 325         ;
 ;                                             ;             ;
-; Total combinational functions               ; 50          ;
+; Total combinational functions               ; 314         ;
 ; Logic element usage by number of LUT inputs ;             ;
-;     -- 4 input functions                    ; 10          ;
-;     -- 3 input functions                    ; 7           ;
-;     -- <=2 input functions                  ; 33          ;
+;     -- 4 input functions                    ; 102         ;
+;     -- 3 input functions                    ; 22          ;
+;     -- <=2 input functions                  ; 190         ;
 ;                                             ;             ;
 ; Logic elements by mode                      ;             ;
-;     -- normal mode                          ; 19          ;
-;     -- arithmetic mode                      ; 31          ;
+;     -- normal mode                          ; 197         ;
+;     -- arithmetic mode                      ; 117         ;
 ;                                             ;             ;
-; Total registers                             ; 34          ;
-;     -- Dedicated logic registers            ; 34          ;
+; Total registers                             ; 184         ;
+;     -- Dedicated logic registers            ; 184         ;
 ;     -- I/O registers                        ; 0           ;
 ;                                             ;             ;
-; I/O pins                                    ; 39          ;
+; I/O pins                                    ; 46          ;
 ;                                             ;             ;
 ; Embedded Multiplier 9-bit elements          ; 0           ;
 ;                                             ;             ;
 ; Maximum fan-out node                        ; i_clk~input ;
-; Maximum fan-out                             ; 33          ;
-; Total fan-out                               ; 233         ;
-; Average fan-out                             ; 1.44        ;
+; Maximum fan-out                             ; 136         ;
+; Total fan-out                               ; 1416        ;
+; Average fan-out                             ; 2.40        ;
 +---------------------------------------------+-------------+
 
 
@@ -215,11 +229,182 @@ https://fpgasoftware.intel.com/eula.
 +-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------+---------------+--------------+
 ; Compilation Hierarchy Node              ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                      ; Entity Name   ; Library Name ;
 +-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------+---------------+--------------+
-; |main                                   ; 50 (0)              ; 34 (0)                    ; 0           ; 0            ; 0       ; 0         ; 39   ; 0            ; |main                                    ; main          ; work         ;
-;    |buzzer:buzzer_module|               ; 1 (1)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|buzzer:buzzer_module               ; buzzer        ; work         ;
-;    |clockmodifier:clockmodifier_module| ; 49 (49)             ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|clockmodifier:clockmodifier_module ; clockmodifier ; work         ;
+; |main                                   ; 314 (1)             ; 184 (0)                   ; 0           ; 0            ; 0       ; 0         ; 46   ; 0            ; |main                                    ; main          ; work         ;
+;    |clockmodifier:clockmodifier_module| ; 50 (50)             ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|clockmodifier:clockmodifier_module ; clockmodifier ; work         ;
+;    |sevensegment:sevs_module|           ; 106 (106)           ; 48 (48)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|sevensegment:sevs_module           ; sevensegment  ; work         ;
+;    |uart:uart_module|                   ; 157 (2)             ; 103 (2)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module                   ; uart          ; work         ;
+;       |uart_rx:u_RX|                    ; 124 (124)           ; 80 (80)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX      ; uart_rx       ; work         ;
+;       |uart_tx:u_TX|                    ; 31 (31)             ; 21 (21)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_tx:u_TX      ; uart_tx       ; work         ;
 +-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------+---------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------------------------------------------------+
+; State Machine - |main|uart:uart_module|uart_rx:u_RX|img_state                                       ;
++--------------------+--------------------+-------------------+-------------------+-------------------+
+; Name               ; img_state.finished ; img_state.errored ; img_state.running ; img_state.initial ;
++--------------------+--------------------+-------------------+-------------------+-------------------+
+; img_state.initial  ; 0                  ; 0                 ; 0                 ; 0                 ;
+; img_state.running  ; 0                  ; 0                 ; 1                 ; 1                 ;
+; img_state.errored  ; 0                  ; 1                 ; 0                 ; 1                 ;
+; img_state.finished ; 1                  ; 0                 ; 0                 ; 1                 ;
++--------------------+--------------------+-------------------+-------------------+-------------------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                             ;
++---------------------------------------------------+------------------------------------------------------------+
+; Register name                                     ; Reason for Removal                                         ;
++---------------------------------------------------+------------------------------------------------------------+
+; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[9]    ; Stuck at VCC due to stuck port data_in                     ;
+; buzzer:buzzer_module|state                        ; Stuck at GND due to stuck port clock_enable                ;
+; uart:uart_module|r_TX_DATA[7]                     ; Merged with uart:uart_module|r_TX_DATA[6]                  ;
+; uart:uart_module|r_TX_DATA[6]                     ; Merged with uart:uart_module|r_TX_DATA[5]                  ;
+; uart:uart_module|r_TX_DATA[5]                     ; Merged with uart:uart_module|r_TX_DATA[4]                  ;
+; uart:uart_module|r_TX_DATA[4]                     ; Merged with uart:uart_module|r_TX_DATA[3]                  ;
+; uart:uart_module|r_TX_DATA[3]                     ; Merged with uart:uart_module|r_TX_DATA[2]                  ;
+; uart:uart_module|r_TX_DATA[2]                     ; Merged with uart:uart_module|r_TX_DATA[1]                  ;
+; uart:uart_module|r_TX_DATA[1]                     ; Merged with uart:uart_module|r_TX_DATA[0]                  ;
+; uart:uart_module|uart_tx:u_TX|s_TRANSMITING_FLAG  ; Merged with uart:uart_module|uart_tx:u_TX|o_BUSY           ;
+; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[2..8] ; Merged with uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[1] ;
+; uart:uart_module|uart_rx:u_RX|s_RECIEVING_FLAG    ; Merged with uart:uart_module|uart_rx:u_RX|o_BUSY           ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][11]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][12]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][13]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][14]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][15]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][16]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][17]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][18]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][19]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][20]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][21]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][22]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][23]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][24]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][25]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][26]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][27]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][28]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][29]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][30]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][31]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][8]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][9]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][11]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][12]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][13]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][14]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][15]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][16]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][17]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][18]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][19]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][20]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][21]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][22]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][23]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][24]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][25]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][26]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][27]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][28]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][29]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][30]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][31]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][8]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][9]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][11]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][12]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][13]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][14]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][15]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][16]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][17]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][18]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][19]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][20]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][21]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][22]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][23]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][24]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][25]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][26]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][27]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][28]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][29]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][30]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][31]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][8]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][9]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][11]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][12]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][13]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][14]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][15]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][16]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][17]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][18]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][19]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][20]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][21]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][22]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][23]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][24]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][25]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][26]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][27]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][28]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][29]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][30]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][31]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][8]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][9]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
+; sevensegment:sevs_module|curr_val[8,9,11..30]     ; Merged with sevensegment:sevs_module|curr_val[10]          ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][4]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][4]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][4]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][4]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][5]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][5]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][5]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][5]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][6]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][6]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][6]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][6]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][7]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][7]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][7]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][7]         ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][10]        ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][10]        ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][10]        ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][10]        ; Stuck at GND due to stuck port data_in                     ;
+; sevensegment:sevs_module|curr_val[4..7,10]        ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|img_state.errored   ; Lost fanout                                                ;
+; uart:uart_module|uart_rx:u_RX|img_state.finished  ; Lost fanout                                                ;
+; Total Number of Removed Registers = 159           ;                                                            ;
++---------------------------------------------------+------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                     ;
++--------------------------------------------+---------------------------+----------------------------------------+
+; Register name                              ; Reason for Removal        ; Registers Removed due to This Register ;
++--------------------------------------------+---------------------------+----------------------------------------+
+; uart:uart_module|uart_rx:u_RX|h_arr[1][4]  ; Stuck at GND              ; sevensegment:sevs_module|curr_val[4]   ;
+;                                            ; due to stuck port data_in ;                                        ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][5]  ; Stuck at GND              ; sevensegment:sevs_module|curr_val[5]   ;
+;                                            ; due to stuck port data_in ;                                        ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][6]  ; Stuck at GND              ; sevensegment:sevs_module|curr_val[6]   ;
+;                                            ; due to stuck port data_in ;                                        ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][7]  ; Stuck at GND              ; sevensegment:sevs_module|curr_val[7]   ;
+;                                            ; due to stuck port data_in ;                                        ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][10] ; Stuck at GND              ; sevensegment:sevs_module|curr_val[10]  ;
+;                                            ; due to stuck port data_in ;                                        ;
++--------------------------------------------+---------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -227,14 +412,63 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 34    ;
-; Number of registers using Synchronous Clear  ; 0     ;
-; Number of registers using Synchronous Load   ; 0     ;
+; Total registers                              ; 184   ;
+; Number of registers using Synchronous Clear  ; 58    ;
+; Number of registers using Synchronous Load   ; 2     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Clock Enable       ; 90    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
+
+
++----------------------------------------------------------+
+; Inverted Register Statistics                             ;
++------------------------------------------------+---------+
+; Inverted Register                              ; Fan out ;
++------------------------------------------------+---------+
+; sevensegment:sevs_module|dig[0]                ; 1       ;
+; sevensegment:sevs_module|dig[1]                ; 1       ;
+; sevensegment:sevs_module|dig[2]                ; 1       ;
+; sevensegment:sevs_module|dig[3]                ; 1       ;
+; sevensegment:sevs_module|sevseg[0]             ; 1       ;
+; sevensegment:sevs_module|sevseg[1]             ; 1       ;
+; sevensegment:sevs_module|sevseg[2]             ; 1       ;
+; sevensegment:sevs_module|sevseg[3]             ; 1       ;
+; sevensegment:sevs_module|sevseg[4]             ; 1       ;
+; sevensegment:sevs_module|sevseg[5]             ; 1       ;
+; sevensegment:sevs_module|sevseg[6]             ; 1       ;
+; uart:uart_module|uart_tx:u_TX|o_TX_LINE        ; 1       ;
+; sevensegment:sevs_module|counter[0]            ; 8       ;
+; sevensegment:sevs_module|curr_val[0]           ; 6       ;
+; sevensegment:sevs_module|curr_val[31]          ; 7       ;
+; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[0] ; 1       ;
+; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[1] ; 1       ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][0]      ; 1       ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][0]      ; 1       ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][1]      ; 1       ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][1]      ; 1       ;
+; uart:uart_module|uart_rx:u_RX|h_arr[1][2]      ; 1       ;
+; uart:uart_module|uart_rx:u_RX|h_arr[0][2]      ; 1       ;
+; uart:uart_module|uart_rx:u_RX|h_arr[3][2]      ; 1       ;
+; uart:uart_module|uart_rx:u_RX|h_arr[2][2]      ; 1       ;
+; uart:uart_module|r_TX_DATA[0]                  ; 2       ;
+; Total number of inverted registers = 26        ;         ;
++------------------------------------------------+---------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                             ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------+
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|r_INDEX[0]         ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; Yes        ; |main|sevensegment:sevs_module|curr_val[6]             ;
+; 4:1                ; 13 bits   ; 26 LEs        ; 13 LEs               ; 13 LEs                 ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|r_PRESCALER[6]     ;
+; 5:1                ; 32 bits   ; 96 LEs        ; 32 LEs               ; 64 LEs                 ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|wh_arr_counter[13] ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |main|sevensegment:sevs_module|dig[1]                  ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |main|sevensegment:sevs_module|curr_val[0]             ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------+
 
 
 +----------------------------------------------------------------------+
@@ -245,6 +479,35 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; CLKFREQ        ; 50000000 ; Signed Integer                           ;
 +----------------+----------+------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: controller:controller_module ;
++----------------+-------+--------------------------------------------------+
+; Parameter Name ; Value ; Type                                             ;
++----------------+-------+--------------------------------------------------+
+; maxsize        ; 1000  ; Signed Integer                                   ;
++----------------+-------+--------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "uart:uart_module|uart_rx:u_RX"                                                                 ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port            ; Type   ; Severity ; Details                                                                             ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
+; i_log_addr      ; Input  ; Info     ; Stuck at GND                                                                        ;
+; o_sig_crrp_data ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Port Connectivity Checks: "uart:uart_module"        ;
++-------------------+-------+----------+--------------+
+; Port              ; Type  ; Severity ; Details      ;
++-------------------+-------+----------+--------------+
+; i_data_send[7..1] ; Input ; Info     ; Stuck at GND ;
++-------------------+-------+----------+--------------+
 
 
 +----------------------------------------------------------------+
@@ -273,13 +536,24 @@ Note: In order to hide this table in the UI and the text report file, please set
 +---------------------+-------+----------+-----------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "ir_decoder:ir_decoder_module"                                                            ;
-+-----------+--------+----------+-------------------------------------------------------------------------------------+
-; Port      ; Type   ; Severity ; Details                                                                             ;
-+-----------+--------+----------+-------------------------------------------------------------------------------------+
-; o_irframe ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+-----------+--------+----------+-------------------------------------------------------------------------------------+
++---------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "ir_decoder:ir_decoder_module"                                                                  ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port            ; Type   ; Severity ; Details                                                                             ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
+; o_irframe[9..8] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; o_irframe[0]    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "controller:controller_module"                                                                  ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port            ; Type   ; Severity ; Details                                                                             ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
+; ir_data[7]      ; Input  ; Info     ; Stuck at GND                                                                        ;
+; source_selector ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-----------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -287,20 +561,24 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 39                          ;
-; cycloneiii_ff         ; 34                          ;
-;     plain             ; 34                          ;
-; cycloneiii_lcell_comb ; 52                          ;
-;     arith             ; 31                          ;
-;         2 data inputs ; 31                          ;
-;     normal            ; 21                          ;
-;         0 data inputs ; 2                           ;
-;         1 data inputs ; 2                           ;
-;         3 data inputs ; 7                           ;
-;         4 data inputs ; 10                          ;
+; boundary_port         ; 46                          ;
+; cycloneiii_ff         ; 184                         ;
+;     ENA               ; 32                          ;
+;     ENA SCLR          ; 58                          ;
+;     SLD               ; 2                           ;
+;     plain             ; 92                          ;
+; cycloneiii_lcell_comb ; 327                         ;
+;     arith             ; 117                         ;
+;         2 data inputs ; 117                         ;
+;     normal            ; 210                         ;
+;         0 data inputs ; 1                           ;
+;         1 data inputs ; 27                          ;
+;         2 data inputs ; 58                          ;
+;         3 data inputs ; 22                          ;
+;         4 data inputs ; 102                         ;
 ;                       ;                             ;
-; Max LUT depth         ; 4.10                        ;
-; Average LUT depth     ; 3.15                        ;
+; Max LUT depth         ; 6.00                        ;
+; Average LUT depth     ; 3.42                        ;
 +-----------------------+-----------------------------+
 
 
@@ -319,115 +597,133 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
-    Info: Processing started: Tue Jan  7 16:00:37 2025
+    Info: Processing started: Fri Jan 10 10:40:59 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off TubesSisdig -c TubesSisdig
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file sevseg.vhd
+    Info (12022): Found design unit 1: sevensegment-sevsegmentrtl File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/sevseg.vhd Line: 22
+    Info (12023): Found entity 1: sevensegment File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/sevseg.vhd Line: 12
+Info (12021): Found 2 design units, including 1 entities, in source file vgasync.vhd
+    Info (12022): Found design unit 1: vga_sync-vgasyncprogram File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/vgasync.vhd Line: 16
+    Info (12023): Found entity 1: vga_sync File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/vgasync.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file uart_tx.vhd
+    Info (12022): Found design unit 1: uart_tx-behavior File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_tx.vhd Line: 19
+    Info (12023): Found entity 1: uart_tx File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_tx.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file uart_rx.vhd
+    Info (12022): Found design unit 1: uart_rx-behavior File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 20
+    Info (12023): Found entity 1: uart_rx File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 7
+Info (12021): Found 3 design units, including 1 entities, in source file uart.vhd
+    Info (12022): Found design unit 1: t_mem_uart_pkg File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 5
+    Info (12022): Found design unit 2: uart-behavior File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 33
+    Info (12023): Found entity 1: uart File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 15
+Info (12021): Found 2 design units, including 1 entities, in source file sevenseg_decoder.vhd
+    Info (12022): Found design unit 1: sevenseg_decoder-behavior File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/sevenseg_decoder.vhd Line: 11
+    Info (12023): Found entity 1: sevenseg_decoder File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/sevenseg_decoder.vhd Line: 4
+Info (12021): Found 0 design units, including 0 entities, in source file imgprocessing.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file controller.vhd
+    Info (12022): Found design unit 1: controller-fsm File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 30
+    Info (12023): Found entity 1: controller File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 13
+Info (12021): Found 2 design units, including 1 entities, in source file pll25/synthesis/pll25.vhd
+    Info (12022): Found design unit 1: PLL25-rtl File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/PLL25/synthesis/PLL25.vhd Line: 17
+    Info (12023): Found entity 1: PLL25 File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/PLL25/synthesis/PLL25.vhd Line: 9
+Info (12021): Found 4 design units, including 4 entities, in source file pll25/synthesis/submodules/pll25_altpll_0.v
+    Info (12023): Found entity 1: PLL25_altpll_0_dffpipe_l2c File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/PLL25/synthesis/submodules/PLL25_altpll_0.v Line: 38
+    Info (12023): Found entity 2: PLL25_altpll_0_stdsync_sv6 File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/PLL25/synthesis/submodules/PLL25_altpll_0.v Line: 99
+    Info (12023): Found entity 3: PLL25_altpll_0_altpll_tc42 File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/PLL25/synthesis/submodules/PLL25_altpll_0.v Line: 131
+    Info (12023): Found entity 4: PLL25_altpll_0 File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/PLL25/synthesis/submodules/PLL25_altpll_0.v Line: 214
 Info (12021): Found 2 design units, including 1 entities, in source file ir.vhd
     Info (12022): Found design unit 1: ir_decoder-behavior File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/IR.vhd Line: 17
     Info (12023): Found entity 1: ir_decoder File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/IR.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file clockmodifier.vhd
     Info (12022): Found design unit 1: clockmodifier-behavior File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/clockmodifier.vhd Line: 12
     Info (12023): Found entity 1: clockmodifier File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/clockmodifier.vhd Line: 4
-Info (12021): Found 2 design units, including 1 entities, in source file main.vhd
-    Info (12022): Found design unit 1: main-rtl File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 28
-    Info (12023): Found entity 1: main File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 5
+Info (12021): Found 3 design units, including 1 entities, in source file main.vhd
+    Info (12022): Found design unit 1: all_pkg File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 4
+    Info (12022): Found design unit 2: main-rtl File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 39
+    Info (12023): Found entity 1: main File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 14
 Info (12021): Found 2 design units, including 1 entities, in source file buzzer.vhd
-    Info (12022): Found design unit 1: buzzer-behavior File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/buzzer.vhd Line: 11
+    Info (12022): Found design unit 1: buzzer-behavior File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/buzzer.vhd Line: 12
     Info (12023): Found entity 1: buzzer File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/buzzer.vhd Line: 4
 Info (12127): Elaborating entity "main" for the top level hierarchy
-Warning (10540): VHDL Signal Declaration warning at main.vhd(15): used explicit default value for signal "dig1" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 15
-Warning (10540): VHDL Signal Declaration warning at main.vhd(15): used explicit default value for signal "dig2" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 15
-Warning (10540): VHDL Signal Declaration warning at main.vhd(15): used explicit default value for signal "dig3" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 15
-Warning (10540): VHDL Signal Declaration warning at main.vhd(15): used explicit default value for signal "dig4" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 15
-Warning (10540): VHDL Signal Declaration warning at main.vhd(16): used explicit default value for signal "o_led1" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 16
-Warning (10540): VHDL Signal Declaration warning at main.vhd(16): used explicit default value for signal "o_led2" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 16
-Warning (10540): VHDL Signal Declaration warning at main.vhd(16): used explicit default value for signal "o_led3" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 16
-Warning (10540): VHDL Signal Declaration warning at main.vhd(16): used explicit default value for signal "o_led4" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 16
-Warning (10541): VHDL Signal Declaration warning at main.vhd(18): used implicit default value for signal "o_r0" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-Warning (10541): VHDL Signal Declaration warning at main.vhd(18): used implicit default value for signal "o_r1" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-Warning (10541): VHDL Signal Declaration warning at main.vhd(18): used implicit default value for signal "o_r2" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-Warning (10541): VHDL Signal Declaration warning at main.vhd(18): used implicit default value for signal "o_r3" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-Warning (10541): VHDL Signal Declaration warning at main.vhd(18): used implicit default value for signal "o_r4" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-Warning (10541): VHDL Signal Declaration warning at main.vhd(18): used implicit default value for signal "o_r5" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-Warning (10541): VHDL Signal Declaration warning at main.vhd(18): used implicit default value for signal "o_r6" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-Warning (10541): VHDL Signal Declaration warning at main.vhd(18): used implicit default value for signal "o_r7" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-Warning (10541): VHDL Signal Declaration warning at main.vhd(19): used implicit default value for signal "o_g0" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-Warning (10541): VHDL Signal Declaration warning at main.vhd(19): used implicit default value for signal "o_g1" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-Warning (10541): VHDL Signal Declaration warning at main.vhd(19): used implicit default value for signal "o_g2" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-Warning (10541): VHDL Signal Declaration warning at main.vhd(19): used implicit default value for signal "o_g3" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-Warning (10541): VHDL Signal Declaration warning at main.vhd(19): used implicit default value for signal "o_g4" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-Warning (10541): VHDL Signal Declaration warning at main.vhd(19): used implicit default value for signal "o_g5" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-Warning (10541): VHDL Signal Declaration warning at main.vhd(19): used implicit default value for signal "o_g6" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-Warning (10541): VHDL Signal Declaration warning at main.vhd(19): used implicit default value for signal "o_g7" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-Warning (10541): VHDL Signal Declaration warning at main.vhd(20): used implicit default value for signal "o_b0" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-Warning (10541): VHDL Signal Declaration warning at main.vhd(20): used implicit default value for signal "o_b1" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-Warning (10541): VHDL Signal Declaration warning at main.vhd(20): used implicit default value for signal "o_b2" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-Warning (10541): VHDL Signal Declaration warning at main.vhd(20): used implicit default value for signal "o_b3" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-Warning (10541): VHDL Signal Declaration warning at main.vhd(20): used implicit default value for signal "o_b4" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-Warning (10541): VHDL Signal Declaration warning at main.vhd(20): used implicit default value for signal "o_b5" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-Warning (10541): VHDL Signal Declaration warning at main.vhd(20): used implicit default value for signal "o_b6" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-Warning (10541): VHDL Signal Declaration warning at main.vhd(20): used implicit default value for signal "o_b7" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-Warning (10541): VHDL Signal Declaration warning at main.vhd(21): used implicit default value for signal "o_vga_hs" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 21
-Warning (10541): VHDL Signal Declaration warning at main.vhd(21): used implicit default value for signal "o_vga_vs" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 21
-Warning (10541): VHDL Signal Declaration warning at main.vhd(24): used implicit default value for signal "o_Tx" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 24
-Warning (10036): Verilog HDL or VHDL warning at main.vhd(77): object "ir_frame" assigned a value but never read File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 77
-Warning (10540): VHDL Signal Declaration warning at main.vhd(79): used explicit default value for signal "note_freq" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 79
-Info (12128): Elaborating entity "ir_decoder" for hierarchy "ir_decoder:ir_decoder_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 82
-Info (12128): Elaborating entity "clockmodifier" for hierarchy "clockmodifier:clockmodifier_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 83
+Warning (10541): VHDL Signal Declaration warning at main.vhd(32): used implicit default value for signal "o_vga_hs" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
+Warning (10541): VHDL Signal Declaration warning at main.vhd(32): used implicit default value for signal "o_vga_vs" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
+Warning (10540): VHDL Signal Declaration warning at main.vhd(124): used explicit default value for signal "note_freq" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 124
+Warning (10541): VHDL Signal Declaration warning at main.vhd(127): used implicit default value for signal "R" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 127
+Warning (10541): VHDL Signal Declaration warning at main.vhd(127): used implicit default value for signal "G" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 127
+Warning (10541): VHDL Signal Declaration warning at main.vhd(127): used implicit default value for signal "B" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 127
+Warning (10036): Verilog HDL or VHDL warning at main.vhd(134): object "source_sel" assigned a value but never read File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 134
+Info (12128): Elaborating entity "controller" for hierarchy "controller:controller_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 138
+Warning (10541): VHDL Signal Declaration warning at controller.vhd(23): used implicit default value for signal "en_buzz" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 23
+Warning (10541): VHDL Signal Declaration warning at controller.vhd(24): used implicit default value for signal "source_selector" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 24
+Warning (10540): VHDL Signal Declaration warning at controller.vhd(33): used explicit default value for signal "processed" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 33
+Warning (10540): VHDL Signal Declaration warning at controller.vhd(38): used explicit default value for signal "w_arr" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 38
+Warning (10492): VHDL Process Statement warning at controller.vhd(112): signal "w_arr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 112
+Warning (10492): VHDL Process Statement warning at controller.vhd(113): signal "w_arr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 113
+Warning (10492): VHDL Process Statement warning at controller.vhd(114): signal "w_arr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 114
+Warning (10492): VHDL Process Statement warning at controller.vhd(115): signal "rx_busy" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 115
+Warning (10492): VHDL Process Statement warning at controller.vhd(116): signal "processed" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 116
+Info (12128): Elaborating entity "ir_decoder" for hierarchy "ir_decoder:ir_decoder_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 139
+Info (12128): Elaborating entity "clockmodifier" for hierarchy "clockmodifier:clockmodifier_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 140
 Warning (10492): VHDL Process Statement warning at clockmodifier.vhd(25): signal "clk_out_intem" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/clockmodifier.vhd Line: 25
-Info (12128): Elaborating entity "buzzer" for hierarchy "buzzer:buzzer_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 84
-Warning (10492): VHDL Process Statement warning at buzzer.vhd(19): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/buzzer.vhd Line: 19
+Info (12128): Elaborating entity "sevensegment" for hierarchy "sevensegment:sevs_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 141
+Info (12128): Elaborating entity "buzzer" for hierarchy "buzzer:buzzer_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 142
+Warning (10492): VHDL Process Statement warning at buzzer.vhd(20): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/buzzer.vhd Line: 20
+Info (12128): Elaborating entity "uart" for hierarchy "uart:uart_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 147
+Warning (10540): VHDL Signal Declaration warning at uart.vhd(41): used explicit default value for signal "s_log_addr" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 41
+Warning (10036): Verilog HDL or VHDL warning at uart.vhd(45): object "o_sig_CRRP_DATA" assigned a value but never read File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 45
+Info (12128): Elaborating entity "uart_tx" for hierarchy "uart:uart_module|uart_tx:u_TX" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 78
+Info (12128): Elaborating entity "uart_rx" for hierarchy "uart:uart_module|uart_rx:u_RX" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 90
+Warning (10036): Verilog HDL or VHDL warning at uart_rx.vhd(37): object "w_arr" assigned a value but never read File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 37
+Warning (10492): VHDL Process Statement warning at uart_rx.vhd(132): signal "r_DATA_BUFFER" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 132
+Warning (10492): VHDL Process Statement warning at uart_rx.vhd(139): signal "h_arr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 139
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "dig1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 15
-    Warning (13410): Pin "dig2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 15
-    Warning (13410): Pin "dig3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 15
-    Warning (13410): Pin "dig4" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 15
-    Warning (13410): Pin "o_led1" is stuck at VCC File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 16
-    Warning (13410): Pin "o_led2" is stuck at VCC File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 16
-    Warning (13410): Pin "o_led3" is stuck at VCC File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 16
-    Warning (13410): Pin "o_led4" is stuck at VCC File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 16
-    Warning (13410): Pin "o_r0" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-    Warning (13410): Pin "o_r1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-    Warning (13410): Pin "o_r2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-    Warning (13410): Pin "o_r3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-    Warning (13410): Pin "o_r4" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-    Warning (13410): Pin "o_r5" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-    Warning (13410): Pin "o_r6" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-    Warning (13410): Pin "o_r7" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 18
-    Warning (13410): Pin "o_g0" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-    Warning (13410): Pin "o_g1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-    Warning (13410): Pin "o_g2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-    Warning (13410): Pin "o_g3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-    Warning (13410): Pin "o_g4" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-    Warning (13410): Pin "o_g5" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-    Warning (13410): Pin "o_g6" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-    Warning (13410): Pin "o_g7" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 19
-    Warning (13410): Pin "o_b0" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-    Warning (13410): Pin "o_b1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-    Warning (13410): Pin "o_b2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-    Warning (13410): Pin "o_b3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-    Warning (13410): Pin "o_b4" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-    Warning (13410): Pin "o_b5" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-    Warning (13410): Pin "o_b6" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-    Warning (13410): Pin "o_b7" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 20
-    Warning (13410): Pin "o_vga_hs" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 21
-    Warning (13410): Pin "o_vga_vs" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 21
-    Warning (13410): Pin "o_Tx" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 24
+    Warning (13410): Pin "o_led1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 27
+    Warning (13410): Pin "o_led2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 27
+    Warning (13410): Pin "o_led3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 27
+    Warning (13410): Pin "o_r0" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
+    Warning (13410): Pin "o_r1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
+    Warning (13410): Pin "o_r2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
+    Warning (13410): Pin "o_r3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
+    Warning (13410): Pin "o_r4" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
+    Warning (13410): Pin "o_r5" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
+    Warning (13410): Pin "o_r6" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
+    Warning (13410): Pin "o_r7" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
+    Warning (13410): Pin "o_g0" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
+    Warning (13410): Pin "o_g1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
+    Warning (13410): Pin "o_g2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
+    Warning (13410): Pin "o_g3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
+    Warning (13410): Pin "o_g4" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
+    Warning (13410): Pin "o_g5" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
+    Warning (13410): Pin "o_g6" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
+    Warning (13410): Pin "o_g7" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
+    Warning (13410): Pin "o_b0" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_b1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_b2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_b3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_b4" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_b5" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_b6" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_b7" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_vga_hs" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
+    Warning (13410): Pin "o_vga_vs" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
+    Warning (13410): Pin "o_buzz" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 34
 Info (286030): Timing-Driven Synthesis is running
+Info (17049): 2 registers lost all their fanouts during netlist optimizations.
+Warning (20013): Ignored 19 assignments for entity "PLL25" -- entity does not exist in design
+Warning (20013): Ignored 74 assignments for entity "PLL25_altpll_0" -- entity does not exist in design
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 2 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "i_IR" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 12
-    Warning (15610): No output dependent on input pin "i_Rx" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 13
-Info (21057): Implemented 89 device resources after synthesis - the final resource count might be different
+Warning (21074): Design contains 1 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "i_IR" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 21
+Info (21057): Implemented 371 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 3 input pins
-    Info (21059): Implemented 36 output pins
-    Info (21061): Implemented 50 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 79 warnings
-    Info: Peak virtual memory: 4853 megabytes
-    Info: Processing ended: Tue Jan  7 16:00:43 2025
+    Info (21059): Implemented 43 output pins
+    Info (21061): Implemented 325 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 59 warnings
+    Info: Peak virtual memory: 4862 megabytes
+    Info: Processing ended: Fri Jan 10 10:41:05 2025
     Info: Elapsed time: 00:00:06
-    Info: Total CPU time (on all processors): 00:00:05
+    Info: Total CPU time (on all processors): 00:00:04
 
 

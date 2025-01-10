@@ -1,16 +1,19 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.all_pkg.all;
+use work.t_mem_uart_pkg.all;
 
 entity uart_rx is
-	port	(
-				i_CLOCK			:	in std_logic;
-				i_RX			:	in std_logic;
-				o_DATA			:	out std_logic_vector(7 downto 0)	;
-				i_log_ADDR		:	in std_logic_vector( 7 downto 0 )	;
-				o_sig_CRRP_DATA	:	out std_logic := '0'			;	---Currupted data flag
-				o_BUSY			:	out std_logic
-			);
+	port(
+		i_CLOCK			:	in std_logic;
+		i_RX			:	in std_logic;
+		o_DATA			:	out std_logic_vector(7 downto 0)	;
+		i_log_ADDR		:	in std_logic_vector( 7 downto 0 )	;
+		o_sig_CRRP_DATA	:	out std_logic := '0'			;	---Currupted data flag
+		o_BUSY			:	out std_logic;
+		o_mem : out wh_arr
+	);
 end uart_rx;
 
 
@@ -22,15 +25,24 @@ architecture behavior of uart_rx is
 	signal s_RECIEVING_FLAG		:	std_logic := '0'				;----Signal holding the current state [ 1 if recieving, 0 if not recieving ]
 		
 	-- type t_MEM_UART is array ( 0 to 255 ) of std_logic_vector( 7 downto 0 );
-	type t_MEM_UART is array (0 to 1) of std_logic_vector(7 downto 0);
+	-- type t_MEM_UART is array (0 to 3) of std_logic_vector(7 downto 0);
 	signal MEM_UART	:	t_MEM_UART;
 		
 	signal r_COUNTER	:	std_logic_vector( 7 downto 0 ) := ( others => '0' );
-		
-	begin
+
+	type img_process_state is (initial, running, errored, finished);
+	signal img_state : img_process_state := initial;
 	
-	process( i_CLOCK , i_log_ADDR , MEM_UART ) begin
-	
+    signal wh_arr_counter : integer := 0;
+    signal w_arr : wh_arr := (0, 0, 0, 0);
+    signal w_arr_en : boolean := false;
+    signal h_arr : wh_arr := (5, 6, 7, 4);
+    signal h_arr_en : boolean := false;
+    signal img_width : integer := 0;
+    signal img_height : integer := 0;
+
+begin	
+	process( i_CLOCK , i_log_ADDR ) begin
 		if( rising_edge(i_CLOCK) ) then
 			if( s_RECIEVING_FLAG = '0' and i_RX = '0' ) then
 				r_INDEX <= 0;
@@ -40,69 +52,91 @@ architecture behavior of uart_rx is
 			end if;
 
 			if( s_RECIEVING_FLAG = '1' ) then
-			
 				r_DATA_BUFFER(r_INDEX)	<= i_RX;
-				
-				------------------------------------------------------------
-				
-				---This is the clock divider, sets the baud rate for this subcomponent.
-				
+
 				if( r_PRESCALER < 5207 ) then
-				
 					r_PRESCALER	<=	r_PRESCALER + 1;
-				
-				else		----r_PRESCALER > 5207
-				
+				else
 					r_PRESCALER <= 0;
-				
-				end if; --r_PRESCALER < 5207
-				
+				end if;
 				
 				if( r_PRESCALER = 2500 ) then
-				
 					if( r_INDEX < 9 ) then
-					
 						r_INDEX <= r_INDEX + 1;
-						
-					else		--r_INDEX > 9
-					
-						------------------------------------------------------------
-						
-						---	It must be checked if the data sent is indeed correct, or there was some interference,
-						---this condition checks if the first and last bits are as expected, if not, send nothing.
-					
+					else	
 						if( r_DATA_BUFFER(0) = '0' and r_DATA_BUFFER(9) = '1' ) then
-						
-							if( not(r_COUNTER = "11111111") ) then
-								r_COUNTER	<= std_logic_vector( unsigned( r_COUNTER ) + 1 );
-							else
-								r_COUNTER	<= (others => '0');
+							-- if( not(r_COUNTER = "00000011") ) then
+							-- 	r_COUNTER	<= std_logic_vector( unsigned( r_COUNTER ) + 1 );
+							-- else
+							-- 	r_COUNTER	<= (others => '0');
+							-- end if;
+
+							-- if not (wh_arr_counter = 3) then
+							-- 	wh_arr_counter <= wh_arr_counter + 1;
+							-- else
+							-- 	wh_arr_counter <= 0;
+							-- end if;
+
+							-- w_arr(wh_arr_counter) <= to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) - 48;
+
+							if (img_state = initial) then
+								-- w_arr <= (5, 3, 7, 9);
+								if (r_DATA_BUFFER(8 downto 1) = "11111111") then
+									img_state <= running;
+									w_arr_en <= true;
+									-- w_arr <= (2, 4, 6, 8);
+								end if;
+							elsif (img_state = running) then
+								-- w_arr <= (1, 2, 3, 4);
+								if (w_arr_en and not (r_DATA_BUFFER(8 downto 1) = "11111111") and (to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) >= 48 and to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) <= 57)) then
+									if not (wh_arr_counter = 3) then
+										wh_arr_counter <= wh_arr_counter + 1;
+									else
+										wh_arr_counter <= 0;
+									end if;
+									
+									w_arr(wh_arr_counter) <= to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) - 48;
+									-- en_buzz <= true;
+								elsif (w_arr_en and (r_DATA_BUFFER(8 downto 1) = "11111111")) then
+									w_arr_en <= false;
+								-- 	en_buzz <= false;
+								elsif (w_arr_en = false and (r_DATA_BUFFER(8 downto 1) = "11111111")) then
+									h_arr_en <= true;
+									wh_arr_counter <= 0;
+								elsif (h_arr_en and not (r_DATA_BUFFER(8 downto 1) = "11111111") and (to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) >= 48 and to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) <= 57)) then
+									if not (wh_arr_counter = 3) then
+										wh_arr_counter <= wh_arr_counter + 1;
+									else
+										wh_arr_counter <= 0;
+									end if;
+									
+									h_arr(wh_arr_counter) <= to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) - 48;
+								elsif (h_arr_en and (r_DATA_BUFFER(8 downto 1) = "11111111")) then
+									h_arr_en <= false;
+								end if;
+							-- MEM_UART( to_integer( unsigned ( r_COUNTER ) ) ) <=	r_DATA_BUFFER(8 downto 1)_BUFFER(8 downto 1);
 							end if;
+
 							
-							MEM_UART( to_integer( unsigned ( r_COUNTER ) ) )	<=	r_DATA_BUFFER(8 downto 1);
---							
+
 						else 
 							o_sig_CRRP_DATA	<=	'1';
-						end if;	--r_DATA_BUFFER(0) = '0' and r_DATA_BUFFER(9) = '1'
+						end if;
 						
-						------------------------------------------------------------
-						
-						s_RECIEVING_FLAG	<=	'0';
-						o_BUSY		<= '0';
-						
-					end if;	--r_INDEX < 9
-				
-				end if;	--r_PRESCALER = 2500
-				
-				------------------------------------------------------------
-			
-			end if;	--s_RECIEVING_FLAG = '1'
-			
-			------------------------------------------------------------
-		
-		end if; -- rising_edge(i_CLOCK)
-		
+						s_RECIEVING_FLAG <=	'0';
+						o_BUSY <= '0';
+					end if;
+				end if;
+			end if;
+		end if;
 		o_DATA	<=	r_DATA_BUFFER(8 downto 1);
+		-- o_mem <= (
+		-- 	to_integer(unsigned(MEM_UART(0))) - 48,
+		-- 	to_integer(unsigned(MEM_UART(1))) - 48,
+		-- 	to_integer(unsigned(MEM_UART(2))) - 48,
+		-- 	to_integer(unsigned(MEM_UART(3))) - 48
+		-- );
+		o_mem <= h_arr;
 	end process;
 
 end behavior;
