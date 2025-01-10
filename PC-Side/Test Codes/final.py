@@ -17,7 +17,12 @@ import serial
 import serial.tools.list_ports
 ports = serial.tools.list_ports.comports()
 
-os.system("cls")
+# Functions
+def numberparser(number):
+    number = str(number)
+    numberlist = list(number)
+    integer_numberlist = [int(numberlist) for numberlist in numberlist]
+    print(integer_numberlist)
 
 # =================================================================
 #   _____                              _____                   _   
@@ -29,38 +34,45 @@ os.system("cls")
 #                          __/ |                  | |              
 #                         |___/                   |_|              
 # =================================================================
+while True: 
+     os.system("cls")
+     # Buka gambar dan konversi ke mode RG
+     print("Presets")
+     print("1. Creepy.png (5x5 pixels)")
+     print("2. Memario.png (10x10 pixels)")
+     print("3. car.png (4:3)")
+     print("4. jamur.png (6:4)")
+     print("5. stiv.png (4:6)")
+     # image_path = str(input("Input Image Path = "))
+     image_choice = int(input("Input Preset Number = "))
+     image_path = ""
+     if image_choice == 1:
+          image_path = '\"PC-Side\Test Codes\Creepy.png\"'
+          image = Image.open("PC-Side/Test Codes/Creepy.png").convert("RGB")
+     elif image_choice == 2:
+          image_path = '\"PC-Side\Test Codes\Memario.png\"'
+          image = Image.open("PC-Side/Test Codes/Memario.png").convert("RGB")     
+     elif image_choice == 3:
+          image_path = '\"PC-Side\Test Codes\car.png\"'
+          image = Image.open("PC-Side/Test Codes/car.png").convert("RGB")
+     elif image_choice == 4:
+          image_path = '\"PC-Side\Test Codes\jamur.png\"'
+          image = Image.open("PC-Side/Test Codes/jamur.png").convert("RGB")
+     elif image_choice == 5:
+          image_path = '\"PC-Side\Test Codes\stiv.png\"'
+          image = Image.open("PC-Side/Test Codes/stiv.png").convert("RGB")
 
-# Buka gambar dan konversi ke mode RG
-print("Presets")
-print("1. Creepy.png (5x5 pixels)")
-print("2. Memario.png (10x10 pixels)")
-print("3. car.png (4:3)")
-print("4. jamur.png (6:4)")
-print("5. stiv.png (4:6)")
-# image_path = str(input("Input Image Path = "))
-image_choice = int(input("Input Preset Number = "))
-image_path = ""
-if image_choice == 1:
-     image_path = '\"PC-Side\Test Codes\Creepy.png\"'
-     image = Image.open("PC-Side/Test Codes/Creepy.png").convert("RGB")
-elif image_choice == 2:
-     image_path = '\"PC-Side\Test Codes\Memario.png\"'
-     image = Image.open("PC-Side/Test Codes/Memario.png").convert("RGB")     
-elif image_choice == 3:
-     image_path = '\"PC-Side\Test Codes\car.png\"'
-     image = Image.open("PC-Side/Test Codes/car.png").convert("RGB")
-elif image_choice == 4:
-     image_path = '\"PC-Side\Test Codes\jamur.png\"'
-     image = Image.open("PC-Side/Test Codes/jamur.png").convert("RGB")
-elif image_choice == 5:
-     image_path = '\"PC-Side\Test Codes\stiv.png\"'
-     image = Image.open("PC-Side/Test Codes/stiv.png").convert("RGB")
+     # image = Image.open(image_path).convert("RGB")
 
-# image = Image.open(image_path).convert("RGB")
+     # Dapatkan ukuran gambar
+     width, height = image.size
+     max_width = 100
+     max_height = 100
 
-# Dapatkan ukuran gambar
-width, height = image.size
-
+     if not(0 < width <= max_width and 0 < height <= max_height):
+          print("Error : width and height not compatible")
+     else: 
+          break
 # Buat matriks untuk menyimpan nilai RGB
 # pixel_matrix = np.zeros((height, width, 3), dtype=int)
 # print(pixel_matrix)
@@ -116,8 +128,12 @@ SerialObj.read()
 
 # UART COMMUNICATION
 # Send Width and Height
-SerialObj.write(width)
-SerialObj.write(height)
+parsed_width = numberparser(width)
+parsed_height = numberparser(height)
+for parsed_width in parsed_width:
+     SerialObj.write(parsed_width)
+for parsed_height in parsed_height:
+     SerialObj.write(parsed_height)
 
 # Send Image Data
 for y in range(height):
