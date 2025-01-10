@@ -5,7 +5,7 @@ package all_pkg is
     type sevsegdata_arr is array (0 to 3) of integer;
     type wh_arr is array (0 to 3) of integer; --Supports up to width and height of order < 10^4
     type rgbmatrix is array (0 to 2, 0 to 2) of integer;
-    type imgmatrix is array (integer range <>, integer range <>) of rgbmatrix;
+    type imgmatrix is array (natural range <>, natural range <>) of rgbmatrix;
 end package;
 
 library ieee;
@@ -143,7 +143,7 @@ begin
   sevs_module : sevensegment port map(note_clk, sevsegdata, dig, sevseg);
   buzzer_module : buzzer port map(en_buzz, note_clk, o_buzz);
   -- pll_module : PLL25 port map(i_clk, pll_reset, pllclk);
-  -- vga_module : vga_sync port map(pllclk, o_vga_hs, o_vga_vs, source_sel, R, G, B);
+  vga_module : vga_sync port map(pllclk, o_vga_hs, o_vga_vs, source_sel, R, G, B);
   -- imgprocessing_module : img_proc port map();
   ps_8bit <= "0000000" & processing_state;
   uart_module : uart port map(i_clk, ps_8bit, i_Rx, o_Tx, uart_received, rx_busy, tx_busy, sevsegdata);

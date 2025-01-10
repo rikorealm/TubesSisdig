@@ -1,5 +1,5 @@
 Analysis & Synthesis report for TubesSisdig
-Fri Jan 10 10:41:05 2025
+Fri Jan 10 16:04:48 2025
 Quartus Prime Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
 
 
@@ -13,22 +13,28 @@ Quartus Prime Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. State Machine - |main|uart:uart_module|uart_rx:u_RX|img_state
-  9. Registers Removed During Synthesis
- 10. Removed Registers Triggering Further Register Optimizations
- 11. General Register Statistics
- 12. Inverted Register Statistics
- 13. Multiplexer Restructuring Statistics (Restructuring Performed)
- 14. Parameter Settings for User Entity Instance: Top-level Entity: |main
- 15. Parameter Settings for User Entity Instance: controller:controller_module
- 16. Port Connectivity Checks: "uart:uart_module|uart_rx:u_RX"
- 17. Port Connectivity Checks: "uart:uart_module"
- 18. Port Connectivity Checks: "clockmodifier:clockmodifier_module"
- 19. Port Connectivity Checks: "ir_decoder:ir_decoder_module"
- 20. Port Connectivity Checks: "controller:controller_module"
- 21. Post-Synthesis Netlist Statistics for Top Partition
- 22. Elapsed Time Per Partition
- 23. Analysis & Synthesis Messages
+  8. State Machine - |main|uart:uart_module|uart_rx:u_RX|parse
+  9. State Machine - |main|uart:uart_module|uart_rx:u_RX|img_state
+ 10. Registers Removed During Synthesis
+ 11. Removed Registers Triggering Further Register Optimizations
+ 12. General Register Statistics
+ 13. Inverted Register Statistics
+ 14. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 15. Parameter Settings for User Entity Instance: Top-level Entity: |main
+ 16. Parameter Settings for User Entity Instance: controller:controller_module
+ 17. Parameter Settings for Inferred Entity Instance: uart:uart_module|uart_rx:u_RX|lpm_divide:Mod2
+ 18. Parameter Settings for Inferred Entity Instance: uart:uart_module|uart_rx:u_RX|lpm_divide:Div0
+ 19. Parameter Settings for Inferred Entity Instance: uart:uart_module|uart_rx:u_RX|lpm_divide:Mod0
+ 20. Parameter Settings for Inferred Entity Instance: uart:uart_module|uart_rx:u_RX|lpm_divide:Div1
+ 21. Parameter Settings for Inferred Entity Instance: uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1
+ 22. Port Connectivity Checks: "uart:uart_module|uart_rx:u_RX"
+ 23. Port Connectivity Checks: "uart:uart_module"
+ 24. Port Connectivity Checks: "clockmodifier:clockmodifier_module"
+ 25. Port Connectivity Checks: "ir_decoder:ir_decoder_module"
+ 26. Port Connectivity Checks: "controller:controller_module"
+ 27. Post-Synthesis Netlist Statistics for Top Partition
+ 28. Elapsed Time Per Partition
+ 29. Analysis & Synthesis Messages
 
 
 
@@ -55,15 +61,15 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Jan 10 10:41:05 2025          ;
+; Analysis & Synthesis Status        ; Successful - Fri Jan 10 16:04:48 2025          ;
 ; Quartus Prime Version              ; 23.1std.1 Build 993 05/14/2024 SC Lite Edition ;
 ; Revision Name                      ; TubesSisdig                                    ;
 ; Top-level Entity Name              ; main                                           ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; 325                                            ;
-;     Total combinational functions  ; 314                                            ;
-;     Dedicated logic registers      ; 184                                            ;
-; Total registers                    ; 184                                            ;
+; Total logic elements               ; 438                                            ;
+;     Total combinational functions  ; 434                                            ;
+;     Dedicated logic registers      ; 153                                            ;
+; Total registers                    ; 153                                            ;
 ; Total pins                         ; 46                                             ;
 ; Total virtual pins                 ; 0                                              ;
 ; Total memory bits                  ; 0                                              ;
@@ -171,25 +177,42 @@ https://fpgasoftware.intel.com/eula.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-14        ;   0.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processors 3-14        ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                       ;
-+----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                ; Library ;
-+----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------+---------+
-; sevseg.vhd                       ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/sevseg.vhd        ;         ;
-; uart_tx.vhd                      ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_tx.vhd       ;         ;
-; uart_rx.vhd                      ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd       ;         ;
-; uart.vhd                         ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd          ;         ;
-; controller.vhd                   ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd    ;         ;
-; IR.vhd                           ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/IR.vhd            ;         ;
-; clockmodifier.vhd                ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/clockmodifier.vhd ;         ;
-; main.vhd                         ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd          ;         ;
-; buzzer.vhd                       ; yes             ; User VHDL File  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/buzzer.vhd        ;         ;
-+----------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------+---------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                               ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                           ; Library ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------+---------+
+; sevseg.vhd                       ; yes             ; User VHDL File               ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/sevseg.vhd                   ;         ;
+; vgasync.vhd                      ; yes             ; User VHDL File               ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/vgasync.vhd                  ;         ;
+; uart_tx.vhd                      ; yes             ; User VHDL File               ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_tx.vhd                  ;         ;
+; uart_rx.vhd                      ; yes             ; User VHDL File               ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd                  ;         ;
+; uart.vhd                         ; yes             ; User VHDL File               ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd                     ;         ;
+; controller.vhd                   ; yes             ; User VHDL File               ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd               ;         ;
+; IR.vhd                           ; yes             ; User VHDL File               ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/IR.vhd                       ;         ;
+; clockmodifier.vhd                ; yes             ; User VHDL File               ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/clockmodifier.vhd            ;         ;
+; main.vhd                         ; yes             ; User VHDL File               ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd                     ;         ;
+; buzzer.vhd                       ; yes             ; User VHDL File               ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/buzzer.vhd                   ;         ;
+; lpm_divide.tdf                   ; yes             ; Megafunction                 ; e:/software/intelfpga_lite/23.1std/quartus/libraries/megafunctions/lpm_divide.tdf      ;         ;
+; abs_divider.inc                  ; yes             ; Megafunction                 ; e:/software/intelfpga_lite/23.1std/quartus/libraries/megafunctions/abs_divider.inc     ;         ;
+; sign_div_unsign.inc              ; yes             ; Megafunction                 ; e:/software/intelfpga_lite/23.1std/quartus/libraries/megafunctions/sign_div_unsign.inc ;         ;
+; aglobal231.inc                   ; yes             ; Megafunction                 ; e:/software/intelfpga_lite/23.1std/quartus/libraries/megafunctions/aglobal231.inc      ;         ;
+; db/lpm_divide_q9m.tdf            ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/lpm_divide_q9m.tdf        ;         ;
+; db/sign_div_unsign_fkh.tdf       ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/sign_div_unsign_fkh.tdf   ;         ;
+; db/alt_u_div_i4f.tdf             ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_i4f.tdf         ;         ;
+; db/add_sub_7pc.tdf               ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/add_sub_7pc.tdf           ;         ;
+; db/add_sub_8pc.tdf               ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/add_sub_8pc.tdf           ;         ;
+; db/lpm_divide_mhm.tdf            ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/lpm_divide_mhm.tdf        ;         ;
+; db/sign_div_unsign_ekh.tdf       ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/sign_div_unsign_ekh.tdf   ;         ;
+; db/alt_u_div_g4f.tdf             ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_g4f.tdf         ;         ;
+; db/lpm_divide_jhm.tdf            ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/lpm_divide_jhm.tdf        ;         ;
+; db/sign_div_unsign_bkh.tdf       ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/sign_div_unsign_bkh.tdf   ;         ;
+; db/alt_u_div_a4f.tdf             ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_a4f.tdf         ;         ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------+---------+
 
 
 +-----------------------------------------------------------+
@@ -197,20 +220,20 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+-------------+
 ; Resource                                    ; Usage       ;
 +---------------------------------------------+-------------+
-; Estimated Total logic elements              ; 325         ;
+; Estimated Total logic elements              ; 438         ;
 ;                                             ;             ;
-; Total combinational functions               ; 314         ;
+; Total combinational functions               ; 434         ;
 ; Logic element usage by number of LUT inputs ;             ;
-;     -- 4 input functions                    ; 102         ;
-;     -- 3 input functions                    ; 22          ;
-;     -- <=2 input functions                  ; 190         ;
+;     -- 4 input functions                    ; 133         ;
+;     -- 3 input functions                    ; 65          ;
+;     -- <=2 input functions                  ; 236         ;
 ;                                             ;             ;
 ; Logic elements by mode                      ;             ;
-;     -- normal mode                          ; 197         ;
-;     -- arithmetic mode                      ; 117         ;
+;     -- normal mode                          ; 280         ;
+;     -- arithmetic mode                      ; 154         ;
 ;                                             ;             ;
-; Total registers                             ; 184         ;
-;     -- Dedicated logic registers            ; 184         ;
+; Total registers                             ; 153         ;
+;     -- Dedicated logic registers            ; 153         ;
 ;     -- I/O registers                        ; 0           ;
 ;                                             ;             ;
 ; I/O pins                                    ; 46          ;
@@ -218,25 +241,53 @@ https://fpgasoftware.intel.com/eula.
 ; Embedded Multiplier 9-bit elements          ; 0           ;
 ;                                             ;             ;
 ; Maximum fan-out node                        ; i_clk~input ;
-; Maximum fan-out                             ; 136         ;
-; Total fan-out                               ; 1416        ;
-; Average fan-out                             ; 2.40        ;
+; Maximum fan-out                             ; 109         ;
+; Total fan-out                               ; 1616        ;
+; Average fan-out                             ; 2.38        ;
 +---------------------------------------------+-------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                          ;
-+-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------+---------------+--------------+
-; Compilation Hierarchy Node              ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                      ; Entity Name   ; Library Name ;
-+-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------+---------------+--------------+
-; |main                                   ; 314 (1)             ; 184 (0)                   ; 0           ; 0            ; 0       ; 0         ; 46   ; 0            ; |main                                    ; main          ; work         ;
-;    |clockmodifier:clockmodifier_module| ; 50 (50)             ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|clockmodifier:clockmodifier_module ; clockmodifier ; work         ;
-;    |sevensegment:sevs_module|           ; 106 (106)           ; 48 (48)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|sevensegment:sevs_module           ; sevensegment  ; work         ;
-;    |uart:uart_module|                   ; 157 (2)             ; 103 (2)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module                   ; uart          ; work         ;
-;       |uart_rx:u_RX|                    ; 124 (124)           ; 80 (80)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX      ; uart_rx       ; work         ;
-;       |uart_tx:u_TX|                    ; 31 (31)             ; 21 (21)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_tx:u_TX      ; uart_tx       ; work         ;
-+-----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------+---------------+--------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                                ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
+; Compilation Hierarchy Node                   ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                 ; Entity Name         ; Library Name ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
+; |main                                        ; 434 (1)             ; 153 (0)                   ; 0           ; 0            ; 0       ; 0         ; 46   ; 0            ; |main                                                                                                                               ; main                ; work         ;
+;    |clockmodifier:clockmodifier_module|      ; 50 (50)             ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|clockmodifier:clockmodifier_module                                                                                            ; clockmodifier       ; work         ;
+;    |sevensegment:sevs_module|                ; 83 (83)             ; 44 (44)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|sevensegment:sevs_module                                                                                                      ; sevensegment        ; work         ;
+;    |uart:uart_module|                        ; 300 (2)             ; 76 (2)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module                                                                                                              ; uart                ; work         ;
+;       |uart_rx:u_RX|                         ; 267 (70)            ; 53 (53)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX                                                                                                 ; uart_rx             ; work         ;
+;          |lpm_divide:Div0|                   ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Div0                                                                                 ; lpm_divide          ; work         ;
+;             |lpm_divide_mhm:auto_generated|  ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Div0|lpm_divide_mhm:auto_generated                                                   ; lpm_divide_mhm      ; work         ;
+;                |sign_div_unsign_ekh:divider| ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Div0|lpm_divide_mhm:auto_generated|sign_div_unsign_ekh:divider                       ; sign_div_unsign_ekh ; work         ;
+;                   |alt_u_div_g4f:divider|    ; 25 (25)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Div0|lpm_divide_mhm:auto_generated|sign_div_unsign_ekh:divider|alt_u_div_g4f:divider ; alt_u_div_g4f       ; work         ;
+;          |lpm_divide:Div1|                   ; 56 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Div1                                                                                 ; lpm_divide          ; work         ;
+;             |lpm_divide_jhm:auto_generated|  ; 56 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Div1|lpm_divide_jhm:auto_generated                                                   ; lpm_divide_jhm      ; work         ;
+;                |sign_div_unsign_bkh:divider| ; 56 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Div1|lpm_divide_jhm:auto_generated|sign_div_unsign_bkh:divider                       ; sign_div_unsign_bkh ; work         ;
+;                   |alt_u_div_a4f:divider|    ; 56 (56)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Div1|lpm_divide_jhm:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_a4f:divider ; alt_u_div_a4f       ; work         ;
+;          |lpm_divide:Mod1|                   ; 35 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1                                                                                 ; lpm_divide          ; work         ;
+;             |lpm_divide_q9m:auto_generated|  ; 35 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1|lpm_divide_q9m:auto_generated                                                   ; lpm_divide_q9m      ; work         ;
+;                |sign_div_unsign_fkh:divider| ; 35 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider                       ; sign_div_unsign_fkh ; work         ;
+;                   |alt_u_div_i4f:divider|    ; 35 (35)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider|alt_u_div_i4f:divider ; alt_u_div_i4f       ; work         ;
+;          |lpm_divide:Mod2|                   ; 81 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod2                                                                                 ; lpm_divide          ; work         ;
+;             |lpm_divide_q9m:auto_generated|  ; 81 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod2|lpm_divide_q9m:auto_generated                                                   ; lpm_divide_q9m      ; work         ;
+;                |sign_div_unsign_fkh:divider| ; 81 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod2|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider                       ; sign_div_unsign_fkh ; work         ;
+;                   |alt_u_div_i4f:divider|    ; 81 (81)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod2|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider|alt_u_div_i4f:divider ; alt_u_div_i4f       ; work         ;
+;       |uart_tx:u_TX|                         ; 31 (31)             ; 21 (21)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_tx:u_TX                                                                                                 ; uart_tx             ; work         ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++---------------------------------------------------------------------------+
+; State Machine - |main|uart:uart_module|uart_rx:u_RX|parse                 ;
++-------------------+----------------+-------------------+------------------+
+; Name              ; parse.rgbparse ; parse.heightparse ; parse.widthparse ;
++-------------------+----------------+-------------------+------------------+
+; parse.widthparse  ; 0              ; 0                 ; 0                ;
+; parse.heightparse ; 0              ; 1                 ; 1                ;
+; parse.rgbparse    ; 1              ; 0                 ; 1                ;
++-------------------+----------------+-------------------+------------------+
 
 
 Encoding Type:  One-Hot
@@ -259,6 +310,78 @@ Encoding Type:  One-Hot
 +---------------------------------------------------+------------------------------------------------------------+
 ; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[9]    ; Stuck at VCC due to stuck port data_in                     ;
 ; buzzer:buzzer_module|state                        ; Stuck at GND due to stuck port clock_enable                ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][31]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][30]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][29]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][28]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][27]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][26]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][25]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][24]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][23]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][22]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][21]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][20]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][19]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][18]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][17]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][16]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][15]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][14]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][13]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][12]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][11]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][10]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][9]        ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][8]        ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][31]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][30]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][29]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][28]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][27]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][26]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][25]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][24]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][23]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][22]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][21]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][20]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][19]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][18]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][17]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][16]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][15]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][14]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][13]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][12]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][11]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][10]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][9]        ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[1][1][8]        ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][31]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][30]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][29]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][28]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][27]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][26]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][25]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][24]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][23]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][22]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][21]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][20]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][19]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][18]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][17]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][16]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][15]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][14]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][13]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][12]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][11]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][10]       ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][9]        ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[2][2][8]        ; Stuck at GND due to stuck port data_in                     ;
 ; uart:uart_module|r_TX_DATA[7]                     ; Merged with uart:uart_module|r_TX_DATA[6]                  ;
 ; uart:uart_module|r_TX_DATA[6]                     ; Merged with uart:uart_module|r_TX_DATA[5]                  ;
 ; uart:uart_module|r_TX_DATA[5]                     ; Merged with uart:uart_module|r_TX_DATA[4]                  ;
@@ -268,143 +391,38 @@ Encoding Type:  One-Hot
 ; uart:uart_module|r_TX_DATA[1]                     ; Merged with uart:uart_module|r_TX_DATA[0]                  ;
 ; uart:uart_module|uart_tx:u_TX|s_TRANSMITING_FLAG  ; Merged with uart:uart_module|uart_tx:u_TX|o_BUSY           ;
 ; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[2..8] ; Merged with uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[1] ;
+; sevensegment:sevs_module|curr_val[9..31]          ; Merged with sevensegment:sevs_module|curr_val[8]           ;
 ; uart:uart_module|uart_rx:u_RX|s_RECIEVING_FLAG    ; Merged with uart:uart_module|uart_rx:u_RX|o_BUSY           ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][11]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][12]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][13]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][14]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][15]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][16]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][17]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][18]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][19]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][20]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][21]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][22]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][23]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][24]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][25]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][26]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][27]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][28]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][29]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][30]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][31]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][8]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][9]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[3][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][11]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][12]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][13]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][14]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][15]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][16]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][17]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][18]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][19]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][20]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][21]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][22]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][23]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][24]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][25]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][26]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][27]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][28]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][29]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][30]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][31]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][8]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][9]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[0][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][11]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][12]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][13]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][14]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][15]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][16]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][17]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][18]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][19]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][20]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][21]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][22]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][23]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][24]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][25]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][26]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][27]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][28]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][29]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][30]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][31]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][8]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][9]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[1][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][11]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][12]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][13]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][14]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][15]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][16]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][17]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][18]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][19]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][20]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][21]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][22]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][23]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][24]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][25]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][26]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][27]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][28]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][29]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][30]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][31]        ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][8]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][9]         ; Merged with uart:uart_module|uart_rx:u_RX|h_arr[2][10]     ;
-; sevensegment:sevs_module|curr_val[8,9,11..30]     ; Merged with sevensegment:sevs_module|curr_val[10]          ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][4]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][4]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][4]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][4]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][5]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][5]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][5]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][5]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][6]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][6]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][6]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][6]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][7]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][7]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][7]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][7]         ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][10]        ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][10]        ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][10]        ; Stuck at GND due to stuck port data_in                     ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][10]        ; Stuck at GND due to stuck port data_in                     ;
-; sevensegment:sevs_module|curr_val[4..7,10]        ; Stuck at GND due to stuck port data_in                     ;
+; sevensegment:sevs_module|curr_val[8]              ; Stuck at GND due to stuck port data_in                     ;
+; vga_sync:vga_module|v_count[0..3]                 ; Stuck at GND due to stuck port clock                       ;
+; vga_sync:vga_module|vert_sync                     ; Stuck at GND due to stuck port clock                       ;
+; vga_sync:vga_module|v_count[4..10]                ; Stuck at GND due to stuck port clock                       ;
+; vga_sync:vga_module|horiz_sync                    ; Stuck at GND due to stuck port clock                       ;
+; vga_sync:vga_module|h_count[0..10]                ; Stuck at GND due to stuck port clock                       ;
 ; uart:uart_module|uart_rx:u_RX|img_state.errored   ; Lost fanout                                                ;
 ; uart:uart_module|uart_rx:u_RX|img_state.finished  ; Lost fanout                                                ;
-; Total Number of Removed Registers = 159           ;                                                            ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][5]        ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][6]        ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][7]        ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][2]        ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][3]        ; Stuck at GND due to stuck port data_in                     ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][4]        ; Stuck at GND due to stuck port data_in                     ;
+; Total Number of Removed Registers = 146           ;                                                            ;
 +---------------------------------------------------+------------------------------------------------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                                     ;
-+--------------------------------------------+---------------------------+----------------------------------------+
-; Register name                              ; Reason for Removal        ; Registers Removed due to This Register ;
-+--------------------------------------------+---------------------------+----------------------------------------+
-; uart:uart_module|uart_rx:u_RX|h_arr[1][4]  ; Stuck at GND              ; sevensegment:sevs_module|curr_val[4]   ;
-;                                            ; due to stuck port data_in ;                                        ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][5]  ; Stuck at GND              ; sevensegment:sevs_module|curr_val[5]   ;
-;                                            ; due to stuck port data_in ;                                        ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][6]  ; Stuck at GND              ; sevensegment:sevs_module|curr_val[6]   ;
-;                                            ; due to stuck port data_in ;                                        ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][7]  ; Stuck at GND              ; sevensegment:sevs_module|curr_val[7]   ;
-;                                            ; due to stuck port data_in ;                                        ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][10] ; Stuck at GND              ; sevensegment:sevs_module|curr_val[10]  ;
-;                                            ; due to stuck port data_in ;                                        ;
-+--------------------------------------------+---------------------------+----------------------------------------+
++---------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                               ;
++--------------------------------------------+--------------------------------+---------------------------------------------+
+; Register name                              ; Reason for Removal             ; Registers Removed due to This Register      ;
++--------------------------------------------+--------------------------------+---------------------------------------------+
+; buzzer:buzzer_module|state                 ; Stuck at GND                   ; uart:uart_module|uart_rx:u_RX|rgb[0][0][29] ;
+;                                            ; due to stuck port clock_enable ;                                             ;
+; uart:uart_module|uart_rx:u_RX|rgb[0][0][8] ; Stuck at GND                   ; sevensegment:sevs_module|curr_val[8]        ;
+;                                            ; due to stuck port data_in      ;                                             ;
+; vga_sync:vga_module|v_count[3]             ; Stuck at GND                   ; vga_sync:vga_module|vert_sync               ;
+;                                            ; due to stuck port clock        ;                                             ;
++--------------------------------------------+--------------------------------+---------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -412,12 +430,12 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 184   ;
-; Number of registers using Synchronous Clear  ; 58    ;
+; Total registers                              ; 153   ;
+; Number of registers using Synchronous Clear  ; 26    ;
 ; Number of registers using Synchronous Load   ; 2     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 90    ;
+; Number of registers using Clock Enable       ; 66    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -431,44 +449,26 @@ Encoding Type:  One-Hot
 ; sevensegment:sevs_module|dig[1]                ; 1       ;
 ; sevensegment:sevs_module|dig[2]                ; 1       ;
 ; sevensegment:sevs_module|dig[3]                ; 1       ;
-; sevensegment:sevs_module|sevseg[0]             ; 1       ;
-; sevensegment:sevs_module|sevseg[1]             ; 1       ;
-; sevensegment:sevs_module|sevseg[2]             ; 1       ;
-; sevensegment:sevs_module|sevseg[3]             ; 1       ;
-; sevensegment:sevs_module|sevseg[4]             ; 1       ;
-; sevensegment:sevs_module|sevseg[5]             ; 1       ;
-; sevensegment:sevs_module|sevseg[6]             ; 1       ;
 ; uart:uart_module|uart_tx:u_TX|o_TX_LINE        ; 1       ;
-; sevensegment:sevs_module|counter[0]            ; 8       ;
-; sevensegment:sevs_module|curr_val[0]           ; 6       ;
-; sevensegment:sevs_module|curr_val[31]          ; 7       ;
+; sevensegment:sevs_module|counter[0]            ; 5       ;
 ; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[0] ; 1       ;
 ; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[1] ; 1       ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][0]      ; 1       ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][0]      ; 1       ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][1]      ; 1       ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][1]      ; 1       ;
-; uart:uart_module|uart_rx:u_RX|h_arr[1][2]      ; 1       ;
-; uart:uart_module|uart_rx:u_RX|h_arr[0][2]      ; 1       ;
-; uart:uart_module|uart_rx:u_RX|h_arr[3][2]      ; 1       ;
-; uart:uart_module|uart_rx:u_RX|h_arr[2][2]      ; 1       ;
 ; uart:uart_module|r_TX_DATA[0]                  ; 2       ;
-; Total number of inverted registers = 26        ;         ;
+; Total number of inverted registers = 9         ;         ;
 +------------------------------------------------+---------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                       ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                             ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------+
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|r_INDEX[0]         ;
-; 5:1                ; 8 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; Yes        ; |main|sevensegment:sevs_module|curr_val[6]             ;
-; 4:1                ; 13 bits   ; 26 LEs        ; 13 LEs               ; 13 LEs                 ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|r_PRESCALER[6]     ;
-; 5:1                ; 32 bits   ; 96 LEs        ; 32 LEs               ; 64 LEs                 ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|wh_arr_counter[13] ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |main|sevensegment:sevs_module|dig[1]                  ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |main|sevensegment:sevs_module|curr_val[0]             ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                   ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                         ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------+
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|r_INDEX[3]     ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; Yes        ; |main|sevensegment:sevs_module|curr_val[4]         ;
+; 4:1                ; 13 bits   ; 26 LEs        ; 13 LEs               ; 13 LEs                 ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|r_PRESCALER[4] ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |main|sevensegment:sevs_module|dig[1]              ;
+; 6:1                ; 3 bits    ; 12 LEs        ; 9 LEs                ; 3 LEs                  ; No         ; |main|uart:uart_module|uart_rx:u_RX|parse          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------+
 
 
 +----------------------------------------------------------------------+
@@ -488,6 +488,121 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+-------+--------------------------------------------------+
 ; maxsize        ; 1000  ; Signed Integer                                   ;
 +----------------+-------+--------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: uart:uart_module|uart_rx:u_RX|lpm_divide:Mod2 ;
++------------------------+----------------+------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                 ;
++------------------------+----------------+------------------------------------------------------+
+; LPM_WIDTHN             ; 8              ; Untyped                                              ;
+; LPM_WIDTHD             ; 8              ; Untyped                                              ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                              ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                              ;
+; LPM_PIPELINE           ; 0              ; Untyped                                              ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                              ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                              ;
+; CBXI_PARAMETER         ; lpm_divide_q9m ; Untyped                                              ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                              ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                              ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                           ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                         ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                         ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                       ;
++------------------------+----------------+------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: uart:uart_module|uart_rx:u_RX|lpm_divide:Div0 ;
++------------------------+----------------+------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                 ;
++------------------------+----------------+------------------------------------------------------+
+; LPM_WIDTHN             ; 8              ; Untyped                                              ;
+; LPM_WIDTHD             ; 7              ; Untyped                                              ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                              ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                              ;
+; LPM_PIPELINE           ; 0              ; Untyped                                              ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                              ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                              ;
+; CBXI_PARAMETER         ; lpm_divide_mhm ; Untyped                                              ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                              ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                              ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                           ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                         ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                         ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                       ;
++------------------------+----------------+------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: uart:uart_module|uart_rx:u_RX|lpm_divide:Mod0 ;
++------------------------+----------------+------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                 ;
++------------------------+----------------+------------------------------------------------------+
+; LPM_WIDTHN             ; 8              ; Untyped                                              ;
+; LPM_WIDTHD             ; 8              ; Untyped                                              ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                              ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                              ;
+; LPM_PIPELINE           ; 0              ; Untyped                                              ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                              ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                              ;
+; CBXI_PARAMETER         ; lpm_divide_q9m ; Untyped                                              ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                              ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                              ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                           ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                         ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                         ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                       ;
++------------------------+----------------+------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: uart:uart_module|uart_rx:u_RX|lpm_divide:Div1 ;
++------------------------+----------------+------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                 ;
++------------------------+----------------+------------------------------------------------------+
+; LPM_WIDTHN             ; 8              ; Untyped                                              ;
+; LPM_WIDTHD             ; 4              ; Untyped                                              ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                              ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                              ;
+; LPM_PIPELINE           ; 0              ; Untyped                                              ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                              ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                              ;
+; CBXI_PARAMETER         ; lpm_divide_jhm ; Untyped                                              ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                              ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                              ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                           ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                         ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                         ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                       ;
++------------------------+----------------+------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1 ;
++------------------------+----------------+------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                 ;
++------------------------+----------------+------------------------------------------------------+
+; LPM_WIDTHN             ; 8              ; Untyped                                              ;
+; LPM_WIDTHD             ; 8              ; Untyped                                              ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                              ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                              ;
+; LPM_PIPELINE           ; 0              ; Untyped                                              ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                              ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                              ;
+; CBXI_PARAMETER         ; lpm_divide_q9m ; Untyped                                              ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                              ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                              ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                           ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                         ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                         ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                       ;
++------------------------+----------------+------------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -546,14 +661,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "controller:controller_module"                                                                  ;
-+-----------------+--------+----------+-------------------------------------------------------------------------------------+
-; Port            ; Type   ; Severity ; Details                                                                             ;
-+-----------------+--------+----------+-------------------------------------------------------------------------------------+
-; ir_data[7]      ; Input  ; Info     ; Stuck at GND                                                                        ;
-; source_selector ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+-----------------+--------+----------+-------------------------------------------------------------------------------------+
++----------------------------------------------------------+
+; Port Connectivity Checks: "controller:controller_module" ;
++------------+-------+----------+--------------------------+
+; Port       ; Type  ; Severity ; Details                  ;
++------------+-------+----------+--------------------------+
+; ir_data[7] ; Input ; Info     ; Stuck at GND             ;
++------------+-------+----------+--------------------------+
 
 
 +-----------------------------------------------------+
@@ -562,23 +676,25 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 46                          ;
-; cycloneiii_ff         ; 184                         ;
-;     ENA               ; 32                          ;
-;     ENA SCLR          ; 58                          ;
+; cycloneiii_ff         ; 153                         ;
+;     ENA               ; 40                          ;
+;     ENA SCLR          ; 26                          ;
 ;     SLD               ; 2                           ;
-;     plain             ; 92                          ;
-; cycloneiii_lcell_comb ; 327                         ;
-;     arith             ; 117                         ;
-;         2 data inputs ; 117                         ;
-;     normal            ; 210                         ;
-;         0 data inputs ; 1                           ;
-;         1 data inputs ; 27                          ;
-;         2 data inputs ; 58                          ;
-;         3 data inputs ; 22                          ;
-;         4 data inputs ; 102                         ;
+;     plain             ; 85                          ;
+; cycloneiii_lcell_comb ; 442                         ;
+;     arith             ; 154                         ;
+;         1 data inputs ; 3                           ;
+;         2 data inputs ; 103                         ;
+;         3 data inputs ; 48                          ;
+;     normal            ; 288                         ;
+;         0 data inputs ; 15                          ;
+;         1 data inputs ; 18                          ;
+;         2 data inputs ; 105                         ;
+;         3 data inputs ; 17                          ;
+;         4 data inputs ; 133                         ;
 ;                       ;                             ;
-; Max LUT depth         ; 6.00                        ;
-; Average LUT depth     ; 3.42                        ;
+; Max LUT depth         ; 12.90                       ;
+; Average LUT depth     ; 6.15                        ;
 +-----------------------+-----------------------------+
 
 
@@ -597,7 +713,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
-    Info: Processing started: Fri Jan 10 10:40:59 2025
+    Info: Processing started: Fri Jan 10 16:04:42 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off TubesSisdig -c TubesSisdig
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
@@ -640,20 +756,15 @@ Info (12021): Found 2 design units, including 1 entities, in source file clockmo
     Info (12023): Found entity 1: clockmodifier File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/clockmodifier.vhd Line: 4
 Info (12021): Found 3 design units, including 1 entities, in source file main.vhd
     Info (12022): Found design unit 1: all_pkg File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 4
-    Info (12022): Found design unit 2: main-rtl File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 39
-    Info (12023): Found entity 1: main File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 14
+    Info (12022): Found design unit 2: main-rtl File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 41
+    Info (12023): Found entity 1: main File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 16
 Info (12021): Found 2 design units, including 1 entities, in source file buzzer.vhd
     Info (12022): Found design unit 1: buzzer-behavior File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/buzzer.vhd Line: 12
     Info (12023): Found entity 1: buzzer File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/buzzer.vhd Line: 4
 Info (12127): Elaborating entity "main" for the top level hierarchy
-Warning (10541): VHDL Signal Declaration warning at main.vhd(32): used implicit default value for signal "o_vga_hs" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
-Warning (10541): VHDL Signal Declaration warning at main.vhd(32): used implicit default value for signal "o_vga_vs" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
-Warning (10540): VHDL Signal Declaration warning at main.vhd(124): used explicit default value for signal "note_freq" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 124
-Warning (10541): VHDL Signal Declaration warning at main.vhd(127): used implicit default value for signal "R" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 127
-Warning (10541): VHDL Signal Declaration warning at main.vhd(127): used implicit default value for signal "G" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 127
-Warning (10541): VHDL Signal Declaration warning at main.vhd(127): used implicit default value for signal "B" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 127
-Warning (10036): Verilog HDL or VHDL warning at main.vhd(134): object "source_sel" assigned a value but never read File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 134
-Info (12128): Elaborating entity "controller" for hierarchy "controller:controller_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 138
+Warning (10540): VHDL Signal Declaration warning at main.vhd(126): used explicit default value for signal "note_freq" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 126
+Warning (10541): VHDL Signal Declaration warning at main.vhd(127): used implicit default value for signal "pllclk" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 127
+Info (12128): Elaborating entity "controller" for hierarchy "controller:controller_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 140
 Warning (10541): VHDL Signal Declaration warning at controller.vhd(23): used implicit default value for signal "en_buzz" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 23
 Warning (10541): VHDL Signal Declaration warning at controller.vhd(24): used implicit default value for signal "source_selector" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 24
 Warning (10540): VHDL Signal Declaration warning at controller.vhd(33): used explicit default value for signal "processed" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 33
@@ -663,66 +774,125 @@ Warning (10492): VHDL Process Statement warning at controller.vhd(113): signal "
 Warning (10492): VHDL Process Statement warning at controller.vhd(114): signal "w_arr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 114
 Warning (10492): VHDL Process Statement warning at controller.vhd(115): signal "rx_busy" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 115
 Warning (10492): VHDL Process Statement warning at controller.vhd(116): signal "processed" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 116
-Info (12128): Elaborating entity "ir_decoder" for hierarchy "ir_decoder:ir_decoder_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 139
-Info (12128): Elaborating entity "clockmodifier" for hierarchy "clockmodifier:clockmodifier_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 140
+Info (12128): Elaborating entity "ir_decoder" for hierarchy "ir_decoder:ir_decoder_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 141
+Info (12128): Elaborating entity "clockmodifier" for hierarchy "clockmodifier:clockmodifier_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 142
 Warning (10492): VHDL Process Statement warning at clockmodifier.vhd(25): signal "clk_out_intem" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/clockmodifier.vhd Line: 25
-Info (12128): Elaborating entity "sevensegment" for hierarchy "sevensegment:sevs_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 141
-Info (12128): Elaborating entity "buzzer" for hierarchy "buzzer:buzzer_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 142
+Info (12128): Elaborating entity "sevensegment" for hierarchy "sevensegment:sevs_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 143
+Warning (10492): VHDL Process Statement warning at sevseg.vhd(64): signal "curr_val" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/sevseg.vhd Line: 64
+Info (12128): Elaborating entity "buzzer" for hierarchy "buzzer:buzzer_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 144
 Warning (10492): VHDL Process Statement warning at buzzer.vhd(20): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/buzzer.vhd Line: 20
-Info (12128): Elaborating entity "uart" for hierarchy "uart:uart_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 147
+Info (12128): Elaborating entity "vga_sync" for hierarchy "vga_sync:vga_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 146
+Warning (10541): VHDL Signal Declaration warning at vgasync.vhd(11): used implicit default value for signal "R" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/vgasync.vhd Line: 11
+Warning (10541): VHDL Signal Declaration warning at vgasync.vhd(11): used implicit default value for signal "G" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/vgasync.vhd Line: 11
+Warning (10541): VHDL Signal Declaration warning at vgasync.vhd(11): used implicit default value for signal "B" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/vgasync.vhd Line: 11
+Warning (10036): Verilog HDL or VHDL warning at vgasync.vhd(28): object "video_on" assigned a value but never read File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/vgasync.vhd Line: 28
+Info (12128): Elaborating entity "uart" for hierarchy "uart:uart_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 149
 Warning (10540): VHDL Signal Declaration warning at uart.vhd(41): used explicit default value for signal "s_log_addr" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 41
 Warning (10036): Verilog HDL or VHDL warning at uart.vhd(45): object "o_sig_CRRP_DATA" assigned a value but never read File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 45
 Info (12128): Elaborating entity "uart_tx" for hierarchy "uart:uart_module|uart_tx:u_TX" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 78
 Info (12128): Elaborating entity "uart_rx" for hierarchy "uart:uart_module|uart_rx:u_RX" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 90
-Warning (10036): Verilog HDL or VHDL warning at uart_rx.vhd(37): object "w_arr" assigned a value but never read File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 37
-Warning (10492): VHDL Process Statement warning at uart_rx.vhd(132): signal "r_DATA_BUFFER" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 132
-Warning (10492): VHDL Process Statement warning at uart_rx.vhd(139): signal "h_arr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 139
+Warning (10036): Verilog HDL or VHDL warning at uart_rx.vhd(41): object "temp_arr" assigned a value but never read File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 41
+Warning (10036): Verilog HDL or VHDL warning at uart_rx.vhd(42): object "img_width" assigned a value but never read File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 42
+Warning (10036): Verilog HDL or VHDL warning at uart_rx.vhd(43): object "img_height" assigned a value but never read File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 43
+Warning (10492): VHDL Process Statement warning at uart_rx.vhd(179): signal "r_DATA_BUFFER" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 179
+Warning (10492): VHDL Process Statement warning at uart_rx.vhd(188): signal "rgb" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 188
+Warning (10492): VHDL Process Statement warning at uart_rx.vhd(189): signal "rgb" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 189
+Warning (10492): VHDL Process Statement warning at uart_rx.vhd(190): signal "rgb" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 190
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "rgb" into its bus
+Info (278001): Inferred 5 megafunctions from design logic
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Mod2" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 140
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Div0" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 138
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Mod0" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 138
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Div1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 139
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Mod1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 139
+Info (12130): Elaborated megafunction instantiation "uart:uart_module|uart_rx:u_RX|lpm_divide:Mod2" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 140
+Info (12133): Instantiated megafunction "uart:uart_module|uart_rx:u_RX|lpm_divide:Mod2" with the following parameter: File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 140
+    Info (12134): Parameter "LPM_WIDTHN" = "8"
+    Info (12134): Parameter "LPM_WIDTHD" = "8"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_q9m.tdf
+    Info (12023): Found entity 1: lpm_divide_q9m File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/lpm_divide_q9m.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_fkh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_fkh File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/sign_div_unsign_fkh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_i4f.tdf
+    Info (12023): Found entity 1: alt_u_div_i4f File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_i4f.tdf Line: 27
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_7pc.tdf
+    Info (12023): Found entity 1: add_sub_7pc File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/add_sub_7pc.tdf Line: 23
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_8pc.tdf
+    Info (12023): Found entity 1: add_sub_8pc File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/add_sub_8pc.tdf Line: 23
+Info (12130): Elaborated megafunction instantiation "uart:uart_module|uart_rx:u_RX|lpm_divide:Div0" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 138
+Info (12133): Instantiated megafunction "uart:uart_module|uart_rx:u_RX|lpm_divide:Div0" with the following parameter: File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 138
+    Info (12134): Parameter "LPM_WIDTHN" = "8"
+    Info (12134): Parameter "LPM_WIDTHD" = "7"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_mhm.tdf
+    Info (12023): Found entity 1: lpm_divide_mhm File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/lpm_divide_mhm.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_ekh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_ekh File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/sign_div_unsign_ekh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_g4f.tdf
+    Info (12023): Found entity 1: alt_u_div_g4f File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_g4f.tdf Line: 27
+Info (12130): Elaborated megafunction instantiation "uart:uart_module|uart_rx:u_RX|lpm_divide:Div1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 139
+Info (12133): Instantiated megafunction "uart:uart_module|uart_rx:u_RX|lpm_divide:Div1" with the following parameter: File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 139
+    Info (12134): Parameter "LPM_WIDTHN" = "8"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_jhm.tdf
+    Info (12023): Found entity 1: lpm_divide_jhm File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/lpm_divide_jhm.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_bkh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_bkh File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/sign_div_unsign_bkh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_a4f.tdf
+    Info (12023): Found entity 1: alt_u_div_a4f File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_a4f.tdf Line: 27
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "o_led1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 27
-    Warning (13410): Pin "o_led2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 27
-    Warning (13410): Pin "o_led3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 27
-    Warning (13410): Pin "o_r0" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
-    Warning (13410): Pin "o_r1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
-    Warning (13410): Pin "o_r2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
-    Warning (13410): Pin "o_r3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
-    Warning (13410): Pin "o_r4" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
-    Warning (13410): Pin "o_r5" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
-    Warning (13410): Pin "o_r6" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
-    Warning (13410): Pin "o_r7" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
-    Warning (13410): Pin "o_g0" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
-    Warning (13410): Pin "o_g1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
-    Warning (13410): Pin "o_g2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
-    Warning (13410): Pin "o_g3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
-    Warning (13410): Pin "o_g4" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
-    Warning (13410): Pin "o_g5" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
-    Warning (13410): Pin "o_g6" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
-    Warning (13410): Pin "o_g7" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 30
-    Warning (13410): Pin "o_b0" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
-    Warning (13410): Pin "o_b1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
-    Warning (13410): Pin "o_b2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
-    Warning (13410): Pin "o_b3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
-    Warning (13410): Pin "o_b4" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
-    Warning (13410): Pin "o_b5" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
-    Warning (13410): Pin "o_b6" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
-    Warning (13410): Pin "o_b7" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
-    Warning (13410): Pin "o_vga_hs" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
-    Warning (13410): Pin "o_vga_vs" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
-    Warning (13410): Pin "o_buzz" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 34
+    Warning (13410): Pin "o_led1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
+    Warning (13410): Pin "o_led2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
+    Warning (13410): Pin "o_led3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 29
+    Warning (13410): Pin "o_r0" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_r1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_r2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_r3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_r4" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_r5" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_r6" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_r7" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 31
+    Warning (13410): Pin "o_g0" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
+    Warning (13410): Pin "o_g1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
+    Warning (13410): Pin "o_g2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
+    Warning (13410): Pin "o_g3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
+    Warning (13410): Pin "o_g4" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
+    Warning (13410): Pin "o_g5" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
+    Warning (13410): Pin "o_g6" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
+    Warning (13410): Pin "o_g7" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
+    Warning (13410): Pin "o_b0" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 33
+    Warning (13410): Pin "o_b1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 33
+    Warning (13410): Pin "o_b2" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 33
+    Warning (13410): Pin "o_b3" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 33
+    Warning (13410): Pin "o_b4" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 33
+    Warning (13410): Pin "o_b5" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 33
+    Warning (13410): Pin "o_b6" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 33
+    Warning (13410): Pin "o_b7" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 33
+    Warning (13410): Pin "o_vga_hs" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 34
+    Warning (13410): Pin "o_vga_vs" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 34
+    Warning (13410): Pin "o_buzz" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 36
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 2 registers lost all their fanouts during netlist optimizations.
+Info (17016): Found the following redundant logic cells in design
+    Info (17048): Logic cell "uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider|alt_u_div_i4f:divider|add_sub_7_result_int[0]~16" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_i4f.tdf Line: 62
 Warning (20013): Ignored 19 assignments for entity "PLL25" -- entity does not exist in design
 Warning (20013): Ignored 74 assignments for entity "PLL25_altpll_0" -- entity does not exist in design
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 1 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "i_IR" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 21
-Info (21057): Implemented 371 device resources after synthesis - the final resource count might be different
+    Warning (15610): No output dependent on input pin "i_IR" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 23
+Info (21057): Implemented 488 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 3 input pins
     Info (21059): Implemented 43 output pins
-    Info (21061): Implemented 325 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 59 warnings
-    Info: Peak virtual memory: 4862 megabytes
-    Info: Processing ended: Fri Jan 10 10:41:05 2025
+    Info (21061): Implemented 442 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 63 warnings
+    Info: Peak virtual memory: 4872 megabytes
+    Info: Processing ended: Fri Jan 10 16:04:48 2025
     Info: Elapsed time: 00:00:06
     Info: Total CPU time (on all processors): 00:00:04
 

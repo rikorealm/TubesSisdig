@@ -18,7 +18,8 @@ SerialObj.stopbits = 1   # Number of Stop bits = 1
 width = 139
 height = 125
 
-def write(data):    SerialObj.write(data)
+def write(data):    
+    SerialObj.write(data)
 
 # while True:
 #     processing_state = int(SerialObj.read().hex(), 16)
@@ -55,7 +56,7 @@ result = bytes([a])
 write(result)
 write(format(8, "x").encode("utf-8"))
 write(format(9, "x").encode("utf-8"))
-write(format(1, "x").encode("utf-8"))
+write(format(3, "x").encode("utf-8"))
 write(format(2, "x").encode("utf-8"))
 write(result)
 write(result)
@@ -64,5 +65,13 @@ write(format(3, "x").encode("utf-8"))
 write(format(1, "x").encode("utf-8"))
 write(format(4, "x").encode("utf-8"))
 write(result)
+# write(bytes([115]))
+# write(bytes([169]))
+write(bytes([253]))
+# write(bytes([254]))
+# write(bytes([253]))
+# write(format(106, "x").encode("utf-8"))
+# write(format(100, "x").encode("utf-8"))
+# write(format(15, "x").encode("utf-8"))
 
 SerialObj.close()      # Close the port

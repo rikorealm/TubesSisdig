@@ -31,46 +31,48 @@ architecture sevsegmentrtl of sevensegment is
     constant EIGHT : integer   := 8;-- "00111000";
     constant NINE : integer    := 9;-- "00111001";
 
-    type arr is array (0 to 3) of integer;
-    constant seg : arr := (9, 1, 2, 3);
+    -- type arr is array (0 to 3) of integer;
+    -- constant seg : arr := (9, 4, 6, 3);
 
     signal counter : integer := 1;
-    signal curr_val : integer;
+    signal curr_val : integer := 0;
 begin
     process(i_clk)
     begin
         if rising_edge(i_clk) then
             if counter = 1 then
                 dig <= "1110";
-                curr_val <= data(2);
+                curr_val <= data(3);
             elsif counter = 2 then
                 dig <= "1101";
-                curr_val <= data(1);
+                curr_val <= data(2);
             elsif counter = 3 then
                 dig <= "1011";
-                curr_val <= data(0);
+                curr_val <= data(1);
             elsif counter = 4 then
                 dig <= "0111";
-                curr_val <= data(3);
+                curr_val <= data(0);
             end if;
-            if counter >= 4 then
-                counter <= 1;
-            else
+            -- dig <= "1110";
+            -- curr_val <= seg(0);
+            if not (counter = 4) then
                 counter <= counter + 1;
+            else
+                counter <= 1;
             end if;
-            case curr_val is
-                when ZERO => sevseg <= "0000001";
-                when ONE => sevseg <= "1001111";
-                when TWO => sevseg <= "0010010";
-                when THREE => sevseg <= "0000110";
-                when FOUR => sevseg <= "1001100";
-                when FIVE => sevseg <= "0100100";
-                when SIX => sevseg <= "0100000";
-                when SEVEN => sevseg <= "0001111";
-                when EIGHT => sevseg <= "0000000";
-                when NINE => sevseg <= "0000100";
-                when others => sevseg <= "1111111";
-            end case;
         end if;
+        case curr_val is
+            when ZERO => sevseg <= "0000001";
+            when ONE => sevseg <= "1001111";
+            when TWO => sevseg <= "0010010";
+            when THREE => sevseg <= "0000110";
+            when FOUR => sevseg <= "1001100";
+            when FIVE => sevseg <= "0100100";
+            when SIX => sevseg <= "0100000";
+            when SEVEN => sevseg <= "0001111";
+            when EIGHT => sevseg <= "0000000";
+            when NINE => sevseg <= "0000100";
+            when others => sevseg <= "1111111";
+        end case;
     end process;    
 end sevsegmentrtl;
