@@ -4,6 +4,8 @@ use ieee.std_logic_1164.all;
 package all_pkg is
     type sevsegdata_arr is array (0 to 3) of integer;
     type wh_arr is array (0 to 3) of integer; --Supports up to width and height of order < 10^4
+    type rgbmatrix is array (0 to 2, 0 to 2) of integer;
+    type imgmatrix is array (integer range <>, integer range <>) of rgbmatrix;
 end package;
 
 library ieee;

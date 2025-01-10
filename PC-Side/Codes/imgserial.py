@@ -18,8 +18,7 @@ SerialObj.stopbits = 1   # Number of Stop bits = 1
 width = 139
 height = 125
 
-def write(data):
-    SerialObj.write(data)
+def write(data):    SerialObj.write(data)
 
 # while True:
 #     processing_state = int(SerialObj.read().hex(), 16)
@@ -46,12 +45,14 @@ def write(data):
 # write(bytes('ÿ', "utf-8"))
 a = 255  # Decimal 255
 result = bytes([a])
-write(result)
+
 # for i in range (4):
 #     k = int(input(">> "))
 #     if (k == -1):
 #         break
 #     else:
+
+write(result)
 write(format(8, "x").encode("utf-8"))
 write(format(9, "x").encode("utf-8"))
 write(format(1, "x").encode("utf-8"))

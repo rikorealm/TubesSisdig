@@ -41,6 +41,13 @@ architecture behavior of uart_rx is
     signal img_width : integer := 0;
     signal img_height : integer := 0;
 
+	-- rgb matrix, img matrix
+	signal rgb : rgbmatrix := ((0, 0, 0), (0, 0, 0));
+	signal rgb_elcount : integer := 0;
+	signal img : imgmatrix(0 to img_width, 0 to img_height);
+	signal img_elcount_row : integer := 0;
+	signal img_elcount_col : integer := 0;
+
 begin	
 	process( i_CLOCK , i_log_ADDR ) begin
 		if( rising_edge(i_CLOCK) ) then
@@ -65,56 +72,45 @@ begin
 						r_INDEX <= r_INDEX + 1;
 					else	
 						if( r_DATA_BUFFER(0) = '0' and r_DATA_BUFFER(9) = '1' ) then
-							-- if( not(r_COUNTER = "00000011") ) then
-							-- 	r_COUNTER	<= std_logic_vector( unsigned( r_COUNTER ) + 1 );
-							-- else
-							-- 	r_COUNTER	<= (others => '0');
-							-- end if;
-
-							-- if not (wh_arr_counter = 3) then
-							-- 	wh_arr_counter <= wh_arr_counter + 1;
-							-- else
-							-- 	wh_arr_counter <= 0;
-							-- end if;
-
-							-- w_arr(wh_arr_counter) <= to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) - 48;
-
 							if (img_state = initial) then
-								-- w_arr <= (5, 3, 7, 9);
 								if (r_DATA_BUFFER(8 downto 1) = "11111111") then
 									img_state <= running;
 									w_arr_en <= true;
-									-- w_arr <= (2, 4, 6, 8);
 								end if;
 							elsif (img_state = running) then
-								-- w_arr <= (1, 2, 3, 4);
 								if (w_arr_en and not (r_DATA_BUFFER(8 downto 1) = "11111111") and (to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) >= 48 and to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) <= 57)) then
 									if not (wh_arr_counter = 3) then
 										wh_arr_counter <= wh_arr_counter + 1;
 									else
 										wh_arr_counter <= 0;
 									end if;
-									
 									w_arr(wh_arr_counter) <= to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) - 48;
-									-- en_buzz <= true;
 								elsif (w_arr_en and (r_DATA_BUFFER(8 downto 1) = "11111111")) then
 									w_arr_en <= false;
-								-- 	en_buzz <= false;
 								elsif (w_arr_en = false and (r_DATA_BUFFER(8 downto 1) = "11111111")) then
 									h_arr_en <= true;
 									wh_arr_counter <= 0;
 								elsif (h_arr_en and not (r_DATA_BUFFER(8 downto 1) = "11111111") and (to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) >= 48 and to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) <= 57)) then
-									if not (wh_arr_counter = 3) then
+									if (not (wh_arr_counter = 3)) then
 										wh_arr_counter <= wh_arr_counter + 1;
 									else
 										wh_arr_counter <= 0;
 									end if;
-									
 									h_arr(wh_arr_counter) <= to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) - 48;
 								elsif (h_arr_en and (r_DATA_BUFFER(8 downto 1) = "11111111")) then
 									h_arr_en <= false;
+								
+								elsif (w_arr_en = false and h_arr_en = false) then
+									if (not (rgb_elcount = 2)) then
+										rgb_elcount <= rgb_elcount + 1;
+									else
+										img(img_elcount_row, img_elcount_col) <= rgb;
+									end if;
+									rgb(rgb_elcount, rgb_elcount) <= to_integer(unsigned(r_DATA_BUFFER(8 downto 1))) - 48;
 								end if;
-							-- MEM_UART( to_integer( unsigned ( r_COUNTER ) ) ) <=	r_DATA_BUFFER(8 downto 1)_BUFFER(8 downto 1);
+								
+								img_width <= 100*(w_arr(0)) + 10*(w_arr(1)) + (w_arr(2));
+                    			img_height <= 100*(h_arr(0)) + 10*(h_arr(1)) + (h_arr(2));
 							end if;
 
 							
