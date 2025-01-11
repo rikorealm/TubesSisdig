@@ -149,6 +149,7 @@ begin
 												rgb_elcount <= 0;
 											end if;
 											rgb(rgb_elcount, rgb_elcount) <= to_integer(unsigned(r_DATA_BUFFER(8 downto 1)));
+											parse <= rgbparse;
 										end if;
 								end case;
 								

@@ -20,6 +20,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "sevseg[0]",
+					"strict" : false
+				},
+				{
 					"name" : "sevseg[1]",
 					"strict" : false
 				},
@@ -45,6 +49,10 @@
 				},
 				{
 					"name" : "o_led4",
+					"strict" : false
+				},
+				{
+					"name" : "o_buzz",
 					"strict" : false
 				},
 				{

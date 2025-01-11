@@ -1,5 +1,5 @@
 Flow report for TubesSisdig
-Sat Jan 11 18:28:33 2025
+Sat Jan 11 19:23:03 2025
 Quartus Prime Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
 
 
@@ -41,20 +41,20 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +------------------------------------+------------------------------------------------+
-; Flow Status                        ; Successful - Sat Jan 11 18:28:33 2025          ;
+; Flow Status                        ; Successful - Sat Jan 11 19:23:03 2025          ;
 ; Quartus Prime Version              ; 23.1std.1 Build 993 05/14/2024 SC Lite Edition ;
 ; Revision Name                      ; TubesSisdig                                    ;
 ; Top-level Entity Name              ; main                                           ;
 ; Family                             ; Cyclone IV E                                   ;
 ; Device                             ; EP4CE6E22C8                                    ;
 ; Timing Models                      ; Final                                          ;
-; Total logic elements               ; 164 / 6,272 ( 3 % )                            ;
-;     Total combinational functions  ; 159 / 6,272 ( 3 % )                            ;
-;     Dedicated logic registers      ; 104 / 6,272 ( 2 % )                            ;
-; Total registers                    ; 104                                            ;
+; Total logic elements               ; 921 / 6,272 ( 15 % )                           ;
+;     Total combinational functions  ; 892 / 6,272 ( 14 % )                           ;
+;     Dedicated logic registers      ; 392 / 6,272 ( 6 % )                            ;
+; Total registers                    ; 392                                            ;
 ; Total pins                         ; 46 / 92 ( 50 % )                               ;
 ; Total virtual pins                 ; 0                                              ;
-; Total memory bits                  ; 0 / 276,480 ( 0 % )                            ;
+; Total memory bits                  ; 80,000 / 276,480 ( 29 % )                      ;
 ; Embedded Multiplier 9-bit elements ; 0 / 30 ( 0 % )                                 ;
 ; Total PLLs                         ; 0 / 2 ( 0 % )                                  ;
 +------------------------------------+------------------------------------------------+
@@ -65,7 +65,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 01/11/2025 18:28:18 ;
+; Start date & time ; 01/11/2025 19:22:45 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; TubesSisdig         ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------+---------------------------------------------------------+---------------+-------------+-----------------------------------+
 ; Assignment Name                     ; Value                                                   ; Default Value ; Entity Name ; Section Id                        ;
 +-------------------------------------+---------------------------------------------------------+---------------+-------------+-----------------------------------+
-; COMPILER_SIGNATURE_ID               ; 118902021082314.173659489805384                         ; --            ; --          ; --                                ;
+; COMPILER_SIGNATURE_ID               ; 118902021082314.173659816514532                         ; --            ; --          ; --                                ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                                     ; --            ; --          ; eda_board_design_timing           ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                                     ; --            ; --          ; eda_timing_analysis               ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                                     ; --            ; --          ; eda_board_design_boundary_scan    ;
@@ -116,12 +116,12 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:06     ; 1.0                     ; 4878 MB             ; 00:00:07                           ;
-; Fitter               ; 00:00:03     ; 1.1                     ; 6286 MB             ; 00:00:01                           ;
-; Assembler            ; 00:00:01     ; 1.0                     ; 4685 MB             ; 00:00:01                           ;
-; Timing Analyzer      ; 00:00:00     ; 1.1                     ; 4842 MB             ; 00:00:01                           ;
-; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4639 MB             ; 00:00:00                           ;
-; Total                ; 00:00:11     ; --                      ; --                  ; 00:00:10                           ;
+; Analysis & Synthesis ; 00:00:07     ; 1.0                     ; 4891 MB             ; 00:00:07                           ;
+; Fitter               ; 00:00:06     ; 1.2                     ; 6306 MB             ; 00:00:02                           ;
+; Assembler            ; 00:00:01     ; 1.0                     ; 4697 MB             ; 00:00:00                           ;
+; Timing Analyzer      ; 00:00:01     ; 1.2                     ; 4897 MB             ; 00:00:00                           ;
+; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4642 MB             ; 00:00:00                           ;
+; Total                ; 00:00:16     ; --                      ; --                  ; 00:00:09                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

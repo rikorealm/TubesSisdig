@@ -75,9 +75,11 @@ end component controller;
   
   component buzzer is
     port (
-      en : in boolean;
-      note_clk : in std_logic;
-      buzz : buffer std_logic
+        duration : in integer;        -- durasi dalam detik
+        en : in boolean;             -- sinyal enable untuk mengaktifkan buzzer
+        note_clk : in std_logic;     -- sinyal clock untuk buzzer
+        note_freq : in integer;
+        buzz : out std_logic         -- output buzzer
     );
   end component buzzer;
 
@@ -163,9 +165,9 @@ begin
   ir_decoder_module : ir_decoder port map(i_clk, i_IR, ir_frame);
   clockmodifier_module : clockmodifier port map(CLKFREQ, note_freq, i_clk, note_clk);
   sevs_module : sevensegment port map(note_clk, sevsegdata, dig, sevseg);
-  buzzer_module : buzzer port map(en_buzz, note_clk, o_buzz);
+  buzzer_module : buzzer port map(5, true, note_clk, note_freq, o_buzz);
   -- pll_module : PLL25 port map(i_clk, pll_reset, pllclk);
-  vga_module : vga_sync port map(pllclk, o_vga_hs, o_vga_vs, source_sel, R, G, B);
+  -- vga_module : vga_sync port map(pllclk, o_vga_hs, o_vga_vs, source_sel, R, G, B);
   -- imgprocessing_module : img_proc port map();
   ps_8bit <= "0000000" & processing_state;
   uart_module : uart port map(i_clk, ps_8bit, i_Rx, o_Tx, uart_received, rx_busy, tx_busy, sevsegdata);
