@@ -13,9 +13,6 @@ from PIL import Image
 import numpy as np
 # Sending UART
 import time
-import serial
-import serial.tools.list_ports
-ports = serial.tools.list_ports.comports()
 
 # Functions
 def numberparser(number):
@@ -77,81 +74,81 @@ while True:
 # pixel_matrix = np.zeros((height, width, 3), dtype=int)
 # print(pixel_matrix)
 
+# Iterasi setiap piksel menggunakan for loop
 imgdata_lokal = []
 
-# Iterasi setiap piksel menggunakan for loop
 for y in range(height):
     for x in range(width):
         r, g, b = image.getpixel((x, y))  # Mendapatkan nilai RGB
         bin_r = format(int(r), '08b')
         bin_g = format(int(g), '08b')
         bin_b = format(int(b), '08b')
-        matrix_rwrgb = [x, y, bin_r, bin_g, bin_b]
+        matrix_rwrgb = [bin_r, bin_g, bin_b]
         imgdata_lokal.append(matrix_rwrgb)
 
-# membuktikan nilai data gambar
-# print(imgdata_lokal)
 
-# ==============================================================
-#   __  __       _        _        ____         __  __          
-#  |  \/  |     | |      (_)      |  _ \       / _|/ _|         
-#  | \  / | __ _| |_ _ __ ___  __ | |_) |_   _| |_| |_ ___ _ __ 
-#  | |\/| |/ _` | __| '__| \ \/ / |  _ <| | | |  _|  _/ _ \ '__|
-#  | |  | | (_| | |_| |  | |>  <  | |_) | |_| | | | ||  __/ |   
-#  |_|  |_|\__,_|\__|_|  |_/_/\_\ |____/ \__,_|_| |_| \___|_|   
-# ==============================================================
+# imgdata_lokal = [i for i in range (0,643)]
+batasdatadikirim = 640
+proses = "Not Done"
+stop = 0
+indeks_now = 0
+jumlahdikirim = 0
+jumlahudahdikirim = 0
+datatampung_fpga = []
+datahasil = []
 
-# Serial Communication
-# Python code transmits a byte to Arduino /Microcontroller
-print()
-print("PORT DESCRIPTION")
-portar = []
-for port, desc, hwid in sorted(ports):
-        print("{}: {} [{}]".format(port, desc, hwid))
-        portar.append(port)
 
-print()
-print("PORTS")
-for number, letter in enumerate(portar):
-    print(number+1, letter)
-# /Get avail ports then select port
+while True:
+    if jumlahdikirim >= batasdatadikirim or jumlahdikirim >= (len(imgdata_lokal) - jumlahudahdikirim):
+        stop = 1
+        jumlahudahdikirim += jumlahdikirim
+        jumlahdikirim = 0    
+    if stop == 0:
+        data_dikirim = imgdata_lokal[indeks_now]
+        datatampung_fpga.append(data_dikirim) # Serial Obj
+        indeks_now += 1
+        jumlahdikirim += 1
+    else:
+        datahasil.append(datatampung_fpga)
+        datatampung_fpga = []
+        stop = 0    
+    if jumlahudahdikirim >= len(imgdata_lokal):
+        proses = "Done"
+        break
 
-serpick = int(input("Input Choice Number = "))
-SerialObj = serial.Serial(portar[serpick-1])
-                                    # ttyUSBx format on Linux
-SerialObj.baudrate = 9600           # set Baud rate to 9600
-SerialObj.bytesize = 8              # Number of data bits = 8
-SerialObj.parity  ='N'              # No parity
-SerialObj.stopbits = 1              # Number of Stop bits = 1
+if proses == "Done":
+    # Flatten Array
+    def flatten(matrix):
+        flat_list = []
+        for element in matrix:
+            for row in element:
+                for column in row:
+                    flat_list.append(column)
+        return flat_list
+    # PARSER BASED ON ROW
+    flatten_datahasil = flatten(datahasil)
 
-SerialObj.read()
+    temp = []
+    parseddata = []
 
-# UART COMMUNICATION
-# Send Width and Height
-a = 255
-imbit = bytes([a])
+    sudah = 0
+    for i in range (len(flatten_datahasil)):
+        temp.append(flatten_datahasil[i])
+        sudah += 1
+        if sudah % (width*3) == 0 and i != 0:
+            parseddata.append(temp)
+            temp = []
+    print(parseddata)
 
-parsed_width = numberparser(width)
-parsed_height = numberparser(height)
-SerialObj.write(imbit) # start bit
-for parsed_width in parsed_width:
-     SerialObj.write(parsed_width)
-SerialObj.write(imbit) # stop bit
-SerialObj.write(imbit) # start bit
-for parsed_height in parsed_height:
-     SerialObj.write(parsed_height)
-SerialObj.write(imbit) # stop bit
-
-# Send Image Data
-for y in range(height):
-    for x in range(width):
-        r, g, b = image.getpixel((x, y))  # Mendapatkan nilai RGB
-        bin_r = format(int(r), '08b')
-        bin_g = format(int(g), '08b')
-        bin_b = format(int(b), '08b')
-        temp_datargb = [bin_r, bin_g, bin_b]
-        for j in range(0,3):
-            SerialObj.write(temp_datargb[j])
-                
-# CLose UART COMMS
-SerialObj.close()
+    cmd = input()
+    i = 0
+    while True:
+        if i >= len(parseddata):
+            i = 0
+        if cmd == "":
+            print(parseddata[i])
+            i += 1
+        else:
+            break
+        
+        cmd = input()

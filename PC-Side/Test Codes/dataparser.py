@@ -115,9 +115,6 @@ while True:
     if jumlahudahdikirim >= len(imgdata_lokal):
         proses = "Done"
         break
-# print(datahasil)
-# membuktikan nilai data gambar
-# print(imgdata_lokal)
 
 if proses == "Done":
     # Flatten Array
