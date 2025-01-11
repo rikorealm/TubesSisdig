@@ -1,9 +1,9 @@
 
 State Machine - |main|uart:uart_module|uart_rx:u_RX|parse
-Name parse.rgbparse parse.heightparse parse.widthparse 
-parse.widthparse 0 0 0 
+Name parse.widthparse parse.heightparse parse.rgbparse 
+parse.rgbparse 0 0 0 
 parse.heightparse 0 1 1 
-parse.rgbparse 1 0 1 
+parse.widthparse 1 0 1 
 
 State Machine - |main|uart:uart_module|uart_rx:u_RX|img_state
 Name img_state.finished img_state.errored img_state.running img_state.initial 

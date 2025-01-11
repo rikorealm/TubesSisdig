@@ -22,7 +22,7 @@ entity controller is
         tx_busy : in std_logic;
         en_buzz : out boolean;
         source_selector : out std_logic;
-        processing_state : out std_logic; -- 0 or 1
+        processing_state : out std_logic := '0'; -- 0 or 1
         o_led1, o_led2, o_led3, o_led4 : out std_logic
     );
 end controller;
@@ -113,7 +113,7 @@ begin
         o_led2 <= to_unsigned(w_arr(1), 1)(0);
         o_led3 <= to_unsigned(w_arr(2), 1)(0);
         o_led4 <= rx_busy;
-        processing_state <= processed;
+        processing_state <= '0';
         -- sevseg_data <= w_arr;
     end process;
 end fsm;

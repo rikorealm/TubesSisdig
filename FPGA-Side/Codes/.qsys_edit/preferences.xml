@@ -3,13 +3,13 @@
  <debug showDebugMenu="0" />
  <systemtable filter="All Interfaces">
   <columns>
-   <connections preferredWidth="31" />
+   <connections preferredWidth="30" />
    <irq preferredWidth="34" />
    <inputclock preferredWidth="170" />
   </columns>
  </systemtable>
  <library
-   expandedCategories="Library/Basic Functions,Library/Basic Functions/Clocks; PLLs and Resets,Project,Library/Basic Functions/Clocks; PLLs and Resets/PLL,Library" />
- <window width="2560" height="1600" x="0" y="0" />
+   expandedCategories="Library/Memory Interfaces and Controllers,Library,Library/Memory Interfaces and Controllers/Memory Interfaces with UniPHY,Project,Library/Basic Functions,Library/University Program/Memory,Library/DSP/Video and Image Processing,Library/University Program,Library/Memory Interfaces and Controllers/Memory Interfaces with AltMemPHY,Library/Basic Functions/On Chip Memory,Library/DSP,Library/University Program/Clock" />
+ <window width="2560" height="1600" x="-3174" y="342" />
  <generation synthesis="VHDL" path="PLL25" />
 </preferences>

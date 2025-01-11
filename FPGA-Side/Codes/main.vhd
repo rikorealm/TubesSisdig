@@ -5,7 +5,8 @@ package all_pkg is
     type sevsegdata_arr is array (0 to 3) of integer;
     type wh_arr is array (0 to 3) of integer; --Supports up to width and height of order < 10^4
     type rgbmatrix is array (0 to 2, 0 to 2) of integer;
-    type imgmatrix is array (natural range <>, natural range <>) of rgbmatrix;
+	 --type imgmatrix is array (natural range <>, natural range <>) of rgbmatrix;
+    type imgmatrix is array (0 to 9999) of std_logic_vector(23 downto 0);
 end package;
 
 library ieee;
@@ -118,6 +119,19 @@ end component controller;
         sevseg : out std_logic_vector(6 downto 0) := "1111111"
     );
   end component sevensegment;
+  
+  -- component ram IS
+	--   PORT
+	--     (
+	-- 	  address		: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	-- 	  clock		: IN STD_LOGIC  := '1';
+	-- 	  data		: IN STD_LOGIC_VECTOR (23 DOWNTO 0);
+	-- 	  rden		: IN STD_LOGIC  := '1';
+	-- 	  wren		: IN STD_LOGIC ;
+	-- 	  q		: OUT STD_LOGIC_VECTOR (23 DOWNTO 0)
+	--   );
+  -- END component ram;
+
 
   signal ir_frame : std_logic_vector(9 downto 0);
   signal ir_data : std_logic_vector(7 downto 0);
@@ -135,6 +149,14 @@ end component controller;
 
   signal source_sel : std_logic := '0';
   signal sevsegdata : sevsegdata_arr;
+
+  -- signal img_memory : img_memory_type := (others => (others => '0'));
+  -- signal address_sig : std_logic_vector(7 downto 0);
+  -- signal data_sig : std_logic_vector(23 downto 0);
+  -- signal rden_sig : std_logic;
+  -- signal wren_sig : std_logic;
+  -- signal q_sig : std_logic_vector(23 downto 0);
+
 begin
   ir_data <= '0'&ir_frame(7 downto 1);
   controller_module : controller port map(i_clk, ir_data, uart_received, rx_busy, tx_busy, en_buzz, source_sel, processing_state, o_led1, o_led2, o_led3, o_led4);
@@ -148,6 +170,16 @@ begin
   ps_8bit <= "0000000" & processing_state;
   uart_module : uart port map(i_clk, ps_8bit, i_Rx, o_Tx, uart_received, rx_busy, tx_busy, sevsegdata);
 
+  -- data_sig <= uart_received&uart_received&uart_received;
+  -- ram_inst : ram PORT MAP (
+	-- 	address	 => address_sig,
+	-- 	clock	 => i_clk,
+	-- 	data	 => data_sig,
+	-- 	rden	 => rden_sig,
+	-- 	wren	 => wren_sig,
+	-- 	q	 => q_sig
+	-- );
+  
   o_r0 <= R(0);
   o_r1 <= R(1);
   o_r2 <= R(2);

@@ -20,10 +20,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "sevseg[0]",
-					"strict" : false
-				},
-				{
 					"name" : "sevseg[1]",
 					"strict" : false
 				},

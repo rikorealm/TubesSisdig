@@ -10,7 +10,7 @@ for port, desc, hwid in sorted(ports):
 # /Get avail ports then select port
 
 SerialObj = serial.Serial('COM9') # COMxx  format on Windows
-SerialObj.baudrate = 9600  # set Baud rate to 9600
+SerialObj.baudrate = 115200  # set Baud rate to 9600
 SerialObj.bytesize = 8   # Number of data bits = 8
 SerialObj.parity  ='N'   # No parity
 SerialObj.stopbits = 1   # Number of Stop bits = 1
@@ -23,6 +23,7 @@ def write(data):
 
 # while True:
 #     processing_state = int(SerialObj.read().hex(), 16)
+#     print(processing_state)
 #     if (processing_state == 0):
 #         write(bytes('ÿ', "utf-8"))
 #         # break
@@ -54,22 +55,31 @@ result = bytes([a])
 #     else:
 
 write(result)
-write(format(8, "x").encode("utf-8"))
-write(format(9, "x").encode("utf-8"))
-write(format(3, "x").encode("utf-8"))
+write(format(0, "x").encode("utf-8"))
+write(format(0, "x").encode("utf-8"))
 write(format(2, "x").encode("utf-8"))
+write(format(0, "x").encode("utf-8"))
 write(result)
 write(result)
-write(format(6, "x").encode("utf-8"))
-write(format(3, "x").encode("utf-8"))
-write(format(1, "x").encode("utf-8"))
-write(format(4, "x").encode("utf-8"))
+write(format(0, "x").encode("utf-8"))
+write(format(0, "x").encode("utf-8"))
+write(format(2, "x").encode("utf-8"))
+write(format(0, "x").encode("utf-8"))
 write(result)
-# write(bytes([115]))
-# write(bytes([169]))
+# write(bytes([0]))
+write(bytes([145]))
+write(bytes([169]))
+write(bytes([158]))
+# write(bytes([0]))
+write(bytes([254]))
 write(bytes([253]))
-# write(bytes([254]))
-# write(bytes([253]))
+write(bytes([123]))
+write(bytes([100]))
+write(bytes([101]))
+write(bytes([102]))
+write(bytes([201]))
+write(bytes([202]))
+write(bytes([203]))
 # write(format(106, "x").encode("utf-8"))
 # write(format(100, "x").encode("utf-8"))
 # write(format(15, "x").encode("utf-8"))

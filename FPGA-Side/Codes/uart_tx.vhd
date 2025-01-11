@@ -18,7 +18,7 @@ end uart_tx;
 
 architecture behavior of uart_tx is
 
-	signal r_PRESCALER					:	integer range 0 to 5206 := 0					;----5206 = ( 50MHz[clock] / 9600[bitrate] )
+	signal r_PRESCALER					:	integer range 0 to 433 := 0					;----5206 = ( 50MHz[clock] / 9600[bitrate] )
 	signal r_INDEX						:	integer range 0 to 9 := 0						;----Used to select bits from vector		
 	signal r_DATA_BUFFER				:	std_logic_vector(9 downto 0) := (others => '1')	;----Data register, needs to be padded with [0] on the beggining and [1] at the end
 	signal s_TRANSMITING_FLAG			:	std_logic := '0'								;----Signal holding the current state [ 1 if transmitting, 0 if not transmitting ]
@@ -65,7 +65,7 @@ architecture behavior of uart_tx is
 				--		Clock divider depends on this register to count up.
 				
 			
-				if( r_PRESCALER < 5205 ) then
+				if( r_PRESCALER < 433 ) then
 				
 					r_PRESCALER <= r_PRESCALER + 1;
 					
@@ -84,7 +84,7 @@ architecture behavior of uart_tx is
 				--	allowing for another transission request.
 				
 			
-				if( r_PRESCALER = 2607 ) then
+				if( r_PRESCALER = 220 ) then
 				
 					o_TX_LINE	<=	r_DATA_BUFFER(r_INDEX);
 					
