@@ -7,9 +7,9 @@ entity RGB_to_HSL is
         R : in std_logic_vector(7 downto 0); -- Red channel (8-bit)
         G : in std_logic_vector(7 downto 0); -- Green channel (8-bit)
         B : in std_logic_vector(7 downto 0); -- Blue channel (8-bit)
-        H : out std_logic_vector(7 downto 0); -- Hue (9-bit, range 0-360)
-        S : out std_logic_vector(7 downto 0); -- Saturation (7-bit, range 0-100)
-        L : out std_logic_vector(7 downto 0)  -- Lightness (7-bit, range 0-100)
+        H : out std_logic_vector(7 downto 0); -- Hue (8-bit, range 0-100)
+        S : out std_logic_vector(7 downto 0); -- Saturation (8-bit, range 0-100)
+        L : out std_logic_vector(7 downto 0)  -- Lightness (8-bit, range 0-100)
     );
 end RGB_to_HSL;
 
