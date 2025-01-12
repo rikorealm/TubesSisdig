@@ -165,7 +165,7 @@ begin
   ir_decoder_module : ir_decoder port map(i_clk, i_IR, ir_frame);
   clockmodifier_module : clockmodifier port map(CLKFREQ, note_freq, i_clk, note_clk);
   sevs_module : sevensegment port map(note_clk, sevsegdata, dig, sevseg);
-  buzzer_module : buzzer port map(5, true, note_clk, note_freq, o_buzz);
+  buzzer_module : buzzer port map(5, false, note_clk, note_freq, o_buzz);
   -- pll_module : PLL25 port map(i_clk, pll_reset, pllclk);
   -- vga_module : vga_sync port map(pllclk, o_vga_hs, o_vga_vs, source_sel, R, G, B);
   -- imgprocessing_module : img_proc port map();

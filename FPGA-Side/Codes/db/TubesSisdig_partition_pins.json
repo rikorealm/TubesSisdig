@@ -52,10 +52,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "o_buzz",
-					"strict" : false
-				},
-				{
 					"name" : "o_Tx",
 					"strict" : false
 				},

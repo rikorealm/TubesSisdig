@@ -1,1 +1,2 @@
 v1
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,uart:uart_module|uart_rx:u_RX|lpm_mult:Mult2|mult_56t:auto_generated|mac_out2,
