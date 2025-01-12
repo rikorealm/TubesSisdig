@@ -7,6 +7,10 @@ package all_pkg is
     -- type rgbmatrix is array (0 to 2, 0 to 2) of integer;
 	 --type imgmatrix is array (natural range <>, natural range <>) of rgbmatrix;
     -- type imgmatrix is array (0 to 9999) of std_logic_vector(23 downto 0);
+    type img_mem is array(0 to 63) of std_logic_vector(23 downto 0); 
+    type matrix is array (natural range <>, natural range <>) of std_logic_vector (7 downto 0);
+    type matrix_result is array (natural range <>, natural range <>) of std_logic_vector (15 downto 0);
+    type matrix_temp is array (natural range <>, natural range <>) of real;
 end package;
 
 library ieee;
@@ -47,13 +51,15 @@ architecture rtl of main is
     port (
         clk : in std_logic;
         ir_data : in std_logic_vector(7 downto 0);
-        uart_recv : in std_logic_vector(7 downto 0);
+        ir_changing : in std_logic;
+        uart_recv : in std_logic_vector(23 downto 0);
         rx_busy : in std_logic;
         tx_busy : in std_logic;
         en_buzz : out boolean;
         source_selector : out std_logic;
         processing_state : out std_logic; -- 0 or 1
-        o_led1, o_led2, o_led3, o_led4 : out std_logic := '1'
+        o_led1, o_led2, o_led3, o_led4 : out std_logic := '1';
+        mem_addr : out std_logic_vector(5 downto 0) := "000000"
     );
 end component controller;
 
@@ -87,22 +93,47 @@ end component controller;
     port (
       clk : in std_logic;
       i_ir : in std_logic;
-      o_irFrame : out std_logic_vector (9 downto 0) := "0000000000"
+      o_irFrame : out std_logic_vector (9 downto 0) := "0000000000";
+      change : out std_logic
     );
   end component ir_decoder;
 
   component uart is
     port (
-      i_CLOCK	:	in std_logic;
-      i_RX		:	in std_logic;
-		  o_TX		:	out std_logic	:= '1';
-		  o_DATA_recv	:	out std_logic_vector(7 downto 0);
-      o_sig_RX_BUSY		:	out std_logic;
-		  o_sig_TX_BUSY		:	out std_logic;
-      led1, led2, led3, led4 : out std_logic := '1';
-      sevseg_data : out sevsegdata_arr
+        i_CLOCK       : in  std_logic;
+        i_RX          : in  std_logic;
+	    	i_ADDR		    : in  std_logic_vector(5 downto 0);
+        o_TX          : out std_logic := '1';
+        o_DATA_recv   : out img_mem;
+        o_sig_RX_BUSY : out std_logic;
+        o_sig_TX_BUSY : out std_logic;
+        sevseg_data   : out sevsegdata_arr
     );
   end component uart;
+
+  component matrix_multiplier is
+    generic (
+        size_A_row : integer := 3; -- Baris matriks A
+        size_A_col, size_B_row : integer := 3; -- Kolom matriks A dan Baris matriks B
+        size_B_col : integer := 1  -- Kolom matriks B
+    );
+    Port (
+        clk : in std_logic ;
+        data_A : in matrix (0 to size_A_row-1, 0 to size_A_col-1);
+        data_B : in matrix (0 to size_B_row-1, 0 to size_B_col-1);
+        result : out matrix_result (0 to size_A_row-1, 0 to size_B_col-1)
+    );
+  end component matrix_multiplier;
+
+  component img_proc is
+    port(
+        i_clk : in std_logic;
+        i_data : in img_mem;
+        k : in integer;
+        o_data : out img_mem
+    );
+  end component img_proc;
+
 
   component vga_sync is
     port (
@@ -121,22 +152,11 @@ end component controller;
         sevseg : out std_logic_vector(6 downto 0) := "1111111"
     );
   end component sevensegment;
-  
-  -- component ram IS
-	--   PORT
-	--     (
-	-- 	  address		: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
-	-- 	  clock		: IN STD_LOGIC  := '1';
-	-- 	  data		: IN STD_LOGIC_VECTOR (23 DOWNTO 0);
-	-- 	  rden		: IN STD_LOGIC  := '1';
-	-- 	  wren		: IN STD_LOGIC ;
-	-- 	  q		: OUT STD_LOGIC_VECTOR (23 DOWNTO 0)
-	--   );
-  -- END component ram;
-
 
   signal ir_frame : std_logic_vector(9 downto 0);
   signal ir_data : std_logic_vector(7 downto 0);
+  signal ir_changing : std_logic;
+
   signal en_buzz : boolean := false;
   signal note_clk : std_logic;
   signal note_freq : integer := 1200;
@@ -146,13 +166,17 @@ end component controller;
 
   signal processing_state : std_logic := '0'; --0: Ready, 1: Done/Stop
   signal ps_8bit : std_logic_vector(7 downto 0) := "00000000";
-  signal uart_received : std_logic_vector(7 downto 0);
+  signal uart_received : std_logic_vector(23 downto 0);
+  signal ori_img : img_mem;
+  signal res_img : img_mem;
   signal rx_busy, tx_busy : std_logic;
 
   signal source_sel : std_logic := '0';
   signal sevsegdata : sevsegdata_arr;
   signal rgbdata : rgbarr;
 
+  signal k : integer range 0 to 100 := 50;
+  signal addr : std_logic_vector(5 downto 0) := "000000";
   -- signal img_memory : img_memory_type := (others => (others => '0'));
   -- signal address_sig : std_logic_vector(7 downto 0);
   -- signal data_sig : std_logic_vector(23 downto 0);
@@ -161,17 +185,17 @@ end component controller;
   -- signal q_sig : std_logic_vector(23 downto 0);
 
 begin
-  -- ir_data <= '0'&ir_frame(7 downto 1);
-  -- controller_module : controller port map(i_clk, ir_data, uart_received, rx_busy, tx_busy, en_buzz, source_sel, processing_state, o_led1, o_led2, o_led3, o_led4);
-  -- ir_decoder_module : ir_decoder port map(i_clk, i_IR, ir_frame);
+  ir_data <= '0'&ir_frame(7 downto 1);
+  controller_module : controller port map(i_clk, ir_data, ir_changing, uart_received, rx_busy, tx_busy, en_buzz, source_sel, processing_state, o_led1, o_led2, o_led3, o_led4, addr);
+  ir_decoder_module : ir_decoder port map(i_clk, i_IR, ir_frame, ir_changing);
   clockmodifier_module : clockmodifier port map(CLKFREQ, note_freq, i_clk, note_clk);
   sevs_module : sevensegment port map(note_clk, sevsegdata, dig, sevseg);
-  -- buzzer_module : buzzer port map(5, false, note_clk, note_freq, o_buzz);
+  buzzer_module : buzzer port map(1, en_buzz, note_clk, note_freq, o_buzz);
   -- pll_module : PLL25 port map(i_clk, pll_reset, pllclk);
   -- vga_module : vga_sync port map(pllclk, o_vga_hs, o_vga_vs, source_sel, R, G, B);
-  -- imgprocessing_module : img_proc port map();
+  imgprocessing_module : img_proc port map(i_clk, ori_img, k, res_img);
   -- ps_8bit <= "0000000" & processing_state;
-  uart_module : uart port map(i_clk, i_Rx, o_Tx, uart_received, rx_busy, tx_busy, o_led1, o_led2, o_led3, o_led4, sevsegdata);
+  uart_module : uart port map(i_clk, i_Rx, addr, o_Tx, ori_img, rx_busy, tx_busy, sevsegdata);
 
   -- data_sig <= uart_received&uart_received&uart_received;
   -- ram_inst : ram PORT MAP (

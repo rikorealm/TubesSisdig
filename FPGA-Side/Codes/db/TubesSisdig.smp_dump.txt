@@ -1,8 +1,8 @@
 
-State Machine - |main|uart:uart_module|uart_controller:u_Control|current_state
-Name current_state.IDLE_state current_state.WAIT_FOR_COMPLETION current_state.TX_EN current_state.PROCESS_DATA current_state.RX_EN 
-current_state.RX_EN 0 0 0 0 0 
-current_state.PROCESS_DATA 0 0 0 1 1 
-current_state.TX_EN 0 0 1 0 1 
-current_state.WAIT_FOR_COMPLETION 0 1 0 0 1 
-current_state.IDLE_state 1 0 0 0 1 
+State Machine - |main|uart:uart_module|curr_state
+Name curr_state.finished curr_state.transmitted curr_state.readytotransmit curr_state.received curr_state.readytoreceive 
+curr_state.readytoreceive 0 0 0 0 0 
+curr_state.received 0 0 0 1 1 
+curr_state.readytotransmit 0 0 1 0 1 
+curr_state.transmitted 0 1 0 0 1 
+curr_state.finished 1 0 0 0 1 

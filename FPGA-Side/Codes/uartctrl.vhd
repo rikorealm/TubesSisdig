@@ -17,7 +17,7 @@ end entity;
 architecture Behavioral of uart_controller is
 
     -- Define states
-    type state_type is (RX_EN, PROCESS_DATA, TX_EN, WAIT_FOR_COMPLETION, IDLE_state);
+    type state_type is (RX_EN, TX_EN, IDLE_state);
     signal current_state, next_state : state_type;
 
     signal processcount : integer range 0 to 2 := 0;
@@ -41,33 +41,25 @@ begin
                 if rx_ready = '1' then
                     next_state <= TX_EN;
                 else
-                    next_state <= RX_EN;
+                    if tx_done = '1' then
+                        next_state <= RX_EN;
+                    else
+                        next_state <= IDLE_state;
+                    end if;
                 end if;
-
-            when PROCESS_DATA =>
-                -- if processcount < 2 then
-                --     processcount <= processcount + 1;
-                -- else
-                --     processcount <= 0;
-                    next_state <= TX_EN;
-                -- end if;
 
             when TX_EN =>
                 if tx_done = '1' then
+                    next_state <= RX_EN;
+                elsif tx_done = '1' and rx_ready = '1' then
                     next_state <= IDLE_state;
                 else
                     next_state <= TX_EN;
                 end if;
                 -- next_state <= WAIT_FOR_COMPLETION;
 
-            when WAIT_FOR_COMPLETION =>
-                if tx_done = '1' then
-                    next_state <= RX_EN;
-                else
-                    next_state <= WAIT_FOR_COMPLETION;
-                end if;
-
             when IDLE_state =>
+                -- if rx_ready = '1' and 
                 next_state <= IDLE_state;  -- Remain in IDLE until reset or new event
 
             when others =>
