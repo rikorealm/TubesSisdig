@@ -1,10 +1,10 @@
-Analysis & Synthesis Status : Successful - Sun Jan 12 14:32:06 2025
+Analysis & Synthesis Status : Successful - Sun Jan 12 15:01:51 2025
 Quartus Prime Version : 23.1std.1 Build 993 05/14/2024 SC Lite Edition
 Revision Name : TubesSisdig
 Top-level Entity Name : main
 Family : Cyclone IV E
-Total logic elements : 945
-    Total combinational functions : 869
+Total logic elements : 999
+    Total combinational functions : 923
     Dedicated logic registers : 442
 Total registers : 442
 Total pins : 50

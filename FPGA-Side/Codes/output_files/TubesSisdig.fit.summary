@@ -1,12 +1,12 @@
-Fitter Status : Successful - Sun Jan 12 14:32:12 2025
+Fitter Status : Successful - Sun Jan 12 15:01:58 2025
 Quartus Prime Version : 23.1std.1 Build 993 05/14/2024 SC Lite Edition
 Revision Name : TubesSisdig
 Top-level Entity Name : main
 Family : Cyclone IV E
 Device : EP4CE6E22C8
 Timing Models : Final
-Total logic elements : 933 / 6,272 ( 15 % )
-    Total combinational functions : 871 / 6,272 ( 14 % )
+Total logic elements : 975 / 6,272 ( 16 % )
+    Total combinational functions : 925 / 6,272 ( 15 % )
     Dedicated logic registers : 442 / 6,272 ( 7 % )
 Total registers : 442
 Total pins : 50 / 92 ( 54 % )

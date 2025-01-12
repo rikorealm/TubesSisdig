@@ -173,15 +173,23 @@ begin
 				end if;
 
 			else
-				if (storedinram and pixcount = (img_width * img_height))  then 
+				if (storedinram and pixcount = (img_width * img_height)) then 
 					img_state <= finished; 
 				end if;
 			end if;
 			
+			if img_state /= finished and rgb_elcount = 0 then
+				img_addr <= (img_elcount_row * img_width) + img_elcount_col;
+			elsif img_state = finished then
+				img_addr <= 1;
+			else
+				img_addr <= 9999;
+			end if;
+
 			if (img_state = finished) then
 				img_wren <= '0';
 				img_rden <= '1';
-			elsif (img_state /= finished and rgb_elcount = 2) then
+			elsif (img_state /= finished and rgb_elcount = 0) then
 				img_wren <= '1';
 				img_rden <= '0';
 			else
@@ -189,35 +197,21 @@ begin
 				img_rden <= '0';
 			end if;
 
-			if (rgb_elcount = 2 and rgb_firstrun = '0' and not(img_state = finished)) then
+			if (rgb_elcount = 0 and rgb_firstrun = '0' and not(img_state = finished)) then
 				img_din <= std_logic_vector(to_unsigned(rgb(0, 0), 8)) &
 				std_logic_vector(to_unsigned(rgb(1, 1), 8)) &
 				std_logic_vector(to_unsigned(rgb(2, 2), 8));
-				if (img_elcount_col < img_width - 0) then
+				if (img_elcount_col < img_width - 1) then
 					img_elcount_col <= img_elcount_col + 1;
-				elsif (img_elcount_col = img_width - 0) then
+				elsif (img_elcount_col = img_width - 1) then
 					img_elcount_col <= 0;
-					if (img_elcount_row < img_height - 0) then
+					if (img_elcount_row < img_height - 1) then
 						img_elcount_row <= img_elcount_row + 1;
-					elsif (img_elcount_row = img_height - 0) then
+					elsif (img_elcount_row = img_height - 1) then
 						storedinram <= true;
 					end if;
 				end if;
 			end if;
-		end if;
-	end process;
-
-	mem_updater : process(i_CLOCK, rgb)
-	begin
-		if rising_edge(i_CLOCK) then
-			
-		end if;
-	end process;
-
-	state_handler : process(i_CLOCK)
-  	begin
-		if rising_edge(i_CLOCK) then
-			
 		end if;
 	end process;
 
@@ -232,7 +226,7 @@ begin
 			-- When img_state is finished, only read from memory (always at address 2)
 			if img_rden = '1' then
 				img_dout <= img(img_addr);  -- Read data from memory
-			else
+			else	
 				img_dout <= (others => '0');  -- Clear data if not reading
 			end if;
 		end if;
@@ -242,13 +236,7 @@ begin
 	begin
 		if rising_edge(i_CLOCK) then
 			-- Check the current state of the image processing
-			if img_state /= finished and rgb_elcount = 2 then
-				img_addr <= (img_elcount_row * img_width) + img_elcount_col;
-			elsif img_state = finished then
-				img_addr <= 3;
-			else
-				img_addr <= 0;
-			end if;
+			
 		end if;
 	end process;
 

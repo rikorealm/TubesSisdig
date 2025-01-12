@@ -1,5 +1,5 @@
 Analysis & Synthesis report for TubesSisdig
-Sun Jan 12 14:32:06 2025
+Sun Jan 12 15:01:51 2025
 Quartus Prime Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
 
 
@@ -72,13 +72,13 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Jan 12 14:32:06 2025          ;
+; Analysis & Synthesis Status        ; Successful - Sun Jan 12 15:01:51 2025          ;
 ; Quartus Prime Version              ; 23.1std.1 Build 993 05/14/2024 SC Lite Edition ;
 ; Revision Name                      ; TubesSisdig                                    ;
 ; Top-level Entity Name              ; main                                           ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; 945                                            ;
-;     Total combinational functions  ; 869                                            ;
+; Total logic elements               ; 999                                            ;
+;     Total combinational functions  ; 923                                            ;
 ;     Dedicated logic registers      ; 442                                            ;
 ; Total registers                    ; 442                                            ;
 ; Total pins                         ; 50                                             ;
@@ -268,17 +268,17 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+-------------+
 ; Resource                                    ; Usage       ;
 +---------------------------------------------+-------------+
-; Estimated Total logic elements              ; 945         ;
+; Estimated Total logic elements              ; 999         ;
 ;                                             ;             ;
-; Total combinational functions               ; 869         ;
+; Total combinational functions               ; 923         ;
 ; Logic element usage by number of LUT inputs ;             ;
-;     -- 4 input functions                    ; 269         ;
-;     -- 3 input functions                    ; 149         ;
-;     -- <=2 input functions                  ; 451         ;
+;     -- 4 input functions                    ; 299         ;
+;     -- 3 input functions                    ; 133         ;
+;     -- <=2 input functions                  ; 491         ;
 ;                                             ;             ;
 ; Logic elements by mode                      ;             ;
-;     -- normal mode                          ; 517         ;
-;     -- arithmetic mode                      ; 352         ;
+;     -- normal mode                          ; 541         ;
+;     -- arithmetic mode                      ; 382         ;
 ;                                             ;             ;
 ; Total registers                             ; 442         ;
 ;     -- Dedicated logic registers            ; 442         ;
@@ -291,8 +291,8 @@ https://fpgasoftware.intel.com/eula.
 ;                                             ;             ;
 ; Maximum fan-out node                        ; i_clk~input ;
 ; Maximum fan-out                             ; 390         ;
-; Total fan-out                               ; 4184        ;
-; Average fan-out                             ; 2.92        ;
+; Total fan-out                               ; 4327        ;
+; Average fan-out                             ; 2.91        ;
 +---------------------------------------------+-------------+
 
 
@@ -301,11 +301,11 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
 ; Compilation Hierarchy Node                   ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                 ; Entity Name         ; Library Name ;
 +----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
-; |main                                        ; 869 (1)             ; 442 (0)                   ; 80000       ; 4            ; 0       ; 2         ; 50   ; 0            ; |main                                                                                                                               ; main                ; work         ;
+; |main                                        ; 923 (1)             ; 442 (0)                   ; 80000       ; 4            ; 0       ; 2         ; 50   ; 0            ; |main                                                                                                                               ; main                ; work         ;
 ;    |clockmodifier:clockmodifier_module|      ; 50 (50)             ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|clockmodifier:clockmodifier_module                                                                                            ; clockmodifier       ; work         ;
 ;    |sevensegment:sevs_module|                ; 120 (120)           ; 68 (68)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|sevensegment:sevs_module                                                                                                      ; sevensegment        ; work         ;
-;    |uart:uart_module|                        ; 698 (2)             ; 341 (2)                   ; 80000       ; 4            ; 0       ; 2         ; 0    ; 0            ; |main|uart:uart_module                                                                                                              ; uart                ; work         ;
-;       |uart_rx:u_RX|                         ; 671 (460)           ; 322 (321)                 ; 80000       ; 4            ; 0       ; 2         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX                                                                                                 ; uart_rx             ; work         ;
+;    |uart:uart_module|                        ; 752 (2)             ; 341 (2)                   ; 80000       ; 4            ; 0       ; 2         ; 0    ; 0            ; |main|uart:uart_module                                                                                                              ; uart                ; work         ;
+;       |uart_rx:u_RX|                         ; 725 (513)           ; 322 (321)                 ; 80000       ; 4            ; 0       ; 2         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX                                                                                                 ; uart_rx             ; work         ;
 ;          |altsyncram:img_rtl_0|              ; 2 (0)               ; 1 (0)                     ; 80000       ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|altsyncram:img_rtl_0                                                                            ; altsyncram          ; work         ;
 ;             |altsyncram_91j1:auto_generated| ; 2 (0)               ; 1 (1)                     ; 80000       ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|altsyncram:img_rtl_0|altsyncram_91j1:auto_generated                                             ; altsyncram_91j1     ; work         ;
 ;                |decode_jsa:decode2|          ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|altsyncram:img_rtl_0|altsyncram_91j1:auto_generated|decode_jsa:decode2                          ; decode_jsa          ; work         ;
@@ -317,10 +317,10 @@ https://fpgasoftware.intel.com/eula.
 ;             |lpm_divide_jhm:auto_generated|  ; 56 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Div1|lpm_divide_jhm:auto_generated                                                   ; lpm_divide_jhm      ; work         ;
 ;                |sign_div_unsign_bkh:divider| ; 56 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Div1|lpm_divide_jhm:auto_generated|sign_div_unsign_bkh:divider                       ; sign_div_unsign_bkh ; work         ;
 ;                   |alt_u_div_a4f:divider|    ; 56 (56)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Div1|lpm_divide_jhm:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_a4f:divider ; alt_u_div_a4f       ; work         ;
-;          |lpm_divide:Mod1|                   ; 35 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1                                                                                 ; lpm_divide          ; work         ;
-;             |lpm_divide_q9m:auto_generated|  ; 35 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1|lpm_divide_q9m:auto_generated                                                   ; lpm_divide_q9m      ; work         ;
-;                |sign_div_unsign_fkh:divider| ; 35 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider                       ; sign_div_unsign_fkh ; work         ;
-;                   |alt_u_div_i4f:divider|    ; 35 (35)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider|alt_u_div_i4f:divider ; alt_u_div_i4f       ; work         ;
+;          |lpm_divide:Mod1|                   ; 36 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1                                                                                 ; lpm_divide          ; work         ;
+;             |lpm_divide_q9m:auto_generated|  ; 36 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1|lpm_divide_q9m:auto_generated                                                   ; lpm_divide_q9m      ; work         ;
+;                |sign_div_unsign_fkh:divider| ; 36 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider                       ; sign_div_unsign_fkh ; work         ;
+;                   |alt_u_div_i4f:divider|    ; 36 (36)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider|alt_u_div_i4f:divider ; alt_u_div_i4f       ; work         ;
 ;          |lpm_divide:Mod2|                   ; 81 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod2                                                                                 ; lpm_divide          ; work         ;
 ;             |lpm_divide_q9m:auto_generated|  ; 81 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod2|lpm_divide_q9m:auto_generated                                                   ; lpm_divide_q9m      ; work         ;
 ;                |sign_div_unsign_fkh:divider| ; 81 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|lpm_divide:Mod2|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider                       ; sign_div_unsign_fkh ; work         ;
@@ -619,7 +619,7 @@ Encoding Type:  One-Hot
 ; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[1] ; 1       ;
 ; uart:uart_module|r_TX_DATA[0]                  ; 2       ;
 ; uart:uart_module|uart_rx:u_RX|img_wren         ; 3       ;
-; uart:uart_module|uart_rx:u_RX|rgb_firstrun     ; 2       ;
+; uart:uart_module|uart_rx:u_RX|rgb_firstrun     ; 4       ;
 ; uart:uart_module|uart_rx:u_RX|h_arr[0][0]      ; 7       ;
 ; uart:uart_module|uart_rx:u_RX|h_arr[0][2]      ; 5       ;
 ; uart:uart_module|uart_rx:u_RX|h_arr[1][1]      ; 5       ;
@@ -1209,23 +1209,23 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     ENA SCLR          ; 114                         ;
 ;     SLD               ; 1                           ;
 ;     plain             ; 151                         ;
-; cycloneiii_lcell_comb ; 875                         ;
-;     arith             ; 352                         ;
-;         1 data inputs ; 3                           ;
-;         2 data inputs ; 268                         ;
+; cycloneiii_lcell_comb ; 929                         ;
+;     arith             ; 382                         ;
+;         1 data inputs ; 7                           ;
+;         2 data inputs ; 294                         ;
 ;         3 data inputs ; 81                          ;
-;     normal            ; 523                         ;
-;         0 data inputs ; 19                          ;
-;         1 data inputs ; 29                          ;
-;         2 data inputs ; 138                         ;
-;         3 data inputs ; 68                          ;
-;         4 data inputs ; 269                         ;
+;     normal            ; 547                         ;
+;         0 data inputs ; 21                          ;
+;         1 data inputs ; 30                          ;
+;         2 data inputs ; 145                         ;
+;         3 data inputs ; 52                          ;
+;         4 data inputs ; 299                         ;
 ; cycloneiii_mac_mult   ; 2                           ;
 ; cycloneiii_mac_out    ; 2                           ;
 ; cycloneiii_ram_block  ; 16                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 14.20                       ;
-; Average LUT depth     ; 5.25                        ;
+; Max LUT depth         ; 15.20                       ;
+; Average LUT depth     ; 5.57                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1244,7 +1244,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
-    Info: Processing started: Sun Jan 12 14:31:58 2025
+    Info: Processing started: Sun Jan 12 15:01:44 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off TubesSisdig -c TubesSisdig
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
@@ -1348,12 +1348,12 @@ Info (19000): Inferred 1 megafunctions from design logic
         Info (286033): Parameter RAM_BLOCK_TYPE set to M9K
         Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
 Info (278001): Inferred 9 megafunctions from design logic
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Div1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 260
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Mod1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 260
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Div0" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 259
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Mod0" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 259
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Mod2" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 261
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "uart:uart_module|uart_rx:u_RX|Mult3" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 246
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Div1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 248
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Mod1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 248
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Div0" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 247
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Mod0" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 247
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|uart_rx:u_RX|Mod2" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 249
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "uart:uart_module|uart_rx:u_RX|Mult3" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 182
     Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "uart:uart_module|uart_rx:u_RX|Mult2" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 176
     Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "uart:uart_module|uart_rx:u_RX|Mult0" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 164
     Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "uart:uart_module|uart_rx:u_RX|Mult1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 165
@@ -1381,8 +1381,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/deco
     Info (12023): Found entity 1: decode_jsa File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/decode_jsa.tdf Line: 23
 Info (12021): Found 1 design units, including 1 entities, in source file db/mux_3nb.tdf
     Info (12023): Found entity 1: mux_3nb File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/mux_3nb.tdf Line: 23
-Info (12130): Elaborated megafunction instantiation "uart:uart_module|uart_rx:u_RX|lpm_divide:Div1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 260
-Info (12133): Instantiated megafunction "uart:uart_module|uart_rx:u_RX|lpm_divide:Div1" with the following parameter: File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 260
+Info (12130): Elaborated megafunction instantiation "uart:uart_module|uart_rx:u_RX|lpm_divide:Div1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 248
+Info (12133): Instantiated megafunction "uart:uart_module|uart_rx:u_RX|lpm_divide:Div1" with the following parameter: File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 248
     Info (12134): Parameter "LPM_WIDTHN" = "8"
     Info (12134): Parameter "LPM_WIDTHD" = "4"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
@@ -1397,8 +1397,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/add_
     Info (12023): Found entity 1: add_sub_7pc File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/add_sub_7pc.tdf Line: 23
 Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_8pc.tdf
     Info (12023): Found entity 1: add_sub_8pc File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/add_sub_8pc.tdf Line: 23
-Info (12130): Elaborated megafunction instantiation "uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 260
-Info (12133): Instantiated megafunction "uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1" with the following parameter: File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 260
+Info (12130): Elaborated megafunction instantiation "uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 248
+Info (12133): Instantiated megafunction "uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1" with the following parameter: File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 248
     Info (12134): Parameter "LPM_WIDTHN" = "8"
     Info (12134): Parameter "LPM_WIDTHD" = "8"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
@@ -1409,8 +1409,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/sign
     Info (12023): Found entity 1: sign_div_unsign_fkh File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/sign_div_unsign_fkh.tdf Line: 25
 Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_i4f.tdf
     Info (12023): Found entity 1: alt_u_div_i4f File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_i4f.tdf Line: 27
-Info (12130): Elaborated megafunction instantiation "uart:uart_module|uart_rx:u_RX|lpm_divide:Div0" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 259
-Info (12133): Instantiated megafunction "uart:uart_module|uart_rx:u_RX|lpm_divide:Div0" with the following parameter: File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 259
+Info (12130): Elaborated megafunction instantiation "uart:uart_module|uart_rx:u_RX|lpm_divide:Div0" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 247
+Info (12133): Instantiated megafunction "uart:uart_module|uart_rx:u_RX|lpm_divide:Div0" with the following parameter: File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 247
     Info (12134): Parameter "LPM_WIDTHN" = "8"
     Info (12134): Parameter "LPM_WIDTHD" = "7"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
@@ -1421,8 +1421,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/sign
     Info (12023): Found entity 1: sign_div_unsign_ekh File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/sign_div_unsign_ekh.tdf Line: 25
 Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_g4f.tdf
     Info (12023): Found entity 1: alt_u_div_g4f File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_g4f.tdf Line: 27
-Info (12130): Elaborated megafunction instantiation "uart:uart_module|uart_rx:u_RX|lpm_mult:Mult3" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 246
-Info (12133): Instantiated megafunction "uart:uart_module|uart_rx:u_RX|lpm_mult:Mult3" with the following parameter: File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 246
+Info (12130): Elaborated megafunction instantiation "uart:uart_module|uart_rx:u_RX|lpm_mult:Mult3" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 182
+Info (12133): Instantiated megafunction "uart:uart_module|uart_rx:u_RX|lpm_mult:Mult3" with the following parameter: File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 182
     Info (12134): Parameter "LPM_WIDTHA" = "14"
     Info (12134): Parameter "LPM_WIDTHB" = "14"
     Info (12134): Parameter "LPM_WIDTHP" = "28"
@@ -1499,6 +1499,7 @@ Warning (13024): Output pins are stuck at VCC or GND
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 35 registers lost all their fanouts during netlist optimizations.
 Info (17016): Found the following redundant logic cells in design
+    Info (17048): Logic cell "uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider|alt_u_div_i4f:divider|add_sub_6_result_int[0]~14" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_i4f.tdf Line: 57
     Info (17048): Logic cell "uart:uart_module|uart_rx:u_RX|lpm_divide:Mod1|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider|alt_u_div_i4f:divider|add_sub_7_result_int[0]~16" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_i4f.tdf Line: 62
 Warning (20013): Ignored 19 assignments for entity "PLL25" -- entity does not exist in design
 Warning (20013): Ignored 74 assignments for entity "PLL25_altpll_0" -- entity does not exist in design
@@ -1510,16 +1511,16 @@ Warning (21074): Design contains 5 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "i_btn3" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 22
     Warning (15610): No output dependent on input pin "i_btn4" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 22
     Warning (15610): No output dependent on input pin "i_IR" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 24
-Info (21057): Implemented 1034 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 1089 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 7 input pins
     Info (21059): Implemented 43 output pins
-    Info (21061): Implemented 964 logic cells
+    Info (21061): Implemented 1019 logic cells
     Info (21064): Implemented 16 RAM segments
     Info (21062): Implemented 4 DSP elements
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 61 warnings
-    Info: Peak virtual memory: 4888 megabytes
-    Info: Processing ended: Sun Jan 12 14:32:06 2025
-    Info: Elapsed time: 00:00:08
-    Info: Total CPU time (on all processors): 00:00:07
+    Info: Peak virtual memory: 4887 megabytes
+    Info: Processing ended: Sun Jan 12 15:01:51 2025
+    Info: Elapsed time: 00:00:07
+    Info: Total CPU time (on all processors): 00:00:06
 
 
