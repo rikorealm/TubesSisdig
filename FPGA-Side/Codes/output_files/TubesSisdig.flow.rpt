@@ -1,5 +1,5 @@
 Flow report for TubesSisdig
-Sat Jan 11 18:28:33 2025
+Sun Jan 12 15:43:23 2025
 Quartus Prime Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
 
 
@@ -41,18 +41,18 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +------------------------------------+------------------------------------------------+
-; Flow Status                        ; Successful - Sat Jan 11 18:28:33 2025          ;
+; Flow Status                        ; Successful - Sun Jan 12 15:43:23 2025          ;
 ; Quartus Prime Version              ; 23.1std.1 Build 993 05/14/2024 SC Lite Edition ;
 ; Revision Name                      ; TubesSisdig                                    ;
 ; Top-level Entity Name              ; main                                           ;
 ; Family                             ; Cyclone IV E                                   ;
 ; Device                             ; EP4CE6E22C8                                    ;
 ; Timing Models                      ; Final                                          ;
-; Total logic elements               ; 164 / 6,272 ( 3 % )                            ;
-;     Total combinational functions  ; 159 / 6,272 ( 3 % )                            ;
-;     Dedicated logic registers      ; 104 / 6,272 ( 2 % )                            ;
-; Total registers                    ; 104                                            ;
-; Total pins                         ; 46 / 92 ( 50 % )                               ;
+; Total logic elements               ; 0 / 6,272 ( 0 % )                              ;
+;     Total combinational functions  ; 0 / 6,272 ( 0 % )                              ;
+;     Dedicated logic registers      ; 0 / 6,272 ( 0 % )                              ;
+; Total registers                    ; 0                                              ;
+; Total pins                         ; 50 / 92 ( 54 % )                               ;
 ; Total virtual pins                 ; 0                                              ;
 ; Total memory bits                  ; 0 / 276,480 ( 0 % )                            ;
 ; Embedded Multiplier 9-bit elements ; 0 / 30 ( 0 % )                                 ;
@@ -65,7 +65,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 01/11/2025 18:28:18 ;
+; Start date & time ; 01/12/2025 15:42:43 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; TubesSisdig         ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------+---------------------------------------------------------+---------------+-------------+-----------------------------------+
 ; Assignment Name                     ; Value                                                   ; Default Value ; Entity Name ; Section Id                        ;
 +-------------------------------------+---------------------------------------------------------+---------------+-------------+-----------------------------------+
-; COMPILER_SIGNATURE_ID               ; 118902021082314.173659489805384                         ; --            ; --          ; --                                ;
+; COMPILER_SIGNATURE_ID               ; 71205092062155.173667136334176                          ; --            ; --          ; --                                ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                                     ; --            ; --          ; eda_board_design_timing           ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                                     ; --            ; --          ; eda_timing_analysis               ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                                     ; --            ; --          ; eda_board_design_boundary_scan    ;
@@ -116,12 +116,12 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:06     ; 1.0                     ; 4878 MB             ; 00:00:07                           ;
-; Fitter               ; 00:00:03     ; 1.1                     ; 6286 MB             ; 00:00:01                           ;
-; Assembler            ; 00:00:01     ; 1.0                     ; 4685 MB             ; 00:00:01                           ;
-; Timing Analyzer      ; 00:00:00     ; 1.1                     ; 4842 MB             ; 00:00:01                           ;
+; Analysis & Synthesis ; 00:00:07     ; 1.0                     ; 4798 MB             ; 00:00:06                           ;
+; Fitter               ; 00:00:03     ; 1.1                     ; 6485 MB             ; 00:00:01                           ;
+; Assembler            ; 00:00:01     ; 1.0                     ; 4687 MB             ; 00:00:00                           ;
+; Timing Analyzer      ; 00:00:01     ; 1.1                     ; 4859 MB             ; 00:00:00                           ;
 ; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4639 MB             ; 00:00:00                           ;
-; Total                ; 00:00:11     ; --                      ; --                  ; 00:00:10                           ;
+; Total                ; 00:00:13     ; --                      ; --                  ; 00:00:07                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -130,11 +130,11 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+------------------+------------+------------+----------------+
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
-; Analysis & Synthesis ; Riko             ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; Riko             ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; Riko             ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; Riko             ; Windows 10 ; 10.0       ; x86_64         ;
-; EDA Netlist Writer   ; Riko             ; Windows 10 ; 10.0       ; x86_64         ;
+; Analysis & Synthesis ; LAPTOP-LIONEL    ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; LAPTOP-LIONEL    ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; LAPTOP-LIONEL    ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; LAPTOP-LIONEL    ; Windows 10 ; 10.0       ; x86_64         ;
+; EDA Netlist Writer   ; LAPTOP-LIONEL    ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 

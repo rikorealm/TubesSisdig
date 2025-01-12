@@ -9,8 +9,8 @@ entity uart_tx is
 				i_START	:	in std_logic							;		----Signal from TOP to begin transmission
 				o_BUSY	:	out std_logic							;		----Signal to TOP to wait until transmission has finished
 				i_DATA	:	in std_logic_vector(7 downto 0)			;		----Data vector from TOP
-				o_TX_LINE:	out std_logic	:='1'							----Uart output to TOP
-	
+				o_TX_LINE:	out std_logic	:='1'					;		----Uart output to TOP
+				i_pixel_receive : in std_logic
 
 			);
 end uart_tx;
@@ -85,11 +85,11 @@ architecture behavior of uart_tx is
 				
 			
 				if( r_PRESCALER = 220 ) then
-				
-					o_TX_LINE	<=	r_DATA_BUFFER(r_INDEX);
-					
+					if i_pixel_receive = '1' then
+						o_TX_LINE	<=	r_DATA_BUFFER(r_INDEX);
+					end if;
 					if( r_INDEX < 9 ) then
-					
+						
 						r_INDEX	<=	r_INDEX + 1;
 						
 					else		---r_INDEX > 9
@@ -98,9 +98,7 @@ architecture behavior of uart_tx is
 						o_BUSY					<=	'0'	;
 						r_INDEX					<=	0	;
 						
-					
 					end if;	---r_INDEX < 9
-				
 				end if;	---r_PRESCALER = 2607
 				--///////////////////////////////////////////////////////
 			

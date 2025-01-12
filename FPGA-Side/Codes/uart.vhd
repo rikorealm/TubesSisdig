@@ -44,6 +44,7 @@ architecture behavior of uart is
 	
 	signal o_sig_CRRP_DATA	: std_logic := '0';
 	signal s_mem : wh_arr;
+	signal s_pixel_receive : std_logic;
 	-- signal o_sig_RX_BUSY   : std_logic;
 
 	--- COMPONENTS
@@ -61,13 +62,13 @@ architecture behavior of uart is
 	
 	component uart_rx is
 	port(
-
-		i_CLOCK			:	in std_logic								;
-		i_RX			:	in std_logic								;
-		o_DATA			:	out std_logic_vector(7 downto 0)			;
-		i_log_ADDR		:	in std_logic_vector( 7 downto 0 )			;
-		o_sig_CRRP_DATA:	out std_logic := '0'						;
+		i_CLOCK			:	in std_logic;
+		i_RX			:	in std_logic;
+		o_DATA			:	out std_logic_vector(7 downto 0)	;
+		i_log_ADDR		:	in std_logic_vector( 7 downto 0 )	;
+		o_sig_CRRP_DATA	:	out std_logic := '0'			;	---Currupted data flag
 		o_BUSY			:	out std_logic;
+		o_pixel_receive : 	out std_logic;
 		o_mem : out wh_arr
 	);
 	end component;
@@ -94,14 +95,21 @@ begin
 		o_DATA				=>	s_rx_data			,
 		i_log_ADDR			=>	s_log_addr			,
 		o_sig_CRRP_DATA		=>	o_sig_CRRP_DATA		,
-		o_BUSY				=>	o_sig_RX_BUSY,
+		o_BUSY				=>	o_sig_RX_BUSY		,
+		o_pixel_receive 	=> s_pixel_receive,
 		o_mem => s_mem
 	);
 	
 	o_DATA_recv <= s_rx_data;
 	sevseg_data <= (
-		s_mem(0), s_mem(1), s_mem(2), s_mem(3)
+		0, 0, 0, 0
 	);
+	-- sevseg_data <= (
+	-- 	0,
+	-- 	to_integer(unsigned(s_mem(2)(23 downto 16))) / 100 mod 10,
+	-- 	to_integer(unsigned(s_mem(2)(23 downto 16))) / 10 mod 10,
+	-- 	to_integer(unsigned(s_mem(2)(23 downto 16))) / 1 mod 10
+	-- );
 	-- sevseg_data <= (
 	-- 	to_integer(unsigned(s_mem(0))) - 48,
 	-- 	to_integer(unsigned(s_mem(1))) - 48,
@@ -133,7 +141,7 @@ begin
 	p_TRANSMIT	:	process(i_CLOCK) begin
 		if(rising_edge(i_CLOCK)) then
 			if(s_TX_BUSY = '0') then
-				r_TX_DATA	<=	i_DATA_send;
+				r_TX_DATA	<=	"10101010"; --i_DATA_send;
 				s_TX_START	<=	'1';
 			else
 				s_TX_START <= '0';
