@@ -1,5 +1,5 @@
 Flow report for TubesSisdig
-Sun Jan 12 00:38:04 2025
+Sun Jan 12 14:32:17 2025
 Quartus Prime Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
 
 
@@ -41,21 +41,21 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +------------------------------------+------------------------------------------------+
-; Flow Status                        ; Successful - Sun Jan 12 00:38:04 2025          ;
+; Flow Status                        ; Successful - Sun Jan 12 14:32:17 2025          ;
 ; Quartus Prime Version              ; 23.1std.1 Build 993 05/14/2024 SC Lite Edition ;
 ; Revision Name                      ; TubesSisdig                                    ;
 ; Top-level Entity Name              ; main                                           ;
 ; Family                             ; Cyclone IV E                                   ;
 ; Device                             ; EP4CE6E22C8                                    ;
 ; Timing Models                      ; Final                                          ;
-; Total logic elements               ; 888 / 6,272 ( 14 % )                           ;
-;     Total combinational functions  ; 841 / 6,272 ( 13 % )                           ;
-;     Dedicated logic registers      ; 385 / 6,272 ( 6 % )                            ;
-; Total registers                    ; 385                                            ;
-; Total pins                         ; 46 / 92 ( 50 % )                               ;
+; Total logic elements               ; 933 / 6,272 ( 15 % )                           ;
+;     Total combinational functions  ; 871 / 6,272 ( 14 % )                           ;
+;     Dedicated logic registers      ; 442 / 6,272 ( 7 % )                            ;
+; Total registers                    ; 442                                            ;
+; Total pins                         ; 50 / 92 ( 54 % )                               ;
 ; Total virtual pins                 ; 0                                              ;
 ; Total memory bits                  ; 80,000 / 276,480 ( 29 % )                      ;
-; Embedded Multiplier 9-bit elements ; 2 / 30 ( 7 % )                                 ;
+; Embedded Multiplier 9-bit elements ; 4 / 30 ( 13 % )                                ;
 ; Total PLLs                         ; 0 / 2 ( 0 % )                                  ;
 +------------------------------------+------------------------------------------------+
 
@@ -65,7 +65,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 01/12/2025 00:37:46 ;
+; Start date & time ; 01/12/2025 14:31:59 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; TubesSisdig         ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------+---------------------------------------------------------+---------------+-------------+-----------------------------------+
 ; Assignment Name                     ; Value                                                   ; Default Value ; Entity Name ; Section Id                        ;
 +-------------------------------------+---------------------------------------------------------+---------------+-------------+-----------------------------------+
-; COMPILER_SIGNATURE_ID               ; 118902021082314.173661706608220                         ; --            ; --          ; --                                ;
+; COMPILER_SIGNATURE_ID               ; 1098375798506.173666711910756                           ; --            ; --          ; --                                ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                                     ; --            ; --          ; eda_board_design_timing           ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                                     ; --            ; --          ; eda_timing_analysis               ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                                     ; --            ; --          ; eda_board_design_boundary_scan    ;
@@ -116,10 +116,10 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:06     ; 1.0                     ; 4901 MB             ; 00:00:05                           ;
-; Fitter               ; 00:00:06     ; 1.2                     ; 6295 MB             ; 00:00:04                           ;
-; Assembler            ; 00:00:01     ; 1.0                     ; 4685 MB             ; 00:00:00                           ;
-; Timing Analyzer      ; 00:00:02     ; 1.3                     ; 4893 MB             ; 00:00:01                           ;
+; Analysis & Synthesis ; 00:00:08     ; 1.0                     ; 4888 MB             ; 00:00:07                           ;
+; Fitter               ; 00:00:05     ; 1.2                     ; 6306 MB             ; 00:00:02                           ;
+; Assembler            ; 00:00:01     ; 1.0                     ; 4697 MB             ; 00:00:00                           ;
+; Timing Analyzer      ; 00:00:01     ; 1.3                     ; 4865 MB             ; 00:00:01                           ;
 ; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4642 MB             ; 00:00:00                           ;
 ; Total                ; 00:00:16     ; --                      ; --                  ; 00:00:10                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+

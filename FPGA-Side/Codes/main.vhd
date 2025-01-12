@@ -19,7 +19,7 @@ entity main is
     CLKFREQ : integer := 50000000
   );
   port (
-    -- i_btn1, i_btn2, i_btn3, i_btn4 : in std_logic;
+    i_btn1, i_btn2, i_btn3, i_btn4 : in std_logic;
     i_clk : in std_logic;
     i_IR : in std_logic;
     i_Rx : in std_logic;

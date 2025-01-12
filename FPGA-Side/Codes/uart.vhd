@@ -103,6 +103,12 @@ begin
 		s_mem(0), s_mem(1), s_mem(2), s_mem(3)
 	);
 	-- sevseg_data <= (
+	-- 	0,
+	-- 	to_integer(unsigned(s_mem(2)(23 downto 16))) / 100 mod 10,
+	-- 	to_integer(unsigned(s_mem(2)(23 downto 16))) / 10 mod 10,
+	-- 	to_integer(unsigned(s_mem(2)(23 downto 16))) / 1 mod 10
+	-- );
+	-- sevseg_data <= (
 	-- 	to_integer(unsigned(s_mem(0))) - 48,
 	-- 	to_integer(unsigned(s_mem(1))) - 48,
 	-- 	to_integer(unsigned(s_mem(2))) - 48,

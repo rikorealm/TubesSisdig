@@ -19,7 +19,7 @@ end uart_rx;
 
 architecture behavior of uart_rx is
 
-	signal r_PRESCALER			:	integer range 0 to 433 := 0	;----5206 = ( 50MHz[clock] / 9600[bitrate] )
+	signal r_PRESCALER			:	integer range 0 to 433 := 0	;----433 = ( 50MHz[clock] / 115200[bitrate] )
 	signal r_INDEX				:	integer range 0 to 9 := 0		;----Used to select bits from vector		
 	signal r_DATA_BUFFER		:	std_logic_vector(9 downto 0)	;----Data register, needs to be padded with [0] on the beggining and [1] at the end
 	signal s_RECIEVING_FLAG		:	std_logic := '0'				;----Signal holding the current state [ 1 if recieving, 0 if not recieving ]
@@ -63,10 +63,15 @@ architecture behavior of uart_rx is
 	signal img_addr_r : integer range 0 to 9999 := 0; -- Read address
 	signal img_addr_w : integer range 0 to 9999 := 0; -- Write address
 	signal img_sel    : std_logic := '0'; -- Selector: '0' for write, '1' for read
+	
+	signal pixcount : integer := 1;
+
+	signal storedinram : boolean := false;
+	signal tmp : integer;
 
 begin
 	parser :	
-	process( i_CLOCK, r_DATA_BUFFER )
+	process( i_CLOCK )
 		-- variable w_arr_en : boolean := false;
     	variable h_arr_en : boolean := false;
 		variable wh_parsed : boolean := false;
@@ -107,9 +112,8 @@ begin
 									if wh_parsed then
 										parse <= rgbparse;
 									end if;
-								-- elsif (parse = pushimg and img_elcount_col >= img_width - 1 and img_elcount_row >= img_height - 1) then
-								-- 	parse <= parsed;
-								-- 	img_state <= finished;
+								elsif (wh_parsed = true) then
+									parse <= rgbparse;
 								end if;
 								
 								case parse is
@@ -150,9 +154,9 @@ begin
 												rgb_firstrun <= '0';
 											else
 												rgb_elcount <= 0;
+												pixcount <= pixcount + 1;
 											end if;
 											rgb(rgb_elcount, rgb_elcount) <= to_integer(unsigned(r_DATA_BUFFER(8 downto 1)));
-											-- parse <= rgbparse;
 										end if;
 								end case;
 								
@@ -168,73 +172,56 @@ begin
 					end if;
 				end if;
 
-			-- else
-			-- 	if (rgb_elcount = 0) then
-			-- 		img_wren <= '0';
-			-- 		img_rden <= '1';
-			-- 		img_addr <= (1);
-			-- 		img_state <= finished;
-			-- 	end if;
+			else
+				if (storedinram and pixcount = (img_width * img_height))  then 
+					img_state <= finished; 
+				end if;
 			end if;
-
+			
 			if (img_state = finished) then
 				img_wren <= '0';
 				img_rden <= '1';
-				-- img_addr <= (1);
-			end if;
-
-			if (rgb_elcount = 0 and rgb_firstrun = '0' and not(img_state = finished)) then
+			elsif (img_state /= finished and rgb_elcount = 2) then
 				img_wren <= '1';
 				img_rden <= '0';
-				-- img_addr <= img_elcount_row * img_width + img_elcount_col;
-				img_din <= std_logic_vector(to_unsigned(rgb(0, 0), 8)) &
-					std_logic_vector(to_unsigned(rgb(1, 1), 8)) &
-					std_logic_vector(to_unsigned(rgb(2, 2), 8));
+			else
+				img_wren <= '0';
+				img_rden <= '0';
+			end if;
 
-				if (img_elcount_col < img_width - 1) then
+			if (rgb_elcount = 2 and rgb_firstrun = '0' and not(img_state = finished)) then
+				img_din <= std_logic_vector(to_unsigned(rgb(0, 0), 8)) &
+				std_logic_vector(to_unsigned(rgb(1, 1), 8)) &
+				std_logic_vector(to_unsigned(rgb(2, 2), 8));
+				if (img_elcount_col < img_width - 0) then
 					img_elcount_col <= img_elcount_col + 1;
-				elsif (img_elcount_col = img_width - 1) then
+				elsif (img_elcount_col = img_width - 0) then
 					img_elcount_col <= 0;
-					if (img_elcount_row < img_height - 1) then
+					if (img_elcount_row < img_height - 0) then
 						img_elcount_row <= img_elcount_row + 1;
-					elsif (img_elcount_row = img_height - 1) then
-						img_state <= finished;
-						img_wren <= '0';
-						img_rden <= '1';
-						-- img_addr <= 3;
+					elsif (img_elcount_row = img_height - 0) then
+						storedinram <= true;
 					end if;
 				end if;
 			end if;
-
-			-- if img_wren = '1' and img_rden = '0' then
-			-- 	img(img_addr) <= img_din; -- Write data to memory
-			-- end if;
-
-			-- if img_rden = '1' and img_wren = '0' then
-			-- 	-- img_addr <= (1);
-			-- 	img_dout <= img(img_addr); -- Read data from memory
-			-- 	temp_arr <= (
-			-- 		0,
-			-- 		(to_integer(unsigned(img_dout(15 downto 8))) / 100) mod 10,
-			-- 		(to_integer(unsigned(img_dout(15 downto 8))) / 10) mod 10,
-			-- 		to_integer(unsigned(img_dout(15 downto 8))) mod 10
-			-- 	);
-			-- else
-			-- 	img_dout <= "000000000000000000000000";
-			-- 	temp_arr <= (1,1,1,1);
-			-- end if;
 		end if;
-		-- o_DATA	<=	r_DATA_BUFFER(8 downto 1);
-		-- -- o_mem <= temp_arr;
-		-- o_mem <= (
-		-- 	0,
-		-- 	(to_integer(unsigned(img_dout(15 downto 8))) / 100) mod 10,
-		-- 	(to_integer(unsigned(img_dout(15 downto 8))) / 10) mod 10,
-		-- 	(to_integer(unsigned(img_dout(15 downto 8)))) mod 10
-		-- );
 	end process;
 
-	ram_handler : process(i_CLOCK)
+	mem_updater : process(i_CLOCK, rgb)
+	begin
+		if rising_edge(i_CLOCK) then
+			
+		end if;
+	end process;
+
+	state_handler : process(i_CLOCK)
+  	begin
+		if rising_edge(i_CLOCK) then
+			
+		end if;
+	end process;
+
+	ram_handler : process(i_CLOCK, img_din, img_wren, img_rden)
 	begin
 		if rising_edge(i_CLOCK) then
 			-- When img_state is not finished, write to memory (avoid writing to address 2)
@@ -251,112 +238,34 @@ begin
 		end if;
 	end process;
 
-
-	-- -- Dedicated process for RAM handling
-	-- ram_handler : process(i_CLOCK)
-	-- begin
-	-- 	if rising_edge(i_CLOCK) then
-	-- 		-- Write to RAM
-	-- 		if img_wren = '1' then
-	-- 			img(img_addr) <= img_din;
-	-- 		end if;
-
-	-- 		-- Read from RAM
-	-- 		if img_rden = '1' then
-	-- 			-- img_addr <= 0;
-	-- 			img_dout <= img(img_addr);
-	-- 			temp_arr <= (
-	-- 				0,
-	-- 				(to_integer(unsigned(img_dout(15 downto 8))) / 100) mod 10,
-	-- 				(to_integer(unsigned(img_dout(15 downto 8))) / 10) mod 10,
-	-- 				to_integer(unsigned(img_dout(15 downto 8))) mod 10
-	-- 			);
-	-- 		else
-	-- 			img_dout <= (others => '0');
-	-- 			-- temp_arr <= (1,1,1,1);
-	-- 		end if;
-	-- 	end if;
-	-- end process;
-	
-	-- address_sel : process(i_CLOCK)
-	-- begin
-	-- 	if rising_edge(i_CLOCK) then
-	-- 		if img_wren = '1' and img_rden = '0' then
-	-- 			img_addr <= img_addr_w;
-	-- 		elsif img_wren = '0' and img_rden = '1' then
-	-- 			img_addr <= img_addr_r;
-	-- 		end if;
-	-- 	end if;
-	-- end process;
-	address_calculator : process(i_CLOCK)
+	address_calculator : process(i_CLOCK, img_state)
 	begin
-		
 		if rising_edge(i_CLOCK) then
 			-- Check the current state of the image processing
-			if img_state = finished then
-				-- If the process is finished, only read from memory
-				img_addr <= 1;  -- Always read from address 2
-			else
-				-- If the process is ongoing, calculate the write address dynamically
-				-- if img_elcount_row < img_height - 1 or (img_elcount_row = img_height - 1 and img_elcount_col < img_width - 1) then
+			if img_state /= finished and rgb_elcount = 2 then
 				img_addr <= (img_elcount_row * img_width) + img_elcount_col;
-				-- else
-				-- 	img_addr <= 2;  -- Prevent writing to address 2
-				-- end if;
+			elsif img_state = finished then
+				img_addr <= 3;
+			else
+				img_addr <= 0;
 			end if;
 		end if;
 	end process;
-	
-	-- address_calculator : process(i_CLOCK)
-	-- begin
-	-- 	if rising_edge(i_CLOCK) then
-	-- 		-- Calculate write address
-	-- 		img_addr <= img_elcount_row * img_width + img_elcount_col;
 
-	-- 		-- Increment write counters
-	-- 		-- if img_wren = '1' then
-	-- 		-- 	if img_elcount_col < img_width - 1 then
-	-- 		-- 		img_elcount_col <= img_elcount_col + 1;
-	-- 		-- 	elsif img_elcount_col = img_width - 1 then
-	-- 		-- 		img_elcount_col <= 0;
-	-- 		-- 		if img_elcount_row < img_height - 1 then
-	-- 		-- 			img_elcount_row <= img_elcount_row + 1;
-	-- 		-- 		end if;
-	-- 		-- 	end if;
-	-- 		-- end if;
-
-	-- 		-- Assign read address if needed
-	-- 		-- if img_rden = '1' then
-	-- 		-- 	img_addr_r <= 0; -- Example read address logic
-	-- 		-- end if;
-	-- 	end if;
-	-- end process;
-
-	-- reading_mem : process(i_CLOCK)
-  	-- begin
-	-- 	if rising_edge(i_CLOCK) then
-	-- 		if (img_state = finished) then
-	-- 			img_addr <= 0;
-	-- 			temp_arr <= (
-	-- 				0,
-	-- 				(to_integer(unsigned(img(0)(15 downto 8))) / 100) mod 10,
-	-- 				(to_integer(unsigned(img(0)(15 downto 8))) / 10) mod 10,
-	-- 				(to_integer(unsigned(img(0)(15 downto 8)))) mod 10
-	-- 			);
-	-- 		else
-				
-	-- 		end if;
-	-- 	end if;
-	-- end process;
-	-- Output assignments
 	o_DATA <= r_DATA_BUFFER(8 downto 1);
 	o_mem <= 
 	(
-		0,
+		pixcount,
 		(to_integer(unsigned(img_dout(15 downto 8))) / 100) mod 10,
 		(to_integer(unsigned(img_dout(15 downto 8))) / 10) mod 10,
 		(to_integer(unsigned(img_dout(15 downto 8)))) mod 10
 	);
 	-- o_mem <= temp_arr;
-
+	-- o_mem <= (
+	-- 	pixcount,
+	-- 	rgb(0,0)/100 mod 10,
+	-- 	rgb(1,1)/10 mod 10,
+	-- 	rgb(2,2) mod 10
+	-- );
+	-- o_mem <= img;
 end behavior;
