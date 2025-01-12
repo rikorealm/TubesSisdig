@@ -4,7 +4,6 @@ use IEEE.NUMERIC_STD.ALL;
 
 package matrix_multiplier_pkg is
     type matrix is array (natural range <>, natural range <>) of std_logic_vector (7 downto 0);
-    type matrix_result is array (natural range <>, natural range <>) of std_logic_vector (15 downto 0);
     type matrix_temp is array (natural range <>, natural range <>) of real;
 
 end package;
@@ -24,7 +23,7 @@ entity matrix_multiplier is
         clk : in std_logic ;
         data_A : in matrix (0 to size_A_row-1, 0 to size_A_col-1);
         data_B : in matrix (0 to size_B_row-1, 0 to size_B_col-1);
-        result : out matrix_result (0 to size_A_row-1, 0 to size_B_col-1)
+        result : out matrix (0 to size_A_row-1, 0 to size_B_col-1)
     );
 end entity;
 
@@ -50,6 +49,7 @@ begin
     process (clk)
         variable temp_A : real;
         variable temp_B : real;
+        variable temp_new_B : real;
         variable temp_result : real;
     begin
         if rising_edge(clk) then
@@ -58,15 +58,12 @@ begin
                 for j in 0 to size_B_col-1 loop
                     temp_result := 0.0;
                     for k in 0 to size_A_col-1 loop
-                        if  i = 0 and k = 0 then
-                            temp_A := real(to_integer(unsigned(temp_data_A(i,k)))) * 360.0 / 100.0;
-                        else
-                            temp_A := real(to_integer(unsigned(temp_data_A(i,k))));
-                        end if;
-                        temp_B := real(to_integer(unsigned(data_B(k,j)))) / 50.0;
-                        temp_result := temp_result + (temp_A * temp_B);
+                        temp_A := real(to_integer(unsigned(temp_data_A(i,k))));
+                        temp_B := (real(to_integer(unsigned(data_B(k,j)))) / 100.0 * 200.0) - 100.0;
+                        temp_new_B := 1.0 + ((temp_B/100.0) * 0.95);
+                        temp_result := temp_result + (temp_A * temp_new_B);
                     end loop;
-                    result(i, j) <= std_logic_vector(to_unsigned(integer(temp_result), 16));
+                    result(i, j) <= std_logic_vector(to_unsigned(integer(temp_result / 100.0 * 255.0), 8));
                 end loop;
             end loop;
         end if;
