@@ -48,6 +48,22 @@
 					"strict" : false
 				},
 				{
+					"name" : "o_led1",
+					"strict" : false
+				},
+				{
+					"name" : "o_led2",
+					"strict" : false
+				},
+				{
+					"name" : "o_led3",
+					"strict" : false
+				},
+				{
+					"name" : "o_led4",
+					"strict" : false
+				},
+				{
 					"name" : "o_Tx",
 					"strict" : false
 				},

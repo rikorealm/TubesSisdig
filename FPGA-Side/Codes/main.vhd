@@ -2,11 +2,11 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 package all_pkg is
-    type sevsegdata_arr is array (0 to 3) of integer;
-    type wh_arr is array (0 to 3) of integer; --Supports up to width and height of order < 10^4
-    type rgbmatrix is array (0 to 2, 0 to 2) of integer;
+    type sevsegdata_arr is array (0 to 3) of integer range 0 to 255;
+    type rgbarr is array (0 to 2) of integer range 0 to 255; --Supports up to width and height of order < 10^4
+    -- type rgbmatrix is array (0 to 2, 0 to 2) of integer;
 	 --type imgmatrix is array (natural range <>, natural range <>) of rgbmatrix;
-    type imgmatrix is array (0 to 9999) of std_logic_vector(23 downto 0);
+    -- type imgmatrix is array (0 to 9999) of std_logic_vector(23 downto 0);
 end package;
 
 library ieee;
@@ -94,12 +94,12 @@ end component controller;
   component uart is
     port (
       i_CLOCK	:	in std_logic;
-		  i_DATA_send	:	in std_logic_vector(7 downto 0);
       i_RX		:	in std_logic;
 		  o_TX		:	out std_logic	:= '1';
 		  o_DATA_recv	:	out std_logic_vector(7 downto 0);
       o_sig_RX_BUSY		:	out std_logic;
 		  o_sig_TX_BUSY		:	out std_logic;
+      led1, led2, led3, led4 : out std_logic := '1';
       sevseg_data : out sevsegdata_arr
     );
   end component uart;
@@ -151,6 +151,7 @@ end component controller;
 
   signal source_sel : std_logic := '0';
   signal sevsegdata : sevsegdata_arr;
+  signal rgbdata : rgbarr;
 
   -- signal img_memory : img_memory_type := (others => (others => '0'));
   -- signal address_sig : std_logic_vector(7 downto 0);
@@ -160,17 +161,17 @@ end component controller;
   -- signal q_sig : std_logic_vector(23 downto 0);
 
 begin
-  ir_data <= '0'&ir_frame(7 downto 1);
-  controller_module : controller port map(i_clk, ir_data, uart_received, rx_busy, tx_busy, en_buzz, source_sel, processing_state, o_led1, o_led2, o_led3, o_led4);
-  ir_decoder_module : ir_decoder port map(i_clk, i_IR, ir_frame);
+  -- ir_data <= '0'&ir_frame(7 downto 1);
+  -- controller_module : controller port map(i_clk, ir_data, uart_received, rx_busy, tx_busy, en_buzz, source_sel, processing_state, o_led1, o_led2, o_led3, o_led4);
+  -- ir_decoder_module : ir_decoder port map(i_clk, i_IR, ir_frame);
   clockmodifier_module : clockmodifier port map(CLKFREQ, note_freq, i_clk, note_clk);
   sevs_module : sevensegment port map(note_clk, sevsegdata, dig, sevseg);
-  buzzer_module : buzzer port map(5, false, note_clk, note_freq, o_buzz);
+  -- buzzer_module : buzzer port map(5, false, note_clk, note_freq, o_buzz);
   -- pll_module : PLL25 port map(i_clk, pll_reset, pllclk);
   -- vga_module : vga_sync port map(pllclk, o_vga_hs, o_vga_vs, source_sel, R, G, B);
   -- imgprocessing_module : img_proc port map();
-  ps_8bit <= "0000000" & processing_state;
-  uart_module : uart port map(i_clk, ps_8bit, i_Rx, o_Tx, uart_received, rx_busy, tx_busy, sevsegdata);
+  -- ps_8bit <= "0000000" & processing_state;
+  uart_module : uart port map(i_clk, i_Rx, o_Tx, uart_received, rx_busy, tx_busy, o_led1, o_led2, o_led3, o_led4, sevsegdata);
 
   -- data_sig <= uart_received&uart_received&uart_received;
   -- ram_inst : ram PORT MAP (

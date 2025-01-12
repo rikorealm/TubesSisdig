@@ -13,7 +13,7 @@ entity sevensegment is
     port (
         -- binary_data : in std_logic_vector(7 downto 0);
         i_clk : in std_logic;
-        data : in sevsegdata_arr;
+        data : in sevsegdata_arr := (0,0,0,0);
         dig : out std_logic_vector(3 downto 0) := "1111";
         sevseg : out std_logic_vector(6 downto 0) := "1111111"
     );

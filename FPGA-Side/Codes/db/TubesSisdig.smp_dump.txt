@@ -1,13 +1,8 @@
 
-State Machine - |main|uart:uart_module|uart_rx:u_RX|parse
-Name parse.rgbparse parse.heightparse parse.widthparse 
-parse.widthparse 0 0 0 
-parse.heightparse 0 1 1 
-parse.rgbparse 1 0 1 
-
-State Machine - |main|uart:uart_module|uart_rx:u_RX|img_state
-Name img_state.finished img_state.errored img_state.running img_state.initial 
-img_state.initial 0 0 0 0 
-img_state.running 0 0 1 1 
-img_state.errored 0 1 0 1 
-img_state.finished 1 0 0 1 
+State Machine - |main|uart:uart_module|uart_controller:u_Control|current_state
+Name current_state.IDLE_state current_state.WAIT_FOR_COMPLETION current_state.TX_EN current_state.PROCESS_DATA current_state.RX_EN 
+current_state.RX_EN 0 0 0 0 0 
+current_state.PROCESS_DATA 0 0 0 1 1 
+current_state.TX_EN 0 0 1 0 1 
+current_state.WAIT_FOR_COMPLETION 0 1 0 0 1 
+current_state.IDLE_state 1 0 0 0 1 
