@@ -102,10 +102,19 @@ begin
     o_sig_RX_BUSY <= s_RX_BUSY;
     o_sig_TX_BUSY <= s_TX_BUSY;
 
+
+
     transmission : process(i_CLOCK)
     begin
 		if rising_edge(i_CLOCK) then
 			-- if Sendi calc ok, proceed
+			if o_six_TX_BUSY = '1' then
+				o_TX_START = '0';
+				if sinyalsendi = '1' and idx < 64 then
+					idx <= idx + 1;
+				end if;
+			end if;	
+			i_DATA <= imgmem(idx)
 			-- Increm idx for s_tx_data (data yg perlu dikirim, 8 bit), ambil datanya dari signal baru dgn jenis imgmem, data baru ini dikirim dari multiplier sendi
 		end if;
 	end process;
