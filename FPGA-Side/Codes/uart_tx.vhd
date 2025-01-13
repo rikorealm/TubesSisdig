@@ -36,9 +36,9 @@ begin
 				s_TRANSMITING_FLAG              <= '1';
 				o_BUSY                          <= '1';
 				
-				if i_pixel_receive = '1' and pixel_transmit = '1' then
-					pixel_transmit <= '0';
-				end if;
+				-- if i_pixel_receive = '1' and pixel_transmit = '1' then
+				-- 	pixel_transmit <= '0';
+				-- end if;
 
 			elsif (s_TRANSMITING_FLAG = '1') then
 				if (r_PRESCALER < 433) then

@@ -9,7 +9,7 @@ for port, desc, hwid in sorted(ports):
     print("{}: {} [{}]".format(port, desc, hwid))
 # /Get avail ports then select port
 
-SerialObj = serial.Serial('COM9') # COMxx  format on Windows
+SerialObj = serial.Serial('COM18') # COMxx  format on Windows
 SerialObj.baudrate = 115200  # set Baud rate to 9600
 SerialObj.bytesize = 8   # Number of data bits = 8
 SerialObj.parity  ='N'   # No parity
@@ -71,9 +71,9 @@ result = bytes([a])
 img = []
 temp_rgb = []
 
-write(bytes([166]))
-write(bytes([129]))
-write(bytes([157]))
+# write(bytes([166]))
+# write(bytes([129]))
+# write(bytes([157]))
 # for i in range(3):
 # # while True:
 #     processing_state = int(SerialObj.read().hex(), 16)
@@ -85,9 +85,9 @@ write(bytes([157]))
 
 # if len(temp_rgb) == 3:
 # temp_rgb = []
-write(bytes([236]))
-write(bytes([121]))
-write(bytes([132]))
+# write(bytes([236]))
+# write(bytes([121]))
+# write(bytes([132]))
 # # for i in range(3):
 # while True:
 #     processing_state2 = int(SerialObj.read().hex(), 16)
@@ -98,13 +98,21 @@ write(bytes([132]))
 # print(img)
 
 # write(bytes([0]))
-write(bytes([254]))
-write(bytes([253]))
-write(bytes([122]))
+# write(bytes([254]))
+# write(bytes([253]))
+# write(bytes([122]))
 
-write(bytes([100]))
-write(bytes([101]))
-write(bytes([107]))
+# for i in range(64):
+write(bytes([12]))
+write(bytes([76]))
+write(bytes([55]))
+
+
+while True:
+# for i in range(192):
+    processing_state = int(SerialObj.read().hex(), 16)
+    # if i >= 192:
+    print(f"{i} : {processing_state}")
 
 # write(bytes([201]))
 # write(bytes([202]))

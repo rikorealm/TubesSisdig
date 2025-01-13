@@ -9,8 +9,8 @@ package all_pkg is
     -- type imgmatrix is array (0 to 9999) of std_logic_vector(23 downto 0);
     type img_mem is array(0 to 63) of std_logic_vector(23 downto 0); 
     type matrix is array (natural range <>, natural range <>) of std_logic_vector (7 downto 0);
-    type matrix_result is array (natural range <>, natural range <>) of std_logic_vector (15 downto 0);
-    type matrix_temp is array (natural range <>, natural range <>) of real;
+    type matrix_result is array (natural range <>, natural range <>) of std_logic_vector (7 downto 0);
+    -- type matrix_temp is array (natural range <>, natural range <>) of real;
 end package;
 
 library ieee;
@@ -57,8 +57,7 @@ architecture rtl of main is
         tx_busy : in std_logic;
         en_buzz : out boolean;
         source_selector : out std_logic;
-        processing_state : out std_logic; -- 0 or 1
-        o_led1, o_led2, o_led3, o_led4 : out std_logic := '1';
+        -- o_led1, o_led2, o_led3, o_led4 : out std_logic := '1';
         mem_addr : out std_logic_vector(5 downto 0) := "000000"
     );
 end component controller;
@@ -102,11 +101,14 @@ end component controller;
     port (
         i_CLOCK       : in  std_logic;
         i_RX          : in  std_logic;
-	    	i_ADDR		    : in  std_logic_vector(5 downto 0);
+        i_ADDR		  : in  std_logic_vector(5 downto 0);
+        i_processing  : in 	std_logic;
+        i_image		  : in img_mem;
         o_TX          : out std_logic := '1';
-        o_DATA_recv   : out img_mem;
+        o_image		  : out img_mem;
         o_sig_RX_BUSY : out std_logic;
         o_sig_TX_BUSY : out std_logic;
+        o_img_received : out std_logic;
         sevseg_data   : out sevsegdata_arr
     );
   end component uart;
@@ -130,7 +132,9 @@ end component controller;
         i_clk : in std_logic;
         i_data : in img_mem;
         k : in integer;
-        o_data : out img_mem
+        img_received : in std_logic;
+        o_data : out img_mem;
+        processing : out std_logic
     );
   end component img_proc;
 
@@ -170,6 +174,7 @@ end component controller;
   signal ori_img : img_mem;
   signal res_img : img_mem;
   signal rx_busy, tx_busy : std_logic;
+  signal img_received : std_logic := '0';
 
   signal source_sel : std_logic := '0';
   signal sevsegdata : sevsegdata_arr;
@@ -186,16 +191,18 @@ end component controller;
 
 begin
   ir_data <= '0'&ir_frame(7 downto 1);
-  controller_module : controller port map(i_clk, ir_data, ir_changing, uart_received, rx_busy, tx_busy, en_buzz, source_sel, processing_state, o_led1, o_led2, o_led3, o_led4, addr);
+  controller_module : controller port map(i_clk, ir_data, ir_changing, uart_received, rx_busy, tx_busy, en_buzz, source_sel, addr);
+  o_led1 <= processing_state;
+  o_led2 <= img_received;
   ir_decoder_module : ir_decoder port map(i_clk, i_IR, ir_frame, ir_changing);
   clockmodifier_module : clockmodifier port map(CLKFREQ, note_freq, i_clk, note_clk);
   sevs_module : sevensegment port map(note_clk, sevsegdata, dig, sevseg);
   buzzer_module : buzzer port map(1, en_buzz, note_clk, note_freq, o_buzz);
   -- pll_module : PLL25 port map(i_clk, pll_reset, pllclk);
   -- vga_module : vga_sync port map(pllclk, o_vga_hs, o_vga_vs, source_sel, R, G, B);
-  imgprocessing_module : img_proc port map(i_clk, ori_img, k, res_img);
+  imgprocessing_module : img_proc port map(i_clk, ori_img, k, img_received, res_img, processing_state);
   -- ps_8bit <= "0000000" & processing_state;
-  uart_module : uart port map(i_clk, i_Rx, addr, o_Tx, ori_img, rx_busy, tx_busy, sevsegdata);
+  uart_module : uart port map(i_clk, i_Rx, addr, processing_state, res_img, o_Tx, ori_img, rx_busy, tx_busy, img_received, sevsegdata);
 
   -- data_sig <= uart_received&uart_received&uart_received;
   -- ram_inst : ram PORT MAP (

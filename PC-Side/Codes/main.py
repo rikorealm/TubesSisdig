@@ -1,105 +1,121 @@
-# =================================================================
-#   _      _ _                    _           
-#  | |    (_) |                  (_)          
-#  | |     _| |__  _ __ __ _ _ __ _  ___  ___ 
-#  | |    | | '_ \| '__/ _` | '__| |/ _ \/ __|
-#  | |____| | |_) | | | (_| | |  | |  __/\__ \
-#  |______|_|_.__/|_|  \__,_|_|  |_|\___||___/
-# =================================================================
+# === LIBRARY ===
 # Display
 import os
+
 # Image Input
 from PIL import Image
 import numpy as np
+
 # Sending UART
 import time
+
+# plotting image
+from matplotlib import pyplot as plt
+
+# serial coms
 import serial
 import serial.tools.list_ports
 ports = serial.tools.list_ports.comports()
 
-# Functions
-def numberparser(number):
-    number = str(number)
-    numberlist = list(number)
-    integer_numberlist = [int(numberlist) for numberlist in numberlist]
-    print(integer_numberlist)
 
-# =================================================================
-#   _____                              _____                   _   
-#  |_   _|                            |_   _|                 | |  
-#    | |  _ __ ___   __ _  __ _  ___    | |  _ __  _ __  _   _| |_ 
-#    | | | '_ ` _ \ / _` |/ _` |/ _ \   | | | '_ \| '_ \| | | | __|
-#   _| |_| | | | | | (_| | (_| |  __/  _| |_| | | | |_) | |_| | |_ 
-#  |_____|_| |_| |_|\__,_|\__, |\___| |_____|_| |_| .__/ \__,_|\__|
-#                          __/ |                  | |              
-#                         |___/                   |_|              
-# =================================================================
-while True: 
-     os.system("cls")
-     # Buka gambar dan konversi ke mode RG
-     print("Presets")
-     print("1. Creepy.png (5x5 pixels)")
-     print("2. Memario.png (10x10 pixels)")
-     print("3. car.png (4:3)")
-     print("4. jamur.png (6:4)")
-     print("5. stiv.png (4:6)")
-     # image_path = str(input("Input Image Path = "))
-     image_choice = int(input("Input Preset Number = "))
-     image_path = ""
-     if image_choice == 1:
-          image_path = '\"PC-Side\Test Codes\Creepy.png\"'
-          image = Image.open("PC-Side/Test Codes/Creepy.png").convert("RGB")
-     elif image_choice == 2:
-          image_path = '\"PC-Side\Test Codes\Memario.png\"'
-          image = Image.open("PC-Side/Test Codes/Memario.png").convert("RGB")     
-     elif image_choice == 3:
-          image_path = '\"PC-Side\Test Codes\car.png\"'
-          image = Image.open("PC-Side/Test Codes/car.png").convert("RGB")
-     elif image_choice == 4:
-          image_path = '\"PC-Side\Test Codes\jamur.png\"'
-          image = Image.open("PC-Side/Test Codes/jamur.png").convert("RGB")
-     elif image_choice == 5:
-          image_path = '\"PC-Side\Test Codes\stiv.png\"'
-          image = Image.open("PC-Side/Test Codes/stiv.png").convert("RGB")
+# === FUNCTION ===
 
-     # image = Image.open(image_path).convert("RGB")
+# convert binary to bit
+def binaryToDecimal(binary):
+ 
+    decimal, i = 0, 0
+    while(binary != 0):
+        dec = binary % 10
+        decimal = decimal + dec * pow(2, i)
+        binary = binary//10
+        i += 1
+    return decimal
+    # print(decimal)
 
-     # Dapatkan ukuran gambar
-     width, height = image.size
-     max_width = 100
-     max_height = 100
+# bit to decimal converter for each data
+# input row collumn array 1x3
+def binarytoDecimalMatrix(matrix):
+    temp_matrix = []
+    for row in matrix:
+        temp_element = []
+        for element in row:
+            temp_rgb = []
+            for rgb in element:
+                intrgb = int(rgb)
+                decrgb = binaryToDecimal(intrgb)
+                temp_rgb.append(decrgb)
+            temp_element.append(temp_rgb)
+        temp_matrix.append(temp_element)
+    return temp_matrix
 
-     if not(0 < width <= max_width and 0 < height <= max_height):
-          print("Error : width and height not compatible")
-     else: 
-          break
-# Buat matriks untuk menyimpan nilai RGB
-# pixel_matrix = np.zeros((height, width, 3), dtype=int)
-# print(pixel_matrix)
+# divide matrix by row
+def rowparser(matrix, width):
+    temp_row = []
+    temp_matrix = []
+    i = 0
+    for element in matrix:
+        temp_row.append(element)
+        i += 1
+        if i >= width:
+            temp_matrix.append(temp_row)
+            temp_row = []
+            i = 0
+    return temp_matrix
 
-imgdata_lokal = []
+# flatten array
+def flatten(matrix):
+    flatten = []
+    for row in matrix:
+        for column in row:
+            for element in column:
+                flatten.append(element)
+    return flatten
 
-# Iterasi setiap piksel menggunakan for loop
-for y in range(height):
-    for x in range(width):
-        r, g, b = image.getpixel((x, y))  # Mendapatkan nilai RGB
-        bin_r = format(int(r), '08b')
-        bin_g = format(int(g), '08b')
-        bin_b = format(int(b), '08b')
-        matrix_rwrgb = [x, y, bin_r, bin_g, bin_b]
-        imgdata_lokal.append(matrix_rwrgb)
+# Send binary
+def write(data : int):    
+    if 0 <= data <= 255:
+          SerialObj.write(bytes([data]))
 
-# membuktikan nilai data gambar
-# print(imgdata_lokal)
+# === ALGORITHM ===
 
-# ==============================================================
-#   __  __       _        _        ____         __  __          
-#  |  \/  |     | |      (_)      |  _ \       / _|/ _|         
-#  | \  / | __ _| |_ _ __ ___  __ | |_) |_   _| |_| |_ ___ _ __ 
-#  | |\/| |/ _` | __| '__| \ \/ / |  _ <| | | |  _|  _/ _ \ '__|
-#  | |  | | (_| | |_| |  | |>  <  | |_) | |_| | | | ||  __/ |   
-#  |_|  |_|\__,_|\__|_|  |_/_/\_\ |____/ \__,_|_| |_| \___|_|   
-# ==============================================================
+con_verify = False
+con_serial = True
+
+# running home menu until the right choice is picked
+while True:
+    # to clear screen
+    os.system('cls')
+    print("=== Presets Images ===")
+    print("1. Creepy.png (5x5 pixels)")
+    print("2. Memario.png (10x10 pixels)")
+    print("3. car.png (4:3)")
+    print("4. jamur.png (6:4)")
+    print("5. stiv.png (4:6)")
+    print("6. Rainbow (8x8)")
+    # to pick which image to choose
+    image_choice = int(input("Input Preset Image Number = "))
+    if image_choice == 1:
+        image = Image.open("TubesSisdig\PC-Side\Images\Creepy.png").convert("RGB")
+    elif image_choice == 2:
+        image = Image.open("PC-Side\Images\Memario.png").convert("RGB")
+    elif image_choice == 3:
+        image = Image.open("PC-Side\Images\car.png").convert("RGB")
+    elif image_choice == 4:
+        image = Image.open("PC-Side\Images\jamur.png").convert("RGB")
+    elif image_choice == 5:
+        image = Image.open("PC-Side\Images\stiv.png").convert("RGB")
+    elif image_choice == 6:
+        image = Image.open("PC-Side\Codes\mrainbow.png").convert("RGB")
+
+    # get data for width and height of picture
+    width, height = image.size
+    max_width = 100
+    max_height = 100
+
+    if not(0 < width <= max_width and 0 < height <= max_height):
+        print("Error : width and height not compatible")
+    else: 
+        break
 
 # Serial Communication
 # Python code transmits a byte to Arduino /Microcontroller
@@ -119,32 +135,105 @@ for number, letter in enumerate(portar):
 serpick = int(input("Input Choice Number = "))
 SerialObj = serial.Serial(portar[serpick-1])
                                     # ttyUSBx format on Linux
-SerialObj.baudrate = 9600           # set Baud rate to 9600
+SerialObj.baudrate = 115200           # set Baud rate to 9600
 SerialObj.bytesize = 8              # Number of data bits = 8
 SerialObj.parity  ='N'              # No parity
 SerialObj.stopbits = 1              # Number of Stop bits = 1
+# SerialObj.close()
 
-SerialObj.read()
+# find pixel data for the picture
+imgdata_lokal = []
 
-# UART COMMUNICATION
-# Send Width and Height
-parsed_width = numberparser(width)
-parsed_height = numberparser(height)
-for parsed_width in parsed_width:
-     SerialObj.write(parsed_width)
-for parsed_height in parsed_height:
-     SerialObj.write(parsed_height)
-
-# Send Image Data
 for y in range(height):
     for x in range(width):
-        r, g, b = image.getpixel((x, y))  # Mendapatkan nilai RGB
-        bin_r = format(int(r), '08b')
-        bin_g = format(int(g), '08b')
-        bin_b = format(int(b), '08b')
-        temp_datargb = [bin_r, bin_g, bin_b]
-        for j in range(0,3):
-            SerialObj.write(temp_datargb[j])
-                
-# CLose UART COMMS
-SerialObj.close()
+        r, g, b = image.getpixel((x, y))
+        matrix_rgb = [r, g, b]
+        imgdata_lokal.append(matrix_rgb)
+
+print(imgdata_lokal)
+# os.wait()
+# imgdata_lokal = rowparser(imgdata_lokal, width)
+
+# image scaler
+# canvas size (8 x 8)
+# scaled_width = 8
+# scaled_height = 8
+# imgdata_scaled = [[[0, 0, 0] for i in range(0, scaled_width)] for j in range (0, scaled_height)]
+
+# original_width = width
+# original_height = height
+# final_width = scaled_width
+# final_height = scaled_height
+
+# width_ratio = final_width/original_width
+# height_ratio = final_height/original_height
+
+# # condition
+# test_ww = original_width * width_ratio
+# test_hw = original_height * width_ratio
+# test_wh = original_width * height_ratio
+# test_hh = original_height * height_ratio
+
+# if test_ww < final_width and test_hw < final_width:
+#     ratio = int(width_ratio)
+# elif test_wh < final_width and test_hh < final_width:
+#     ratio = int(height_ratio)
+# else:
+#     ratio = int(width_ratio)
+
+# # output scaling algorithm
+# expected_width = int(original_width * ratio)
+# expected_height = int(original_height *ratio)
+# center_width = int((final_width - expected_width) / 2)
+# center_height = int((final_height - expected_height) / 2)
+# # expected_img_array = np.zeros((expected_height, expected_width, channels), dtype=original_img_array.dtype)
+
+# for heightnow in range (0, expected_height, ratio):
+#     for widthnow in range (0, expected_width, ratio):
+#         original_height_now = int((heightnow/ratio))
+#         original_width_now = int((widthnow/ratio))
+#         # print(original_height_now, original_width_now)
+#         for i in range (heightnow, heightnow + ratio):
+#             for j in range (widthnow, widthnow + ratio):
+#                 imgdata_scaled[center_height + i][center_width + j] = imgdata_lokal[original_height_now][original_width_now]
+
+# # sending and receiving from fpga (1 pixel per proses)
+# flatten_imgdata_scaled = flatten(imgdata_scaled)
+imgdata_send = imgdata_lokal
+temp_arr = []
+imgdata_edited = []
+for i in range(0, 64):
+    r_send = imgdata_lokal[i][0]
+    g_send = imgdata_lokal[i][1]
+    b_send = imgdata_lokal[i][2]
+#     print(r_send)
+    SerialObj.write(r_send)
+    SerialObj.write(g_send)
+    SerialObj.write(b_send)
+# os.wait()
+
+for j in range (0, 64):
+    element = []
+    for z in range(3):
+        e = int(SerialObj.read().hex(), 16)
+        element.append(e)
+    imgdata_edited.append(element)
+ 
+# image data display
+# print(imgdata_scaled)
+print(imgdata_edited)
+
+imgdata_final = rowparser(imgdata_edited, 8)
+plt.imshow(imgdata_final)
+plt.show()
+
+# Verification Data
+# if con_verify == True:
+#     print()
+#     print("=== VERIFICATION ===")
+#     print("image data lokal")
+#     for element in imgdata_lokal:
+#         print(element)
+#     print("parsed data")
+#     for element in imgdata_final:
+#         print(element)

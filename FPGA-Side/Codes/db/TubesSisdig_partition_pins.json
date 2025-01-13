@@ -20,35 +20,19 @@
 					"strict" : false
 				},
 				{
-					"name" : "sevseg[0]",
+					"name" : "o_led1",
 					"strict" : false
 				},
 				{
-					"name" : "sevseg[1]",
-					"strict" : false
-				},
-				{
-					"name" : "sevseg[2]",
-					"strict" : false
-				},
-				{
-					"name" : "sevseg[3]",
-					"strict" : false
-				},
-				{
-					"name" : "sevseg[4]",
-					"strict" : false
-				},
-				{
-					"name" : "sevseg[5]",
-					"strict" : false
-				},
-				{
-					"name" : "sevseg[6]",
+					"name" : "o_led2",
 					"strict" : false
 				},
 				{
 					"name" : "o_buzz",
+					"strict" : false
+				},
+				{
+					"name" : "o_Tx",
 					"strict" : false
 				},
 				{

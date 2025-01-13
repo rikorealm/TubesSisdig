@@ -89,6 +89,11 @@ begin
 					std_logic_vector(to_unsigned(rgb(1), 8))
 					&
 					std_logic_vector(to_unsigned(rgb(2), 8));
+				if mem_addr >= 63 then
+					o_pixel_receive <= '1';
+				-- else
+				-- 	o_pixel_receive <= '0';
+				end if;
 			end if;
 			
 		end if;

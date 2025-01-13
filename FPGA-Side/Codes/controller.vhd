@@ -23,8 +23,7 @@ entity controller is
         tx_busy : in std_logic;
         en_buzz : out boolean;
         source_selector : out std_logic;
-        processing_state : out std_logic := '0'; -- 0 or 1
-        o_led1, o_led2, o_led3, o_led4 : out std_logic;
+        -- o_led1, o_led2, o_led3, o_led4 : out std_logic;
         mem_addr : out std_logic_vector(5 downto 0) := "000000"
     );
 end controller;
@@ -58,6 +57,6 @@ begin
         end if;
     end process;
 
-    processing_state <= '0';
+    -- processing_state <= '0';
     mem_addr <= std_logic_vector(to_unsigned(k, 6));
 end fsm;
