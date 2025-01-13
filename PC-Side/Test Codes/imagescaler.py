@@ -10,7 +10,7 @@ from PIL import Image
 # stiv 4:6
 
 # input image
-img = Image.open("PC-Side\Test Codes\car.png")  # Replace with your image path
+img = Image.open("TubesSisdig\PC-Side\Images\Creepy.png")  # Replace with your image path
 original_img_array = np.array(img)
 print(original_img_array)
 original_height, original_width, channels = original_img_array.shape

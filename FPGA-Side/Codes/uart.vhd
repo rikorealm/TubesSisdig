@@ -1,153 +1,122 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-
-package t_mem_uart_pkg is
-	type t_MEM_UART is array (0 to 3) of std_logic_vector(7 downto 0);
-end package;
-
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 use work.all_pkg.all;
-use work.t_mem_uart_pkg.all;
 
 entity uart is
-	port (
-		i_CLOCK		:	in std_logic;
-		i_DATA_send		:	in std_logic_vector(7 downto 0);
-		o_TX		:	out std_logic	:='1';
-		i_RX		:	in std_logic;
-		o_DATA_recv		:	out std_logic_vector(7 downto 0);
-		-- i_SEND		:	in std_logic;
-		-- i_DISPLAY	:	in	std_logic;
-		-- i_log_ADDR	:	in std_logic_vector(7 downto 0);
-		-- o_sig_CRRP_DATA		:	out std_logic;
-		o_sig_RX_BUSY		:	out std_logic;
-		o_sig_TX_BUSY		:	out std_logic;
-		sevseg_data : out sevsegdata_arr
+	generic (
+		-- PictureMaxSize : std_logic_vector(18 downto 0) := "1001011000000000000"
+		-- PictureMaxSize : std_logic_vector(13 downto 0) := "10011100010000"
+		PictureMaxSize : std_logic_vector(1 downto 0) := "11"
 	);
+    port (
+        i_CLOCK       : in  std_logic;
+        i_RX          : in  std_logic;
+		i_ADDR		  : in  std_logic_vector(5 downto 0);
+        o_TX          : out std_logic := '1';
+        o_DATA_recv   : out img_mem;
+        o_sig_RX_BUSY : out std_logic;
+        o_sig_TX_BUSY : out std_logic;
+        sevseg_data   : out sevsegdata_arr
+    );
 end uart;
 
-
 architecture behavior of uart is
-	--- SIGNALS
-	signal r_TX_DATA	:	std_logic_vector(7 downto 0) := (others => '1')	;
-	signal s_TX_START	:	std_logic := '0'								;
-	signal s_TX_BUSY	:	std_logic										;
 
-	signal s_rx_data	:	std_logic_vector	(7 downto 0)				;
-	
-	signal s_log_addr		:	std_logic_vector (7 downto 0)	:= (others => '0')	;
-	signal s_button_counter	:	integer range 0 to 50000000	:= 0					;
-	signal s_allow_press	: std_logic	:= '0'										;
-	
-	signal o_sig_CRRP_DATA	: std_logic := '0';
-	signal s_mem : wh_arr;
-	signal s_pixel_receive : std_logic;
-	-- signal o_sig_RX_BUSY   : std_logic;
+    -- Signals for UART components
+    signal s_RX_START       : std_logic := '1';
+    signal s_TX_START       : std_logic := '0';
+    signal s_RX_BUSY        : std_logic := '0';
+    signal s_TX_BUSY        : std_logic := '0';
+    signal s_rx_data        : img_mem;
+	signal s_tx_data		: std_logic_vector(7 downto 0) := (others => '1');
+    
+    signal s_pixel_receive  : std_logic := '0';
+    signal s_pixel_transmit : std_logic := '0';
 
-	--- COMPONENTS
-	component uart_tx is
-	port(
+	signal s_mem : std_logic_vector(7 downto 0) := (others => '0');
+
+    -- Components
+    component uart_tx is
+        port (
+            i_CLOCK         : in  std_logic;
+            i_START         : in  std_logic;
+			i_DATA			: in std_logic_vector(7 downto 0);
+            o_BUSY          : out std_logic;
+            i_pixel_receive : in  std_logic;
+            o_pixel_transmit: out std_logic;
+            o_TX_LINE       : out std_logic := '1'
+        );
+    end component;
+
+    component uart_rx is
+        port (
+            i_CLOCK         : in  std_logic;
+            i_RX            : in  std_logic;
+            i_START         : in  std_logic;
+            o_DATA			: out img_mem;
+			i_log_ADDR		: in  std_logic_vector(5 downto 0);
+            i_pixel_transmit: in  std_logic;
+            o_sig_CRRP_DATA : out std_logic := '0';
+            o_BUSY          : out std_logic;
+            o_pixel_receive : out std_logic
+        );
+    end component;
+
 	
-		i_CLOCK	:	in std_logic							;
-		i_START	:	in std_logic							;
-		o_BUSY	:	out std_logic							;
-		i_DATA	:	in std_logic_vector(7 downto 0)	;
-		o_TX_LINE:	out std_logic	:= '1'
-	
-	);
-	end component;
-	
-	component uart_rx is
-	port(
-		i_CLOCK			:	in std_logic;
-		i_RX			:	in std_logic;
-		o_DATA			:	out std_logic_vector(7 downto 0)	;
-		i_log_ADDR		:	in std_logic_vector( 7 downto 0 )	;
-		o_sig_CRRP_DATA	:	out std_logic := '0'			;	---Currupted data flag
-		o_BUSY			:	out std_logic;
-		o_pixel_receive : 	out std_logic;
-		o_mem : out wh_arr
-	);
-	end component;
-	
+
 begin
 	
-	--- Transmitter Module
-	u_TX	:	uart_tx port map(
-	
-		i_CLOCK	=>	i_CLOCK		,
-		i_START	=>	s_TX_START	,
-		o_BUSY	=>	s_TX_BUSY	,
-		i_DATA	=>	r_TX_DATA	,
-		o_TX_LINE	=>	o_TX
-	);
+    -- UART Receiver Instance
+    u_RX : uart_rx port map (
+        i_CLOCK         => i_CLOCK,
+        i_RX            => i_RX,
+        i_START         => s_RX_START,
+        o_DATA          => o_DATA_recv,
+        i_log_ADDR      => i_ADDR,
+        i_pixel_transmit=> s_pixel_transmit,
+        o_sig_CRRP_DATA => open,
+        o_BUSY          => s_RX_BUSY,
+        o_pixel_receive => s_pixel_receive
+    );
 
-	o_sig_TX_BUSY <= s_TX_BUSY;
-	
-	--- Receiver Module
-	u_RX	:	uart_rx port map(
-	
-		i_CLOCK				=>	i_CLOCK				,
-		i_RX				=>	i_RX				,
-		o_DATA				=>	s_rx_data			,
-		i_log_ADDR			=>	s_log_addr			,
-		o_sig_CRRP_DATA		=>	o_sig_CRRP_DATA		,
-		o_BUSY				=>	o_sig_RX_BUSY		,
-		o_pixel_receive 	=> s_pixel_receive,
-		o_mem => s_mem
-	);
-	
-	o_DATA_recv <= s_rx_data;
-	sevseg_data <= (
-		0, 0, 0, 0
-	);
-	-- sevseg_data <= (
-	-- 	0,
-	-- 	to_integer(unsigned(s_mem(2)(23 downto 16))) / 100 mod 10,
-	-- 	to_integer(unsigned(s_mem(2)(23 downto 16))) / 10 mod 10,
-	-- 	to_integer(unsigned(s_mem(2)(23 downto 16))) / 1 mod 10
-	-- );
-	-- sevseg_data <= (
-	-- 	to_integer(unsigned(s_mem(0))) - 48,
-	-- 	to_integer(unsigned(s_mem(1))) - 48,
-	-- 	to_integer(unsigned(s_mem(2))) - 48,
-	-- 	to_integer(unsigned(s_mem(3))) - 48
-	-- );
-	-- sevseg_data <= s_mem;
+    -- -- UART Transmitter Instance
+    u_TX : uart_tx port map (
+        i_CLOCK         => i_CLOCK,
+        i_START         => s_TX_START,
+		i_DATA			=> s_tx_data,
+        o_BUSY          => s_TX_BUSY,
+        i_pixel_receive => s_pixel_receive,
+        o_pixel_transmit=> s_pixel_transmit,
+        o_TX_LINE       => o_TX
+    );
 
-	-- p_button		:	process(i_CLOCK) begin
-	-- 	if(rising_edge(i_CLOCK)) then
-	-- 		if(s_button_counter = 49999900) then
-	-- 			s_button_counter <= 0;
-	-- 			s_allow_press <= '1';
-	-- 		else
-	-- 			s_button_counter <= s_button_counter + 1;
-	-- 			s_allow_press <= '0';
-	-- 		end if;
+	-- getPixel : process(i_CLOCK)
+	-- begin
+	-- 	if rising_edge(i_CLOCK) then
+
 	-- 	end if;
 	-- end process;
-	-- - end of delay process
 
-	-- getWidthHeight	:	process	(i_CLOCK) begin
-	-- 	if(rising_edge(i_CLOCK)) then
-			
-	-- 	end if;
-	-- end process;
-	
-	--- process: untuk melakukan pengiriman data. input data diatur dari switch. perintah pengiriman menggunakan button key_0.
-	p_TRANSMIT	:	process(i_CLOCK) begin
-		if(rising_edge(i_CLOCK)) then
-			if(s_TX_BUSY = '0') then
-				r_TX_DATA	<=	"10101010"; --i_DATA_send;
-				s_TX_START	<=	'1';
-			else
-				s_TX_START <= '0';
-			end if;
-		end if;	---rising_edge(i_CLOCK)
-	
+    -- o_DATA_recv   <= s_rx_data;
+    o_sig_RX_BUSY <= s_RX_BUSY;
+    o_sig_TX_BUSY <= s_TX_BUSY;
+
+
+
+    transmission : process(i_CLOCK)
+    begin
+		if rising_edge(i_CLOCK) then
+			-- if Sendi calc ok, proceed
+			if o_six_TX_BUSY = '1' then
+				o_TX_START = '0';
+				if sinyalsendi = '1' and idx < 64 then
+					idx <= idx + 1;
+				end if;
+			end if;	
+			i_DATA <= imgmem(idx)
+			-- Increm idx for s_tx_data (data yg perlu dikirim, 8 bit), ambil datanya dari signal baru dgn jenis imgmem, data baru ini dikirim dari multiplier sendi
+		end if;
 	end process;
-
+	
 end behavior;
