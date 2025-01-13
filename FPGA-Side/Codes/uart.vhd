@@ -24,12 +24,12 @@ end uart;
 architecture behavior of uart is
 
     -- Signals for UART components
-    signal r_TX_DATA        : std_logic_vector(7 downto 0) := (others => '1');
     signal s_RX_START       : std_logic := '1';
     signal s_TX_START       : std_logic := '0';
     signal s_RX_BUSY        : std_logic := '0';
     signal s_TX_BUSY        : std_logic := '0';
     signal s_rx_data        : img_mem;
+	signal s_tx_data		: std_logic_vector(7 downto 0) := (others => '1');
     
     signal s_pixel_receive  : std_logic := '0';
     signal s_pixel_transmit : std_logic := '0';
@@ -41,6 +41,7 @@ architecture behavior of uart is
         port (
             i_CLOCK         : in  std_logic;
             i_START         : in  std_logic;
+			i_DATA			: in std_logic_vector(7 downto 0);
             o_BUSY          : out std_logic;
             i_pixel_receive : in  std_logic;
             o_pixel_transmit: out std_logic;
@@ -80,14 +81,15 @@ begin
     );
 
     -- -- UART Transmitter Instance
-    -- u_TX : uart_tx port map (
-    --     i_CLOCK         => i_CLOCK,
-    --     i_START         => s_TX_START,
-    --     o_BUSY          => s_TX_BUSY,
-    --     i_pixel_receive => s_pixel_receive,
-    --     o_pixel_transmit=> s_pixel_transmit,
-    --     o_TX_LINE       => o_TX
-    -- );
+    u_TX : uart_tx port map (
+        i_CLOCK         => i_CLOCK,
+        i_START         => s_TX_START,
+		i_DATA			=> s_tx_data,
+        o_BUSY          => s_TX_BUSY,
+        i_pixel_receive => s_pixel_receive,
+        o_pixel_transmit=> s_pixel_transmit,
+        o_TX_LINE       => o_TX
+    );
 
 	-- getPixel : process(i_CLOCK)
 	-- begin
@@ -100,11 +102,12 @@ begin
     o_sig_RX_BUSY <= s_RX_BUSY;
     o_sig_TX_BUSY <= s_TX_BUSY;
 
-    -- sevseg_data   <= (
-    --     0,
-    --     (to_integer(unsigned(s_rx_data(23 downto 16))) / 100) mod 10,
-    --     (to_integer(unsigned(s_rx_data(15 downto 8))) / 10) mod 10,
-    --     (to_integer(unsigned(s_rx_data(7 downto 0)))) mod 10
-    -- );
+    transmission : process(i_CLOCK)
+    begin
+		if rising_edge(i_CLOCK) then
+			-- if Sendi calc ok, proceed
+			-- Increm idx for s_tx_data (data yg perlu dikirim, 8 bit), ambil datanya dari signal baru dgn jenis imgmem, data baru ini dikirim dari multiplier sendi
+		end if;
+	end process;
 	
 end behavior;

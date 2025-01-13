@@ -7,6 +7,7 @@ entity uart_tx is
 	port (
 		i_CLOCK	:	in std_logic;
 		i_START	:	in std_logic;
+		i_DATA	:	in std_logic_vector(7 downto 0);
 		o_BUSY	:	out std_logic;
 		i_pixel_receive : in std_logic;
 		o_pixel_transmit : out std_logic := '0';
@@ -31,7 +32,7 @@ begin
 			if (s_TRANSMITING_FLAG = '0' and i_START = '1') then
 				r_DATA_BUFFER(0)                <= '0';
 				r_DATA_BUFFER(9)                <= '1';
-				r_DATA_BUFFER(8 downto 1)       <= "11111111";
+				r_DATA_BUFFER(8 downto 1)       <= i_DATA;
 				s_TRANSMITING_FLAG              <= '1';
 				o_BUSY                          <= '1';
 				
@@ -54,16 +55,6 @@ begin
 						r_INDEX                 <= 0;
 						s_TRANSMITING_FLAG      <= '0';
 						o_BUSY                  <= '0';
-						if (pixval_ctr < 2) then
-							pixval_ctr <= pixval_ctr + 1;
-							-- pixel_transmit <= '0';
-						else
-							pixval_ctr <= 0;
-							pixel_transmit <= '1';
-						end if;
-						-- Update r_DATA_BUFFER immediately when pixval_ctr changes
-						-- r_DATA_BUFFER(8 downto 1) <= std_logic_vector(to_unsigned(i_RGB(pixval_ctr), 8));
-						r_DATA_BUFFER(8 downto 1) <= "11111111";
 					end if;
 				end if;
 			end if;
