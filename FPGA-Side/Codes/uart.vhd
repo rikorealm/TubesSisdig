@@ -1,148 +1,137 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.all_pkg.all;
 
 entity uart is
-	port (
-		i_CLOCK		:	in std_logic;
-		i_DATA_send		:	in std_logic_vector(7 downto 0);
-		o_TX		:	out std_logic	:='1';
-		i_RX		:	in std_logic;
-		o_DATA_recv		:	out std_logic_vector(7 downto 0)
-		-- i_SEND		:	in std_logic;
-		-- i_DISPLAY	:	in	std_logic;
-		-- i_log_ADDR	:	in std_logic_vector(7 downto 0);
-		-- o_sig_CRRP_DATA		:	out std_logic;
-		-- o_sig_RX_BUSY		:	out std_logic;
-		-- o_sig_TX_BUSY		:	out std_logic;
-		);
+	generic (
+		-- PictureMaxSize : std_logic_vector(18 downto 0) := "1001011000000000000"
+		-- PictureMaxSize : std_logic_vector(13 downto 0) := "10011100010000"
+		PictureMaxSize : std_logic_vector(1 downto 0) := "11"
+	);
+    port (
+        i_CLOCK       : in  std_logic;
+        i_RX          : in  std_logic;
+		i_ADDR		  : in  std_logic_vector(5 downto 0);
+		i_processing  : in 	std_logic;
+		i_image		  : in img_mem;
+        i_send        : in std_logic;
+        o_TX          : out std_logic := '1';
+        o_image		  : out img_mem;
+        o_sig_RX_BUSY : out std_logic;
+        o_sig_TX_BUSY : out std_logic;
+		o_img_received : out std_logic;
+        o_img_transmitted : out std_logic := '0';
+        sevseg_data   : out sevsegdata_arr
+    );
 end uart;
 
-
 architecture behavior of uart is
-	--- SIGNALS
-	signal r_TX_DATA	:	std_logic_vector(7 downto 0) := (others => '1')	;
-	signal s_TX_START	:	std_logic := '0'								;
-	signal s_TX_BUSY	:	std_logic										;
 
-	signal s_rx_data	:	std_logic_vector	(7 downto 0)				;
-	
-	signal s_log_addr		:	std_logic_vector (7 downto 0)	:= (others => '0')	;
-	signal s_button_counter	:	integer range 0 to 50000000	:= 0					;
-	signal s_allow_press	: std_logic	:= '0'										;
-	
-	signal o_sig_CRRP_DATA	: std_logic := '0';
-	signal o_sig_RX_BUSY   : std_logic;
+    -- Signals for UART components
+    signal s_RX_START       : std_logic := '1';
+    signal s_TX_START       : std_logic := '0';
+    signal s_RX_BUSY        : std_logic := '0';
+    signal s_TX_BUSY        : std_logic := '0';
+    signal s_rx_data        : img_mem;
+	signal s_tx_data		: std_logic_vector(7 downto 0) := (others => '1');
+    
+    signal s_pixel_receive  : std_logic := '0';
+    signal s_pixel_transmit : std_logic := '0';
 
-	--- COMPONENTS
-	component uart_tx is
-	port(
-	
-		i_CLOCK	:	in std_logic							;
-		i_START	:	in std_logic							;
-		o_BUSY	:	out std_logic							;
-		i_DATA	:	in std_logic_vector(7 downto 0)	;
-		o_TX_LINE:	out std_logic	:= '1'
-	
-	);
-	end component;
-	
-	component uart_rx is
-	port(
+	signal s_mem : std_logic_vector(7 downto 0) := (others => '0');
 
-		i_CLOCK			:	in std_logic								;
-		i_RX			:	in std_logic								;
-		o_DATA			:	out std_logic_vector(7 downto 0)			;
-		i_log_ADDR		:	in std_logic_vector( 7 downto 0 )			;
-		o_sig_CRRP_DATA:	out std_logic := '0'						;
-		o_BUSY			:	out std_logic
+	signal s_mem_addr : integer range 0 to 63 := 0;
 
-	);
-	end component;
+	signal pixval_count : integer range 0 to 2 := 0;
+
+    -- Components
+    component uart_tx is
+        port (
+            i_CLOCK         : in  std_logic;
+            i_START         : in  std_logic;
+			i_DATA			: in  img_mem;
+            o_BUSY          : out std_logic;
+            i_pixel_receive : in  std_logic;
+            o_pixel_transmit: out std_logic;
+            o_TX_LINE       : out std_logic := '1'
+        );
+    end component;
+
+    component uart_rx is
+        port (
+            i_CLOCK         : in  std_logic;
+            i_RX            : in  std_logic;
+            i_START         : in  std_logic;
+            o_DATA			: out img_mem;
+			i_log_ADDR		: in  std_logic_vector(5 downto 0);
+            i_pixel_transmit: in  std_logic;
+            o_sig_CRRP_DATA : out std_logic := '0';
+            o_BUSY          : out std_logic;
+            o_pixel_receive : out std_logic
+        );
+    end component;
+
 	
+
 begin
 	
-	-- --- Transmitter Module
-	-- u_TX	:	uart_tx port map(
-	
-	-- 	i_CLOCK	=>	i_CLOCK		,
-	-- 	i_START	=>	s_TX_START	,
-	-- 	o_BUSY	=>	s_TX_BUSY	,
-	-- 	i_DATA	=>	r_TX_DATA	,
-	-- 	o_TX_LINE	=>	o_TX
-	
-	-- );
-	
-	-- --- Receiver Module
-	u_RX	:	uart_rx port map(
-	
-		i_CLOCK				=>	i_CLOCK				,
-		i_RX				=>	i_RX				,
-		o_DATA				=>	s_rx_data			,
-		i_log_ADDR			=>	s_log_addr			,
-		o_sig_CRRP_DATA		=>	o_sig_CRRP_DATA		,
-		o_BUSY				=>	o_sig_RX_BUSY
-		
-	);
-	
-	o_DATA_recv <= s_rx_data;
-	-- p_button		:	process(i_CLOCK) begin
-	-- 	if(rising_edge(i_CLOCK)) then
-	-- 		if(s_button_counter = 49999900) then
-	-- 			s_button_counter <= 0;
-	-- 			s_allow_press <= '1';
-	-- 		else
-	-- 			s_button_counter <= s_button_counter + 1;
-	-- 			s_allow_press <= '0';
-	-- 		end if;
+    -- UART Receiver Instance
+    u_RX : uart_rx port map (
+        i_CLOCK         => i_CLOCK,
+        i_RX            => i_RX,
+        i_START         => s_RX_START,
+        o_DATA          => s_rx_data,
+        i_log_ADDR      => i_ADDR,
+        i_pixel_transmit=> s_pixel_transmit,
+        o_sig_CRRP_DATA => open,
+        o_BUSY          => s_RX_BUSY,
+        o_pixel_receive => s_pixel_receive
+    );
+
+    -- -- UART Transmitter Instance
+    u_TX : uart_tx port map (
+        i_CLOCK         => i_CLOCK,
+        i_START         => s_TX_START,
+		i_DATA			=> i_image,
+        o_BUSY          => s_TX_BUSY,
+        i_pixel_receive => s_pixel_receive,
+        o_pixel_transmit=> s_pixel_transmit,
+        o_TX_LINE       => o_TX
+    );
+
+	-- getPixel : process(i_CLOCK)
+	-- begin
+	-- 	if rising_edge(i_CLOCK) then
+
 	-- 	end if;
 	-- end process;
-	-- - end of delay process
 
-	---	The transmission sub-routine chacks for avaliability to send something before sending it,
-	---everything else is handled internally.
-	--- process: untuk menampilkan data di RX Buffer. alamat buffer dipilih menggunakan switch. perintah display menggunakan button key_1.
-	-- p_DISPLAY_RX	:	process	(i_CLOCK) begin
-	-- 	if(rising_edge(i_CLOCK)) then
-	-- 		if(
-	-- 			i_DISPLAY = '0' and				--- Display button is pressed
-	-- 			s_allow_press = '1'				--- button is allowed to be pressed
-	-- 			) then
-	-- 			s_log_addr <= i_DATA;			---	set address of data that want to be display from RX buffer. 
-	-- 		end if;
-	-- 	end if;
-	-- end process;
-	-- --- end of process
-	
-	--- process: untuk melakukan pengiriman data. input data diatur dari switch. perintah pengiriman menggunakan button key_0.
-	-- p_TRANSMIT	:	process(i_CLOCK) begin
-	
-	-- 	if(rising_edge(i_CLOCK)) then
-	-- 		------------------------------------------------------------
-		
-	-- 		---	If possible, send the byte of data in the input.
-	-- 		if( 
-	-- 			i_SEND = '0' and 		----	Send button is pressed
-	-- 			s_TX_BUSY = '0' and 	----	transmitter is not busy / not transmitting
-	-- 			s_allow_press = '1'		----  	button is allowed to be pressed
-	-- 			) then 					----	Send message over if subcomponent "TX" is not busy
-			
-	-- 			r_TX_DATA	<=	i_DATA_send;									----Give subcomponent message
-	-- 			s_TX_START	<=	'1';									----Tell it to transmit
+    -- o_DATA_recv   <= s_rx_data;
+    o_sig_RX_BUSY <= s_RX_BUSY;
+    o_sig_TX_BUSY <= s_TX_BUSY;
 
-	-- 		else
-			
-	-- 			s_TX_START <= '0';									----If Subcomponent "TX" is busy, or key is not pressed, do not send
-				
-	-- 		end if;	---KEY(0) = '0' and s_TX_BUSY = '0'
-			
-	-- 		------------------------------------------------------------
-			
-		
-	-- 	end if;	---rising_edge(i_CLOCK)
-	
-	-- end process;
-	
-	------------------------------------------------------------
+	o_img_received <= s_pixel_receive;
+    o_img_transmitted <= s_pixel_transmit;
 
+    o_image <= s_rx_data;
+
+    sevseg_data <= (
+        0,
+        to_integer(unsigned(i_image(0)(23 downto 16))) / 100 mod 10,
+        to_integer(unsigned(i_image(0)(15 downto 8))) / 10 mod 10,
+        to_integer(unsigned(i_image(0)(7 downto 0))) mod 10
+    );
+
+    transmission : process(i_CLOCK, i_image, i_processing, pixval_count)
+    begin
+		if rising_edge(i_CLOCK) then
+			if s_TX_BUSY = '0' and i_processing = '1' and i_send = '0' and s_pixel_transmit = '0' then
+                s_TX_START <= '1';
+			else
+				s_TX_START <= '0';
+			end if;	
+		end if;
+	end process;
+	
 end behavior;

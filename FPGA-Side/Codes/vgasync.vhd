@@ -2,18 +2,18 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
 
-entity vgasync is
+entity vga_sync is
     port (
-        i_clk : in std_logic; --123MHz clock
-		i_btn : in std_logic;
+        clk : in std_logic; --123MHz clock
         HSYNC, VSYNC : out std_logic;
+        source : in std_logic;
         -- _vector(3 downto 0)
-        R, G, B : out std_logic;
-        led1, led2, led3, led4 : out std_logic
+        R, G, B : out std_logic_vector(7 downto 0)
+        -- led1, led2, led3, led4 : out std_logic
     );
-end vgasync;
+end vga_sync;
 
-architecture vgasyncprogram of vgasync is
+architecture vgasyncprogram of vga_sync is
     CONSTANT TH : INTEGER := 800;
     CONSTANT THB1 : INTEGER := 660;
     CONSTANT THB2 : INTEGER := 756;
@@ -43,30 +43,30 @@ architecture vgasyncprogram of vgasync is
 
     -- type State is (Red, Green, Blue, White, Black);
     -- signal state : State := W;
-    signal red, green, blue : std_logic;
+    signal red, green, blue : std_logic_vector(7 downto 0);
     signal b_led1, b_led2, b_led3, b_led4 : std_logic;
 begin
     video_on <= video_on_h AND video_on_v;
     HSYNC <= horiz_sync;
     VSYNC <= vert_sync;
 
-    process(i_clk)
+    process(clk)
     begin
         
-        if rising_edge(i_clk) then
-			if h_count = 320 or v_count = 240 then
-                red <= '1';
-                green <= '0';
-                blue <= '0';
-            elsif h_count = 240 or v_count = 320 then
-                red <= '0';
-                green <= '1';
-                blue <= '0';
-            else
-                red <= '1';
-                green <= '1';
-                blue <= '1';
-            end if;
+        if rising_edge(clk) then
+			-- if h_count = 320 or v_count = 240 then
+            --     red <= '1';
+            --     green <= '0';
+            --     blue <= '0';
+            -- elsif h_count = 240 or v_count = 320 then
+            --     red <= '0';
+            --     green <= '1';
+            --     blue <= '0';
+            -- else
+            --     red <= '1';
+            --     green <= '1';
+            --     blue <= '1';
+            -- end if;
 				
             if (h_count = TH - 1) then
                 h_count <= 0;
@@ -150,12 +150,12 @@ begin
             --     B <= '0';
             -- end if;
         end if;
-        led1 <= b_led1 and '0';
-        led2 <= b_led2 and '0';
-        led3 <= b_led3 and '0';
-        led4 <= b_led4 and '0';
-        R <= red and video_on;
-        G <= green and video_on;
-        B <= blue and video_on;
+        -- led1 <= b_led1 and '0';
+        -- led2 <= b_led2 and '0';
+        -- led3 <= b_led3 and '0';
+        -- led4 <= b_led4 and '0';
+        -- R <= red and video_on;
+        -- G <= green and video_on;
+        -- B <= blue and video_on;
     end process;
 end vgasyncprogram;

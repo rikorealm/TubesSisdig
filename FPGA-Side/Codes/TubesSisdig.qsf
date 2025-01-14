@@ -59,9 +59,6 @@ set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_location_assignment PIN_110 -to o_buzz
 set_location_assignment PIN_23 -to i_clk
 set_location_assignment PIN_100 -to i_IR
@@ -73,7 +70,7 @@ set_global_assignment -name ENABLE_OCT_DONE OFF
 set_global_assignment -name ENABLE_CONFIGURATION_PINS OFF
 set_global_assignment -name ENABLE_BOOT_SEL_PIN OFF
 set_global_assignment -name USE_CONFIGURATION_DEVICE ON
-set_global_assignment -name CYCLONEIII_CONFIGURATION_DEVICE AUTO
+set_global_assignment -name CYCLONEIII_CONFIGURATION_DEVICE EPCS4
 set_global_assignment -name CRC_ERROR_OPEN_DRAIN OFF
 set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
@@ -86,13 +83,40 @@ set_location_assignment PIN_87 -to o_led1
 set_location_assignment PIN_86 -to o_led2
 set_location_assignment PIN_85 -to o_led3
 set_location_assignment PIN_84 -to o_led4
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
-set_location_assignment PIN_133 -to dig1
-set_location_assignment PIN_135 -to dig2
-set_location_assignment PIN_136 -to dig3
-set_location_assignment PIN_137 -to dig4
+set_location_assignment PIN_133 -to dig[0]
+set_location_assignment PIN_135 -to dig[1]
+set_location_assignment PIN_136 -to dig[2]
+set_location_assignment PIN_137 -to dig[3]
+set_location_assignment PIN_128 -to sevseg[6]
+set_location_assignment PIN_124 -to sevseg[0]
+set_location_assignment PIN_126 -to sevseg[1]
+set_location_assignment PIN_132 -to sevseg[2]
+set_location_assignment PIN_129 -to sevseg[3]
+set_location_assignment PIN_125 -to sevseg[4]
+set_location_assignment PIN_121 -to sevseg[5]
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_location_assignment PIN_88 -to i_btn1
+set_location_assignment PIN_89 -to i_btn2
+set_location_assignment PIN_90 -to i_btn3
+set_location_assignment PIN_91 -to i_btn4
+set_global_assignment -name VHDL_FILE RGB_To_HSL.vhd
+set_global_assignment -name VHDL_FILE matrix_multiplier.vhd
+set_global_assignment -name VHDL_FILE uartctrl.vhd
+set_global_assignment -name VHDL_FILE matrixexpander.vhd
+set_global_assignment -name VHDL_FILE sevseg.vhd
+set_global_assignment -name VHDL_FILE vgasync.vhd
+set_global_assignment -name VHDL_FILE uart_tx.vhd
+set_global_assignment -name VHDL_FILE uart_rx.vhd
+set_global_assignment -name VHDL_FILE uart.vhd
+set_global_assignment -name VHDL_FILE sevenseg_decoder.vhd
+set_global_assignment -name VHDL_FILE imgprocessing.vhd
+set_global_assignment -name VHDL_FILE controller.vhd
 set_global_assignment -name QIP_FILE PLL25/synthesis/PLL25.qip
 set_global_assignment -name VHDL_FILE IR.vhd
 set_global_assignment -name VHDL_FILE clockmodifier.vhd
 set_global_assignment -name VHDL_FILE main.vhd
 set_global_assignment -name VHDL_FILE buzzer.vhd
+set_global_assignment -name QIP_FILE ram.qip
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

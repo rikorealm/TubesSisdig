@@ -5,12 +5,8 @@ entity ir_decoder is
     port (
 		clk : in std_logic;
       	i_ir : in std_logic;
-      	o_irFrame : out std_logic_vector (9 downto 0) := "0000000000"
-        -- clk : in std_logic;
-        -- i_ir : in std_logic;
-        -- frame : out std_logic_vector(9 downto 0) := "0000000000";
-        -- mode_selection : buffer integer := 0;
-        -- led1, led2, led3, led4 : buffer std_logic
+      	o_irFrame : out std_logic_vector (9 downto 0) := "0000000000";
+		change : out std_logic
     );
 end ir_decoder;
 
@@ -36,6 +32,8 @@ architecture behavior of ir_decoder is
 
 	-- Led
 	signal x_led1, x_led2, x_led3, x_led4 : std_logic := '1';
+
+	signal changestate : std_logic := '0';
 begin
     process(present_state, i_ir, started, decoded, failed, success)
 	begin
@@ -142,21 +140,12 @@ begin
 --					NB <= -1;
 				end if;
 			elsif(present_state=finish)then
-				--Recepcion completada, se actualiza el vector de salida.
 				o_irFrame<=data(9 downto 0);
---				x_led3 <= data(10);
---				x_led4 <= data(11);
 				success<='1';
+				changestate <= not changestate;
 			end if;
---            if success = '1' then 
---                x_led1 <= '0';
---                mode_selection <= 1;
---            else 
---                x_led1 <= '1';
---                mode_selection <= 0;
---            end if;		
 		end if;
-
+		change <= changestate;
     end process;
 
 end behavior;

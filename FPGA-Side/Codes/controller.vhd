@@ -1,6 +1,14 @@
+-- library ieee;
+-- use ieee.std_logic_1164.all;
+
+-- package sevseg_pkg is
+--     -- type sevsegdata_arr is array(natural range <>) of integer;
+-- end package;
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.all_pkg.all;
 
 entity controller is
     generic (
@@ -9,67 +17,46 @@ entity controller is
     port (
         clk : in std_logic;
         ir_data : in std_logic_vector(7 downto 0);
-        uart_recv : in std_logic_vector(7 downto 0);
+        ir_changing : in std_logic;
+        uart_recv : in std_logic_vector(23 downto 0);
+        rx_busy : in std_logic;
+        tx_busy : in std_logic;
         en_buzz : out boolean;
         source_selector : out std_logic;
-        processing_state : out std_logic -- 0 or 1
-
+        -- o_led1, o_led2, o_led3, o_led4 : out std_logic;
+        mem_addr : out std_logic_vector(5 downto 0) := "000000"
     );
 end controller;
 
 architecture fsm of controller is
-    type img_process_state is (initial, errored, finished);
-
-    signal processed : std_logic := '0';
-    signal img_state : img_process_state;
-
-    type wh_arr is array (0 to 3) of integer; --Supports up to width and height of order < 10^4
-    signal wh_arr_counter : integer := 0;
-    signal w_arr : wh_arr;
-    signal w_arr_en : boolean := false;
-    signal h_arr : wh_arr;
-    signal h_arr_en : boolean := false;
-    signal img_width : integer := 0;
-    signal img_height : integer := 0;
-
+    signal k : integer range 0 to 63 := 0;
+    signal ir_prevstate : std_logic := '0';
 begin
-    process(clk)
+    process(clk, ir_changing, ir_data)
     begin
         if rising_edge(clk) then
-        -- Data Parsing for Width and Height
-            if (processed = 0) then
-                if (img_state = initial) then
-                    -- Parse if starting 255 on initial machine run, enable saving to w arr
-                    if (uart_recv = 255) then
-                        w_arr_en <= true;
-                    end if;
-                -- Parse width, append to w_arr
-                elsif (w_arr_en) then
-                    w_arr(wh_arr_counter) <= uart_recv;
-                    wh_arr_counter <= wh_arr_counter + 1;
-                -- Parse end of width
-                elsif (w_arr_en and uart_recv = 255) then
-                    w_arr_en <= false;
-                    wh_arr_counter <= 0;
-                -- Parse starting of height after end of width
-                elsif (w_arr_en = false and uart_recv = 255) then
-                    h_arr_en <= true;
-                -- Parse height, append to h_arr
-                elsif (h_arr_en) then
-                    h_arr(wh_arr_counter) <= uart_recv;
-                    wh_arr_counter <= wh_arr_counter + 1;
-                -- Parse end of height
-                elsif (h_arr_en and uart_recv = 255) then
-                    h_arr_en <= false;
-                    wh_arr_counter <= 0;
-                end if;
-
-                img_width <= 1000*(w_arr(0)) + 100*(w_arr(1)) + 10*(w_arr(2)) + w_arr(3);
-                img_height <= 1000*(h_arr(0)) + 100*(h_arr(1)) + 10*(h_arr(2)) + h_arr(3);
-            else
-                -- 
-
+            ir_prevstate <= ir_changing;
+            if ir_changing /= ir_prevstate then
+                case ir_data is
+                    when "00010101" => k <= k;
+                    when "00010010" => 
+                        k <= k + 1;
+                        en_buzz <= true;
+                    when "00010011" =>
+                        if k - 1 >= 0 then
+                            k <= k - 1;
+                            en_buzz <= false;
+                        else
+                            k <= k;
+                        end if;
+                    when others =>
+                        k <= k;
+                        en_buzz <= false;
+                end case;
             end if;
         end if;
     end process;
+
+    -- processing_state <= '0';
+    mem_addr <= std_logic_vector(to_unsigned(k, 6));
 end fsm;
