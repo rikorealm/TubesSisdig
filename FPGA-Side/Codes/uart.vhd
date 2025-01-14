@@ -15,11 +15,13 @@ entity uart is
 		i_ADDR		  : in  std_logic_vector(5 downto 0);
 		i_processing  : in 	std_logic;
 		i_image		  : in img_mem;
+        i_send        : in std_logic;
         o_TX          : out std_logic := '1';
         o_image		  : out img_mem;
         o_sig_RX_BUSY : out std_logic;
         o_sig_TX_BUSY : out std_logic;
 		o_img_received : out std_logic;
+        o_img_transmitted : out std_logic := '0';
         sevseg_data   : out sevsegdata_arr
     );
 end uart;
@@ -42,12 +44,13 @@ architecture behavior of uart is
 	signal s_mem_addr : integer range 0 to 63 := 0;
 
 	signal pixval_count : integer range 0 to 2 := 0;
+
     -- Components
     component uart_tx is
         port (
             i_CLOCK         : in  std_logic;
             i_START         : in  std_logic;
-			i_DATA			: in std_logic_vector(7 downto 0);
+			i_DATA			: in  img_mem;
             o_BUSY          : out std_logic;
             i_pixel_receive : in  std_logic;
             o_pixel_transmit: out std_logic;
@@ -78,7 +81,7 @@ begin
         i_CLOCK         => i_CLOCK,
         i_RX            => i_RX,
         i_START         => s_RX_START,
-        o_DATA          => o_image,
+        o_DATA          => s_rx_data,
         i_log_ADDR      => i_ADDR,
         i_pixel_transmit=> s_pixel_transmit,
         o_sig_CRRP_DATA => open,
@@ -90,7 +93,7 @@ begin
     u_TX : uart_tx port map (
         i_CLOCK         => i_CLOCK,
         i_START         => s_TX_START,
-		i_DATA			=> s_tx_data,
+		i_DATA			=> i_image,
         o_BUSY          => s_TX_BUSY,
         i_pixel_receive => s_pixel_receive,
         o_pixel_transmit=> s_pixel_transmit,
@@ -109,27 +112,47 @@ begin
     o_sig_TX_BUSY <= s_TX_BUSY;
 
 	o_img_received <= s_pixel_receive;
+    o_img_transmitted <= s_pixel_transmit;
 
-    transmission : process(i_CLOCK)
+    o_image <= s_rx_data;
+
+    sevseg_data <= (
+        0,
+        to_integer(unsigned(i_image(0)(23 downto 16))) / 100 mod 10,
+        to_integer(unsigned(i_image(0)(15 downto 8))) / 10 mod 10,
+        to_integer(unsigned(i_image(0)(7 downto 0))) mod 10
+    );
+    
+    -- sevseg_data <= (
+    --     0,
+    --     to_integer(unsigned(s_rx_data(63)(23 downto 16))) / 100 mod 10,
+    --     to_integer(unsigned(s_rx_data(63)(15 downto 8))) / 10 mod 10,
+    --     to_integer(unsigned(s_rx_data(63)(7 downto 0))) mod 10
+    -- );
+
+    transmission : process(i_CLOCK, i_image, i_processing, pixval_count)
     begin
 		if rising_edge(i_CLOCK) then
 			-- if Sendi calc ok, proceed
-			if s_TX_BUSY = '0' and i_processing = '1' and s_pixel_transmit = '0' then
-				s_TX_START <= '1';
-				if s_mem_addr >= 63 then
-					s_mem_addr <= 0;
-				end if;
-				if pixval_count = 0 then
-					s_tx_data <= i_image(s_mem_addr)(23 downto 16);
-					pixval_count <= pixval_count + 1;
-				elsif pixval_count = 1 then
-					s_tx_data <= i_image(s_mem_addr)(15 downto 8);
-					pixval_count <= pixval_count + 1;
-				elsif pixval_count = 2 then
-					s_tx_data <= i_image(s_mem_addr)(7 downto 0);
-					pixval_count <= 0;
-					s_mem_addr <= s_mem_addr + 1;
-				end if;
+			if s_TX_BUSY = '0' and i_processing = '1' and i_send = '0' and s_pixel_transmit = '0' then
+                s_TX_START <= '1';
+				-- if s_mem_addr >= 63 then
+				-- 	s_mem_addr <= 0;
+                --     s_TX_START <= '0';
+    			-- else
+                --     s_TX_START <= '1';
+                --     if pixval_count = 0 then
+        		-- 		s_tx_data <= i_image(s_mem_addr)(23 downto 16);
+        		-- 		pixval_count <= pixval_count + 1;
+        		-- 	elsif pixval_count = 1 then
+        		-- 		s_tx_data <= i_image(s_mem_addr)(15 downto 8);
+        		-- 		pixval_count <= pixval_count + 1;
+        		-- 	elsif pixval_count = 2 then
+        		-- 		s_tx_data <= i_image(s_mem_addr)(7 downto 0);
+        		-- 		pixval_count <= 0;
+        		-- 		s_mem_addr <= s_mem_addr + 1;
+        		-- 	end if;
+				-- end if;
 			else
 				s_TX_START <= '0';
 			end if;	

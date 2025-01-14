@@ -1,5 +1,5 @@
 Analysis & Synthesis report for TubesSisdig
-Mon Jan 13 10:38:17 2025
+Tue Jan 14 20:43:21 2025
 Quartus Prime Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
 
 
@@ -18,28 +18,30 @@ Quartus Prime Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
  10. Registers Removed During Synthesis
  11. General Register Statistics
  12. Inverted Register Statistics
- 13. Registers Added for RAM Pass-Through Logic
- 14. Registers Packed Into Inferred Megafunctions
- 15. Multiplexer Restructuring Statistics (Restructuring Performed)
- 16. Source assignments for img_proc:imgprocessing_module|altsyncram:temp_img_rtl_0|altsyncram_3ci1:auto_generated
- 17. Source assignments for uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0|altsyncram_3ci1:auto_generated
- 18. Parameter Settings for User Entity Instance: Top-level Entity: |main
- 19. Parameter Settings for User Entity Instance: controller:controller_module
- 20. Parameter Settings for User Entity Instance: img_proc:imgprocessing_module|matrix_multiplier:multiplier
- 21. Parameter Settings for User Entity Instance: uart:uart_module
- 22. Parameter Settings for Inferred Entity Instance: img_proc:imgprocessing_module|altsyncram:temp_img_rtl_0
- 23. Parameter Settings for Inferred Entity Instance: uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0
- 24. altsyncram Parameter Settings by Entity Instance
- 25. Port Connectivity Checks: "uart:uart_module|uart_rx:u_RX"
- 26. Port Connectivity Checks: "img_proc:imgprocessing_module|matrix_multiplier:multiplier"
- 27. Port Connectivity Checks: "img_proc:imgprocessing_module"
- 28. Port Connectivity Checks: "buzzer:buzzer_module"
- 29. Port Connectivity Checks: "clockmodifier:clockmodifier_module"
- 30. Port Connectivity Checks: "ir_decoder:ir_decoder_module"
- 31. Port Connectivity Checks: "controller:controller_module"
- 32. Post-Synthesis Netlist Statistics for Top Partition
- 33. Elapsed Time Per Partition
- 34. Analysis & Synthesis Messages
+ 13. Registers Packed Into Inferred Megafunctions
+ 14. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 15. Source assignments for uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0|altsyncram_ipd1:auto_generated
+ 16. Parameter Settings for User Entity Instance: Top-level Entity: |main
+ 17. Parameter Settings for User Entity Instance: controller:controller_module
+ 18. Parameter Settings for User Entity Instance: img_proc:imgprocessing_module|matrix_multiplier:multiplier
+ 19. Parameter Settings for User Entity Instance: uart:uart_module
+ 20. Parameter Settings for Inferred Entity Instance: uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0
+ 21. Parameter Settings for Inferred Entity Instance: uart:uart_module|lpm_divide:Mod2
+ 22. Parameter Settings for Inferred Entity Instance: uart:uart_module|lpm_divide:Div0
+ 23. Parameter Settings for Inferred Entity Instance: uart:uart_module|lpm_divide:Mod0
+ 24. Parameter Settings for Inferred Entity Instance: uart:uart_module|lpm_divide:Div1
+ 25. Parameter Settings for Inferred Entity Instance: uart:uart_module|lpm_divide:Mod1
+ 26. altsyncram Parameter Settings by Entity Instance
+ 27. Port Connectivity Checks: "uart:uart_module|uart_rx:u_RX"
+ 28. Port Connectivity Checks: "img_proc:imgprocessing_module|matrix_multiplier:multiplier"
+ 29. Port Connectivity Checks: "img_proc:imgprocessing_module"
+ 30. Port Connectivity Checks: "buzzer:buzzer_module"
+ 31. Port Connectivity Checks: "clockmodifier:clockmodifier_module"
+ 32. Port Connectivity Checks: "ir_decoder:ir_decoder_module"
+ 33. Port Connectivity Checks: "controller:controller_module"
+ 34. Post-Synthesis Netlist Statistics for Top Partition
+ 35. Elapsed Time Per Partition
+ 36. Analysis & Synthesis Messages
 
 
 
@@ -66,18 +68,18 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon Jan 13 10:38:17 2025          ;
+; Analysis & Synthesis Status        ; Successful - Tue Jan 14 20:43:21 2025          ;
 ; Quartus Prime Version              ; 23.1std.1 Build 993 05/14/2024 SC Lite Edition ;
 ; Revision Name                      ; TubesSisdig                                    ;
 ; Top-level Entity Name              ; main                                           ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; 596                                            ;
-;     Total combinational functions  ; 484                                            ;
-;     Dedicated logic registers      ; 384                                            ;
-; Total registers                    ; 384                                            ;
+; Total logic elements               ; 3,324                                          ;
+;     Total combinational functions  ; 1,752                                          ;
+;     Dedicated logic registers      ; 1,826                                          ;
+; Total registers                    ; 1826                                           ;
 ; Total pins                         ; 50                                             ;
 ; Total virtual pins                 ; 0                                              ;
-; Total memory bits                  ; 3,072                                          ;
+; Total memory bits                  ; 1,536                                          ;
 ; Embedded Multiplier 9-bit elements ; 0                                              ;
 ; Total PLLs                         ; 0                                              ;
 +------------------------------------+------------------------------------------------+
@@ -177,12 +179,18 @@ https://fpgasoftware.intel.com/eula.
 ; Number detected on machine ; 20          ;
 ; Maximum allowed            ; 14          ;
 ;                            ;             ;
-; Average used               ; 1.00        ;
+; Average used               ; 1.01        ;
 ; Maximum used               ; 14          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-14        ;   0.0%      ;
+;     Processor 2            ;   0.1%      ;
+;     Processor 3            ;   0.1%      ;
+;     Processor 4            ;   0.1%      ;
+;     Processor 5            ;   0.1%      ;
+;     Processor 6            ;   0.1%      ;
+;     Processor 7            ;   0.1%      ;
+;     Processors 8-14        ;   0.1%      ;
 +----------------------------+-------------+
 
 
@@ -211,7 +219,21 @@ https://fpgasoftware.intel.com/eula.
 ; altrom.inc                       ; yes             ; Megafunction                 ; e:/software/intelfpga_lite/23.1std/quartus/libraries/megafunctions/altrom.inc            ;         ;
 ; altram.inc                       ; yes             ; Megafunction                 ; e:/software/intelfpga_lite/23.1std/quartus/libraries/megafunctions/altram.inc            ;         ;
 ; altdpram.inc                     ; yes             ; Megafunction                 ; e:/software/intelfpga_lite/23.1std/quartus/libraries/megafunctions/altdpram.inc          ;         ;
-; db/altsyncram_3ci1.tdf           ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/altsyncram_3ci1.tdf         ;         ;
+; db/altsyncram_ipd1.tdf           ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/altsyncram_ipd1.tdf         ;         ;
+; lpm_divide.tdf                   ; yes             ; Megafunction                 ; e:/software/intelfpga_lite/23.1std/quartus/libraries/megafunctions/lpm_divide.tdf        ;         ;
+; abs_divider.inc                  ; yes             ; Megafunction                 ; e:/software/intelfpga_lite/23.1std/quartus/libraries/megafunctions/abs_divider.inc       ;         ;
+; sign_div_unsign.inc              ; yes             ; Megafunction                 ; e:/software/intelfpga_lite/23.1std/quartus/libraries/megafunctions/sign_div_unsign.inc   ;         ;
+; db/lpm_divide_q9m.tdf            ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/lpm_divide_q9m.tdf          ;         ;
+; db/sign_div_unsign_fkh.tdf       ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/sign_div_unsign_fkh.tdf     ;         ;
+; db/alt_u_div_i4f.tdf             ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_i4f.tdf           ;         ;
+; db/add_sub_7pc.tdf               ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/add_sub_7pc.tdf             ;         ;
+; db/add_sub_8pc.tdf               ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/add_sub_8pc.tdf             ;         ;
+; db/lpm_divide_mhm.tdf            ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/lpm_divide_mhm.tdf          ;         ;
+; db/sign_div_unsign_ekh.tdf       ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/sign_div_unsign_ekh.tdf     ;         ;
+; db/alt_u_div_g4f.tdf             ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_g4f.tdf           ;         ;
+; db/lpm_divide_jhm.tdf            ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/lpm_divide_jhm.tdf          ;         ;
+; db/sign_div_unsign_bkh.tdf       ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/sign_div_unsign_bkh.tdf     ;         ;
+; db/alt_u_div_a4f.tdf             ; yes             ; Auto-Generated Megafunction  ; E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_a4f.tdf           ;         ;
 +----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------------------+---------+
 
 
@@ -220,66 +242,79 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+-------------+
 ; Resource                                    ; Usage       ;
 +---------------------------------------------+-------------+
-; Estimated Total logic elements              ; 596         ;
+; Estimated Total logic elements              ; 3,324       ;
 ;                                             ;             ;
-; Total combinational functions               ; 484         ;
+; Total combinational functions               ; 1752        ;
 ; Logic element usage by number of LUT inputs ;             ;
-;     -- 4 input functions                    ; 173         ;
-;     -- 3 input functions                    ; 80          ;
-;     -- <=2 input functions                  ; 231         ;
+;     -- 4 input functions                    ; 1279        ;
+;     -- 3 input functions                    ; 102         ;
+;     -- <=2 input functions                  ; 371         ;
 ;                                             ;             ;
 ; Logic elements by mode                      ;             ;
-;     -- normal mode                          ; 327         ;
-;     -- arithmetic mode                      ; 157         ;
+;     -- normal mode                          ; 1525        ;
+;     -- arithmetic mode                      ; 227         ;
 ;                                             ;             ;
-; Total registers                             ; 384         ;
-;     -- Dedicated logic registers            ; 384         ;
+; Total registers                             ; 1826        ;
+;     -- Dedicated logic registers            ; 1826        ;
 ;     -- I/O registers                        ; 0           ;
 ;                                             ;             ;
 ; I/O pins                                    ; 50          ;
-; Total memory bits                           ; 3072        ;
+; Total memory bits                           ; 1536        ;
 ;                                             ;             ;
 ; Embedded Multiplier 9-bit elements          ; 0           ;
 ;                                             ;             ;
 ; Maximum fan-out node                        ; i_clk~input ;
-; Maximum fan-out                             ; 363         ;
-; Total fan-out                               ; 3235        ;
-; Average fan-out                             ; 3.18        ;
+; Maximum fan-out                             ; 1773        ;
+; Total fan-out                               ; 11976       ;
+; Average fan-out                             ; 3.24        ;
 +---------------------------------------------+-------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                       ;
-+----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------+-------------------+--------------+
-; Compilation Hierarchy Node                   ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                          ; Entity Name       ; Library Name ;
-+----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------+-------------------+--------------+
-; |main                                        ; 484 (1)             ; 384 (0)                   ; 3072        ; 0            ; 0       ; 0         ; 50   ; 0            ; |main                                                                                        ; main              ; work         ;
-;    |buzzer:buzzer_module|                    ; 43 (43)             ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|buzzer:buzzer_module                                                                   ; buzzer            ; work         ;
-;    |clockmodifier:clockmodifier_module|      ; 49 (49)             ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|clockmodifier:clockmodifier_module                                                     ; clockmodifier     ; work         ;
-;    |controller:controller_module|            ; 20 (20)             ; 8 (8)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|controller:controller_module                                                           ; controller        ; work         ;
-;    |img_proc:imgprocessing_module|           ; 67 (46)             ; 93 (69)                   ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|img_proc:imgprocessing_module                                                          ; img_proc          ; work         ;
-;       |altsyncram:temp_img_rtl_0|            ; 0 (0)               ; 0 (0)                     ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|img_proc:imgprocessing_module|altsyncram:temp_img_rtl_0                                ; altsyncram        ; work         ;
-;          |altsyncram_3ci1:auto_generated|    ; 0 (0)               ; 0 (0)                     ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|img_proc:imgprocessing_module|altsyncram:temp_img_rtl_0|altsyncram_3ci1:auto_generated ; altsyncram_3ci1   ; work         ;
-;       |matrix_multiplier:multiplier|         ; 21 (21)             ; 24 (24)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|img_proc:imgprocessing_module|matrix_multiplier:multiplier                             ; matrix_multiplier ; work         ;
-;    |ir_decoder:ir_decoder_module|            ; 83 (83)             ; 43 (43)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|ir_decoder:ir_decoder_module                                                           ; ir_decoder        ; work         ;
-;    |sevensegment:sevs_module|                ; 52 (52)             ; 36 (36)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|sevensegment:sevs_module                                                               ; sevensegment      ; work         ;
-;    |uart:uart_module|                        ; 169 (56)            ; 138 (17)                  ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module                                                                       ; uart              ; work         ;
-;       |uart_rx:u_RX|                         ; 81 (81)             ; 96 (96)                   ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX                                                          ; uart_rx           ; work         ;
-;          |altsyncram:r_MEM_rtl_0|            ; 0 (0)               ; 0 (0)                     ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0                                   ; altsyncram        ; work         ;
-;             |altsyncram_3ci1:auto_generated| ; 0 (0)               ; 0 (0)                     ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0|altsyncram_3ci1:auto_generated    ; altsyncram_3ci1   ; work         ;
-;       |uart_tx:u_TX|                         ; 32 (32)             ; 25 (25)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_tx:u_TX                                                          ; uart_tx           ; work         ;
-+----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------+-------------------+--------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                   ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
+; Compilation Hierarchy Node                   ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                    ; Entity Name         ; Library Name ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
+; |main                                        ; 1752 (1)            ; 1826 (0)                  ; 1536        ; 0            ; 0       ; 0         ; 50   ; 0            ; |main                                                                                                                  ; main                ; work         ;
+;    |buzzer:buzzer_module|                    ; 43 (43)             ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|buzzer:buzzer_module                                                                                             ; buzzer              ; work         ;
+;    |clockmodifier:clockmodifier_module|      ; 50 (50)             ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|clockmodifier:clockmodifier_module                                                                               ; clockmodifier       ; work         ;
+;    |controller:controller_module|            ; 20 (20)             ; 8 (8)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|controller:controller_module                                                                                     ; controller          ; work         ;
+;    |img_proc:imgprocessing_module|           ; 120 (99)            ; 1570 (1546)               ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|img_proc:imgprocessing_module                                                                                    ; img_proc            ; work         ;
+;       |matrix_multiplier:multiplier|         ; 21 (21)             ; 24 (24)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|img_proc:imgprocessing_module|matrix_multiplier:multiplier                                                       ; matrix_multiplier   ; work         ;
+;    |ir_decoder:ir_decoder_module|            ; 83 (83)             ; 43 (43)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|ir_decoder:ir_decoder_module                                                                                     ; ir_decoder          ; work         ;
+;    |sevensegment:sevs_module|                ; 98 (98)             ; 44 (44)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|sevensegment:sevs_module                                                                                         ; sevensegment        ; work         ;
+;    |uart:uart_module|                        ; 1337 (1)            ; 95 (1)                    ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module                                                                                                 ; uart                ; work         ;
+;       |lpm_divide:Div0|                      ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Div0                                                                                 ; lpm_divide          ; work         ;
+;          |lpm_divide_mhm:auto_generated|     ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Div0|lpm_divide_mhm:auto_generated                                                   ; lpm_divide_mhm      ; work         ;
+;             |sign_div_unsign_ekh:divider|    ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Div0|lpm_divide_mhm:auto_generated|sign_div_unsign_ekh:divider                       ; sign_div_unsign_ekh ; work         ;
+;                |alt_u_div_g4f:divider|       ; 25 (25)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Div0|lpm_divide_mhm:auto_generated|sign_div_unsign_ekh:divider|alt_u_div_g4f:divider ; alt_u_div_g4f       ; work         ;
+;       |lpm_divide:Div1|                      ; 56 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Div1                                                                                 ; lpm_divide          ; work         ;
+;          |lpm_divide_jhm:auto_generated|     ; 56 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Div1|lpm_divide_jhm:auto_generated                                                   ; lpm_divide_jhm      ; work         ;
+;             |sign_div_unsign_bkh:divider|    ; 56 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Div1|lpm_divide_jhm:auto_generated|sign_div_unsign_bkh:divider                       ; sign_div_unsign_bkh ; work         ;
+;                |alt_u_div_a4f:divider|       ; 56 (56)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Div1|lpm_divide_jhm:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_a4f:divider ; alt_u_div_a4f       ; work         ;
+;       |lpm_divide:Mod1|                      ; 27 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Mod1                                                                                 ; lpm_divide          ; work         ;
+;          |lpm_divide_q9m:auto_generated|     ; 27 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Mod1|lpm_divide_q9m:auto_generated                                                   ; lpm_divide_q9m      ; work         ;
+;             |sign_div_unsign_fkh:divider|    ; 27 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Mod1|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider                       ; sign_div_unsign_fkh ; work         ;
+;                |alt_u_div_i4f:divider|       ; 27 (27)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Mod1|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider|alt_u_div_i4f:divider ; alt_u_div_i4f       ; work         ;
+;       |lpm_divide:Mod2|                      ; 74 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Mod2                                                                                 ; lpm_divide          ; work         ;
+;          |lpm_divide_q9m:auto_generated|     ; 74 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Mod2|lpm_divide_q9m:auto_generated                                                   ; lpm_divide_q9m      ; work         ;
+;             |sign_div_unsign_fkh:divider|    ; 74 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Mod2|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider                       ; sign_div_unsign_fkh ; work         ;
+;                |alt_u_div_i4f:divider|       ; 74 (74)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Mod2|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider|alt_u_div_i4f:divider ; alt_u_div_i4f       ; work         ;
+;       |uart_rx:u_RX|                         ; 73 (73)             ; 59 (59)                   ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX                                                                                    ; uart_rx             ; work         ;
+;          |altsyncram:r_MEM_rtl_0|            ; 0 (0)               ; 0 (0)                     ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0                                                             ; altsyncram          ; work         ;
+;             |altsyncram_ipd1:auto_generated| ; 0 (0)               ; 0 (0)                     ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0|altsyncram_ipd1:auto_generated                              ; altsyncram_ipd1     ; work         ;
+;       |uart_tx:u_TX|                         ; 1081 (1081)         ; 35 (35)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_tx:u_TX                                                                                    ; uart_tx             ; work         ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis RAM Summary                                                                                                                                                                      ;
-+---------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
-; Name                                                                                              ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size ; MIF  ;
-+---------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
-; img_proc:imgprocessing_module|altsyncram:temp_img_rtl_0|altsyncram_3ci1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 64           ; 24           ; 64           ; 24           ; 1536 ; None ;
-; uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0|altsyncram_3ci1:auto_generated|ALTSYNCRAM    ; AUTO ; Simple Dual Port ; 64           ; 24           ; 64           ; 24           ; 1536 ; None ;
-+---------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                   ;
++------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
+; Name                                                                                           ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size ; MIF  ;
++------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
+; uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0|altsyncram_ipd1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 64           ; 24           ; 64           ; 24           ; 1536 ; None ;
++------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
 
 
 +------------------------------------------------------------+
@@ -301,11 +336,10 @@ Note: All cells listed above may not be present at the end of synthesis due to v
 +------------------------------------------------+--------------------------------------------------+
 ; Register name                                  ; Reason for Removal                               ;
 +------------------------------------------------+--------------------------------------------------+
-; uart:uart_module|uart_tx:u_TX|o_pixel_transmit ; Stuck at GND due to stuck port data_in           ;
 ; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[9] ; Stuck at VCC due to stuck port data_in           ;
-; sevensegment:sevs_module|curr_val[1..31]       ; Merged with sevensegment:sevs_module|curr_val[0] ;
-; sevensegment:sevs_module|curr_val[0]           ; Stuck at GND due to stuck port data_in           ;
-; Total Number of Removed Registers = 34         ;                                                  ;
+; sevensegment:sevs_module|curr_val[9..31]       ; Merged with sevensegment:sevs_module|curr_val[8] ;
+; sevensegment:sevs_module|curr_val[8]           ; Stuck at GND due to stuck port data_in           ;
+; Total Number of Removed Registers = 25         ;                                                  ;
 +------------------------------------------------+--------------------------------------------------+
 
 
@@ -314,12 +348,12 @@ Note: All cells listed above may not be present at the end of synthesis due to v
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 384   ;
+; Total registers                              ; 1826  ;
 ; Number of registers using Synchronous Clear  ; 74    ;
 ; Number of registers using Synchronous Load   ; 7     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 196   ;
+; Number of registers using Clock Enable       ; 1699  ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -334,163 +368,101 @@ Note: All cells listed above may not be present at the end of synthesis due to v
 ; sevensegment:sevs_module|dig[2]                ; 1       ;
 ; sevensegment:sevs_module|dig[3]                ; 1       ;
 ; uart:uart_module|uart_tx:u_TX|o_TX_LINE        ; 1       ;
-; sevensegment:sevs_module|counter[0]            ; 4       ;
-; uart:uart_module|uart_rx:u_RX|mem_addr[1]      ; 4       ;
-; uart:uart_module|uart_rx:u_RX|mem_addr[2]      ; 4       ;
-; uart:uart_module|uart_rx:u_RX|mem_addr[3]      ; 4       ;
-; uart:uart_module|uart_rx:u_RX|mem_addr[4]      ; 4       ;
+; sevensegment:sevs_module|counter[0]            ; 8       ;
+; img_proc:imgprocessing_module|pixelcounter[2]  ; 12      ;
+; img_proc:imgprocessing_module|pixelcounter[1]  ; 12      ;
+; img_proc:imgprocessing_module|pixelcounter[3]  ; 67      ;
+; img_proc:imgprocessing_module|pixelcounter[4]  ; 67      ;
+; img_proc:imgprocessing_module|pixelcounter[5]  ; 67      ;
+; img_proc:imgprocessing_module|pixelcounter[7]  ; 3       ;
+; img_proc:imgprocessing_module|pixelcounter[6]  ; 3       ;
+; uart:uart_module|uart_rx:u_RX|mem_addr[0]      ; 4       ;
+; uart:uart_module|uart_rx:u_RX|mem_addr[1]      ; 3       ;
+; uart:uart_module|uart_rx:u_RX|mem_addr[2]      ; 3       ;
+; uart:uart_module|uart_rx:u_RX|mem_addr[3]      ; 3       ;
 ; uart:uart_module|uart_rx:u_RX|mem_addr[6]      ; 2       ;
-; uart:uart_module|uart_rx:u_RX|mem_addr[5]      ; 4       ;
+; uart:uart_module|uart_rx:u_RX|mem_addr[4]      ; 3       ;
+; uart:uart_module|uart_rx:u_RX|mem_addr[5]      ; 3       ;
 ; uart:uart_module|uart_rx:u_RX|isFirstRun       ; 1       ;
-; uart:uart_module|uart_rx:u_RX|mem_addr[0]      ; 5       ;
-; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[6] ; 1       ;
-; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[5] ; 1       ;
-; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[4] ; 1       ;
-; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[7] ; 1       ;
+; uart:uart_module|uart_tx:u_TX|addr[0]          ; 2       ;
+; uart:uart_module|uart_tx:u_TX|addr[1]          ; 2       ;
+; uart:uart_module|uart_tx:u_TX|addr[2]          ; 2       ;
+; uart:uart_module|uart_tx:u_TX|addr[3]          ; 2       ;
+; uart:uart_module|uart_tx:u_TX|addr[4]          ; 2       ;
+; uart:uart_module|uart_tx:u_TX|addr[5]          ; 2       ;
+; uart:uart_module|uart_tx:u_TX|addr[6]          ; 2       ;
+; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[8] ; 1       ;
 ; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[2] ; 1       ;
 ; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[1] ; 1       ;
-; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[0] ; 1       ;
+; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[0] ; 2       ;
 ; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[3] ; 1       ;
-; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[8] ; 1       ;
-; uart:uart_module|s_tx_data[5]                  ; 1       ;
-; uart:uart_module|s_tx_data[4]                  ; 1       ;
-; uart:uart_module|s_tx_data[3]                  ; 1       ;
-; uart:uart_module|s_tx_data[6]                  ; 1       ;
-; uart:uart_module|s_tx_data[1]                  ; 1       ;
-; uart:uart_module|s_tx_data[0]                  ; 1       ;
-; uart:uart_module|s_tx_data[2]                  ; 1       ;
-; uart:uart_module|s_tx_data[7]                  ; 1       ;
+; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[5] ; 1       ;
+; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[6] ; 1       ;
+; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[4] ; 1       ;
+; uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[7] ; 1       ;
+; img_proc:imgprocessing_module|is_firstrun      ; 2       ;
+; img_proc:imgprocessing_module|pixelcounter[0]  ; 11      ;
+; ir_decoder:ir_decoder_module|NB[2]             ; 10      ;
+; ir_decoder:ir_decoder_module|NB[3]             ; 4       ;
+; ir_decoder:ir_decoder_module|NB[4]             ; 4       ;
 ; ir_decoder:ir_decoder_module|NB[1]             ; 8       ;
-; ir_decoder:ir_decoder_module|NB[2]             ; 9       ;
-; ir_decoder:ir_decoder_module|NB[3]             ; 3       ;
-; ir_decoder:ir_decoder_module|NB[4]             ; 3       ;
 ; ir_decoder:ir_decoder_module|NB[0]             ; 8       ;
-; Total number of inverted registers = 36        ;         ;
+; Total number of inverted registers = 44        ;         ;
 +------------------------------------------------+---------+
 
 
-+--------------------------------------------------------------------------------------------------------+
-; Registers Added for RAM Pass-Through Logic                                                             ;
-+---------------------------------------------------------+----------------------------------------------+
-; Register Name                                           ; RAM Name                                     ;
-+---------------------------------------------------------+----------------------------------------------+
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[0]  ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[1]  ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[2]  ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[3]  ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[4]  ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[5]  ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[6]  ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[7]  ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[8]  ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[9]  ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[10] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[11] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[12] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[13] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[14] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[15] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[16] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[17] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[18] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[19] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[20] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[21] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[22] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[23] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[24] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[25] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[26] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[27] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[28] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[29] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[30] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[31] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[32] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[33] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[34] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[35] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; img_proc:imgprocessing_module|temp_img_rtl_0_bypass[36] ; img_proc:imgprocessing_module|temp_img_rtl_0 ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[0]     ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[1]     ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[2]     ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[3]     ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[4]     ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[5]     ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[6]     ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[7]     ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[8]     ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[9]     ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[10]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[11]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[12]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[13]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[14]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[15]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[16]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[17]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[18]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[19]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[20]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[21]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[22]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[23]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[24]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[25]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[26]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[27]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[28]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[29]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[30]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[31]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[32]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[33]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[34]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[35]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0_bypass[36]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ;
-+---------------------------------------------------------+----------------------------------------------+
++------------------------------------------------------------------------------------------------------+
+; Registers Packed Into Inferred Megafunctions                                                         ;
++---------------------------------------------------+-------------------------------------------+------+
+; Register Name                                     ; Megafunction                              ; Type ;
++---------------------------------------------------+-------------------------------------------+------+
+; img_proc:imgprocessing_module|curr_pixel[0][0][6] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; uart:uart_module|uart_rx:u_RX|r_MEM[0..63][0..23] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[2][2][7] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[2][2][6] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[2][2][5] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[2][2][4] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[2][2][3] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[2][2][2] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[2][2][1] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[2][2][0] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[1][1][7] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[1][1][6] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[1][1][5] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[1][1][4] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[1][1][3] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[1][1][2] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[1][1][1] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[1][1][0] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[0][0][7] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[0][0][5] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[0][0][4] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[0][0][3] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[0][0][2] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[0][0][1] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
+; img_proc:imgprocessing_module|curr_pixel[0][0][0] ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0 ; RAM  ;
++---------------------------------------------------+-------------------------------------------+------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                     ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------+
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |main|buzzer:buzzer_module|counter[26]               ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|r_INDEX[2]       ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; Yes        ; |main|sevensegment:sevs_module|curr_val[6]           ;
+; 4:1                ; 9 bits    ; 18 LEs        ; 9 LEs                ; 9 LEs                  ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|r_PRESCALER[2]   ;
+; 7:1                ; 18 bits   ; 72 LEs        ; 18 LEs               ; 54 LEs                 ; Yes        ; |main|ir_decoder:ir_decoder_module|cycleCounter[12]  ;
+; 129:1              ; 6 bits    ; 516 LEs       ; 6 LEs                ; 510 LEs                ; Yes        ; |main|controller:controller_module|k[0]              ;
+; 4:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; Yes        ; |main|ir_decoder:ir_decoder_module|NB[3]             ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |main|sevensegment:sevs_module|dig[3]                ;
+; 193:1              ; 8 bits    ; 1024 LEs      ; 1024 LEs             ; 0 LEs                  ; Yes        ; |main|uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[2] ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------+
 
 
 +------------------------------------------------------------------------------------------------------------+
-; Registers Packed Into Inferred Megafunctions                                                               ;
-+------------------------------------------------------+----------------------------------------------+------+
-; Register Name                                        ; Megafunction                                 ; Type ;
-+------------------------------------------------------+----------------------------------------------+------+
-; img_proc:imgprocessing_module|temp_img[0..63][0..23] ; img_proc:imgprocessing_module|temp_img_rtl_0 ; RAM  ;
-; uart:uart_module|uart_rx:u_RX|r_MEM[0..63][0..23]    ; uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0    ; RAM  ;
-+------------------------------------------------------+----------------------------------------------+------+
-
-
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                    ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                          ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
-; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |main|buzzer:buzzer_module|counter[17]              ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|r_INDEX[1]      ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |main|uart:uart_module|pixval_count[1]              ;
-; 4:1                ; 9 bits    ; 18 LEs        ; 9 LEs                ; 9 LEs                  ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|r_PRESCALER[0]  ;
-; 7:1                ; 18 bits   ; 72 LEs        ; 18 LEs               ; 54 LEs                 ; Yes        ; |main|ir_decoder:ir_decoder_module|cycleCounter[17] ;
-; 129:1              ; 6 bits    ; 516 LEs       ; 6 LEs                ; 510 LEs                ; Yes        ; |main|controller:controller_module|k[4]             ;
-; 4:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; Yes        ; |main|ir_decoder:ir_decoder_module|NB[1]            ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |main|sevensegment:sevs_module|dig[1]               ;
-; 7:1                ; 8 bits    ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |main|uart:uart_module|s_tx_data[1]                 ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |main|img_proc:imgprocessing_module|pixelcounter    ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |main|uart:uart_module|s_mem_addr                   ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
-
-
-+---------------------------------------------------------------------------------------------------------------+
-; Source assignments for img_proc:imgprocessing_module|altsyncram:temp_img_rtl_0|altsyncram_3ci1:auto_generated ;
-+---------------------------------+--------------------+------+-------------------------------------------------+
-; Assignment                      ; Value              ; From ; To                                              ;
-+---------------------------------+--------------------+------+-------------------------------------------------+
-; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                               ;
-+---------------------------------+--------------------+------+-------------------------------------------------+
-
-
-+------------------------------------------------------------------------------------------------------------+
-; Source assignments for uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0|altsyncram_3ci1:auto_generated ;
+; Source assignments for uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0|altsyncram_ipd1:auto_generated ;
 +---------------------------------+--------------------+------+----------------------------------------------+
 ; Assignment                      ; Value              ; From ; To                                           ;
 +---------------------------------+--------------------+------+----------------------------------------------+
@@ -541,67 +513,6 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+----------------------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: img_proc:imgprocessing_module|altsyncram:temp_img_rtl_0 ;
-+------------------------------------+----------------------+----------------------------------------------+
-; Parameter Name                     ; Value                ; Type                                         ;
-+------------------------------------+----------------------+----------------------------------------------+
-; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                                      ;
-; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                                   ;
-; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                                 ;
-; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                                 ;
-; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                               ;
-; WIDTH_BYTEENA                      ; 1                    ; Untyped                                      ;
-; OPERATION_MODE                     ; DUAL_PORT            ; Untyped                                      ;
-; WIDTH_A                            ; 24                   ; Untyped                                      ;
-; WIDTHAD_A                          ; 6                    ; Untyped                                      ;
-; NUMWORDS_A                         ; 64                   ; Untyped                                      ;
-; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                                      ;
-; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                                      ;
-; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                                      ;
-; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                                      ;
-; INDATA_ACLR_A                      ; NONE                 ; Untyped                                      ;
-; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                                      ;
-; WIDTH_B                            ; 24                   ; Untyped                                      ;
-; WIDTHAD_B                          ; 6                    ; Untyped                                      ;
-; NUMWORDS_B                         ; 64                   ; Untyped                                      ;
-; INDATA_REG_B                       ; CLOCK1               ; Untyped                                      ;
-; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                                      ;
-; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                                      ;
-; ADDRESS_REG_B                      ; CLOCK0               ; Untyped                                      ;
-; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                                      ;
-; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                                      ;
-; INDATA_ACLR_B                      ; NONE                 ; Untyped                                      ;
-; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                                      ;
-; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                                      ;
-; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                                      ;
-; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                                      ;
-; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                                      ;
-; WIDTH_BYTEENA_A                    ; 1                    ; Untyped                                      ;
-; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                                      ;
-; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                                      ;
-; BYTE_SIZE                          ; 8                    ; Untyped                                      ;
-; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA             ; Untyped                                      ;
-; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                                      ;
-; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                                      ;
-; INIT_FILE                          ; UNUSED               ; Untyped                                      ;
-; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                                      ;
-; MAXIMUM_DEPTH                      ; 0                    ; Untyped                                      ;
-; CLOCK_ENABLE_INPUT_A               ; NORMAL               ; Untyped                                      ;
-; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                                      ;
-; CLOCK_ENABLE_OUTPUT_A              ; NORMAL               ; Untyped                                      ;
-; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                                      ;
-; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                                      ;
-; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                                      ;
-; ENABLE_ECC                         ; FALSE                ; Untyped                                      ;
-; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                                      ;
-; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                                      ;
-; DEVICE_FAMILY                      ; Cyclone IV E         ; Untyped                                      ;
-; CBXI_PARAMETER                     ; altsyncram_3ci1      ; Untyped                                      ;
-+------------------------------------+----------------------+----------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
 +-------------------------------------------------------------------------------------------------------+
 ; Parameter Settings for Inferred Entity Instance: uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0 ;
 +------------------------------------+----------------------+-------------------------------------------+
@@ -629,7 +540,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; INDATA_REG_B                       ; CLOCK1               ; Untyped                                   ;
 ; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                                   ;
 ; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                                   ;
-; ADDRESS_REG_B                      ; CLOCK0               ; Untyped                                   ;
+; ADDRESS_REG_B                      ; CLOCK1               ; Untyped                                   ;
 ; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                                   ;
 ; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                                   ;
 ; INDATA_ACLR_B                      ; NONE                 ; Untyped                                   ;
@@ -642,7 +553,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                                   ;
 ; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                                   ;
 ; BYTE_SIZE                          ; 8                    ; Untyped                                   ;
-; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA             ; Untyped                                   ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                                   ;
 ; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                                   ;
 ; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                                   ;
 ; INIT_FILE                          ; UNUSED               ; Untyped                                   ;
@@ -658,40 +569,144 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                                   ;
 ; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                                   ;
 ; DEVICE_FAMILY                      ; Cyclone IV E         ; Untyped                                   ;
-; CBXI_PARAMETER                     ; altsyncram_3ci1      ; Untyped                                   ;
+; CBXI_PARAMETER                     ; altsyncram_ipd1      ; Untyped                                   ;
 +------------------------------------+----------------------+-------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+-----------------------------------------------------------------------------------------------------+
-; altsyncram Parameter Settings by Entity Instance                                                    ;
-+-------------------------------------------+---------------------------------------------------------+
-; Name                                      ; Value                                                   ;
-+-------------------------------------------+---------------------------------------------------------+
-; Number of entity instances                ; 2                                                       ;
-; Entity Instance                           ; img_proc:imgprocessing_module|altsyncram:temp_img_rtl_0 ;
-;     -- OPERATION_MODE                     ; DUAL_PORT                                               ;
-;     -- WIDTH_A                            ; 24                                                      ;
-;     -- NUMWORDS_A                         ; 64                                                      ;
-;     -- OUTDATA_REG_A                      ; UNREGISTERED                                            ;
-;     -- WIDTH_B                            ; 24                                                      ;
-;     -- NUMWORDS_B                         ; 64                                                      ;
-;     -- ADDRESS_REG_B                      ; CLOCK0                                                  ;
-;     -- OUTDATA_REG_B                      ; UNREGISTERED                                            ;
-;     -- RAM_BLOCK_TYPE                     ; AUTO                                                    ;
-;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                                                ;
-; Entity Instance                           ; uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0    ;
-;     -- OPERATION_MODE                     ; DUAL_PORT                                               ;
-;     -- WIDTH_A                            ; 24                                                      ;
-;     -- NUMWORDS_A                         ; 64                                                      ;
-;     -- OUTDATA_REG_A                      ; UNREGISTERED                                            ;
-;     -- WIDTH_B                            ; 24                                                      ;
-;     -- NUMWORDS_B                         ; 64                                                      ;
-;     -- ADDRESS_REG_B                      ; CLOCK0                                                  ;
-;     -- OUTDATA_REG_B                      ; UNREGISTERED                                            ;
-;     -- RAM_BLOCK_TYPE                     ; AUTO                                                    ;
-;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                                                ;
-+-------------------------------------------+---------------------------------------------------------+
++-----------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: uart:uart_module|lpm_divide:Mod2 ;
++------------------------+----------------+-----------------------------------------+
+; Parameter Name         ; Value          ; Type                                    ;
++------------------------+----------------+-----------------------------------------+
+; LPM_WIDTHN             ; 8              ; Untyped                                 ;
+; LPM_WIDTHD             ; 8              ; Untyped                                 ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                 ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                 ;
+; LPM_PIPELINE           ; 0              ; Untyped                                 ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                 ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                 ;
+; CBXI_PARAMETER         ; lpm_divide_q9m ; Untyped                                 ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                 ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                 ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                              ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                            ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                            ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                          ;
++------------------------+----------------+-----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: uart:uart_module|lpm_divide:Div0 ;
++------------------------+----------------+-----------------------------------------+
+; Parameter Name         ; Value          ; Type                                    ;
++------------------------+----------------+-----------------------------------------+
+; LPM_WIDTHN             ; 8              ; Untyped                                 ;
+; LPM_WIDTHD             ; 7              ; Untyped                                 ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                 ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                 ;
+; LPM_PIPELINE           ; 0              ; Untyped                                 ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                 ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                 ;
+; CBXI_PARAMETER         ; lpm_divide_mhm ; Untyped                                 ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                 ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                 ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                              ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                            ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                            ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                          ;
++------------------------+----------------+-----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: uart:uart_module|lpm_divide:Mod0 ;
++------------------------+----------------+-----------------------------------------+
+; Parameter Name         ; Value          ; Type                                    ;
++------------------------+----------------+-----------------------------------------+
+; LPM_WIDTHN             ; 8              ; Untyped                                 ;
+; LPM_WIDTHD             ; 8              ; Untyped                                 ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                 ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                 ;
+; LPM_PIPELINE           ; 0              ; Untyped                                 ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                 ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                 ;
+; CBXI_PARAMETER         ; lpm_divide_q9m ; Untyped                                 ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                 ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                 ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                              ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                            ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                            ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                          ;
++------------------------+----------------+-----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: uart:uart_module|lpm_divide:Div1 ;
++------------------------+----------------+-----------------------------------------+
+; Parameter Name         ; Value          ; Type                                    ;
++------------------------+----------------+-----------------------------------------+
+; LPM_WIDTHN             ; 8              ; Untyped                                 ;
+; LPM_WIDTHD             ; 4              ; Untyped                                 ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                 ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                 ;
+; LPM_PIPELINE           ; 0              ; Untyped                                 ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                 ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                 ;
+; CBXI_PARAMETER         ; lpm_divide_jhm ; Untyped                                 ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                 ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                 ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                              ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                            ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                            ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                          ;
++------------------------+----------------+-----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: uart:uart_module|lpm_divide:Mod1 ;
++------------------------+----------------+-----------------------------------------+
+; Parameter Name         ; Value          ; Type                                    ;
++------------------------+----------------+-----------------------------------------+
+; LPM_WIDTHN             ; 8              ; Untyped                                 ;
+; LPM_WIDTHD             ; 8              ; Untyped                                 ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                 ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                 ;
+; LPM_PIPELINE           ; 0              ; Untyped                                 ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                 ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                 ;
+; CBXI_PARAMETER         ; lpm_divide_q9m ; Untyped                                 ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                 ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                 ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                              ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                            ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                            ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                          ;
++------------------------+----------------+-----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                                                 ;
++-------------------------------------------+------------------------------------------------------+
+; Name                                      ; Value                                                ;
++-------------------------------------------+------------------------------------------------------+
+; Number of entity instances                ; 1                                                    ;
+; Entity Instance                           ; uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0 ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                                            ;
+;     -- WIDTH_A                            ; 24                                                   ;
+;     -- NUMWORDS_A                         ; 64                                                   ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                         ;
+;     -- WIDTH_B                            ; 24                                                   ;
+;     -- NUMWORDS_B                         ; 64                                                   ;
+;     -- ADDRESS_REG_B                      ; CLOCK1                                               ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                         ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                                 ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                            ;
++-------------------------------------------+------------------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------+
@@ -807,27 +822,28 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 50                          ;
-; cycloneiii_ff         ; 384                         ;
-;     ENA               ; 122                         ;
+; cycloneiii_ff         ; 1826                        ;
+;     ENA               ; 1625                        ;
 ;     ENA SCLR          ; 68                          ;
 ;     ENA SLD           ; 6                           ;
 ;     SCLR              ; 6                           ;
 ;     SLD               ; 1                           ;
-;     plain             ; 181                         ;
-; cycloneiii_lcell_comb ; 491                         ;
-;     arith             ; 157                         ;
-;         2 data inputs ; 155                         ;
-;         3 data inputs ; 2                           ;
-;     normal            ; 334                         ;
-;         0 data inputs ; 3                           ;
-;         1 data inputs ; 38                          ;
-;         2 data inputs ; 42                          ;
-;         3 data inputs ; 78                          ;
-;         4 data inputs ; 173                         ;
-; cycloneiii_ram_block  ; 48                          ;
+;     plain             ; 120                         ;
+; cycloneiii_lcell_comb ; 1761                        ;
+;     arith             ; 227                         ;
+;         1 data inputs ; 3                           ;
+;         2 data inputs ; 174                         ;
+;         3 data inputs ; 50                          ;
+;     normal            ; 1534                        ;
+;         0 data inputs ; 17                          ;
+;         1 data inputs ; 50                          ;
+;         2 data inputs ; 136                         ;
+;         3 data inputs ; 52                          ;
+;         4 data inputs ; 1279                        ;
+; cycloneiii_ram_block  ; 24                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 5.00                        ;
-; Average LUT depth     ; 2.65                        ;
+; Max LUT depth         ; 13.50                       ;
+; Average LUT depth     ; 6.36                        ;
 +-----------------------+-----------------------------+
 
 
@@ -836,7 +852,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:01     ;
+; Top            ; 00:00:02     ;
 +----------------+--------------+
 
 
@@ -846,10 +862,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
-    Info: Processing started: Mon Jan 13 10:38:10 2025
+    Info: Processing started: Tue Jan 14 20:43:12 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off TubesSisdig -c TubesSisdig
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file rgb_to_hsl.vhd
+    Info (12022): Found design unit 1: RGB_to_HSL-Behavioral File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/RGB_To_HSL.vhd Line: 16
+    Info (12023): Found entity 1: RGB_to_HSL File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/RGB_To_HSL.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file matrix_multiplier.vhd
     Info (12022): Found design unit 1: matrix_multiplier-behavior File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/matrix_multiplier.vhd Line: 20
     Info (12023): Found entity 1: matrix_multiplier File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/matrix_multiplier.vhd Line: 6
@@ -873,7 +892,7 @@ Info (12021): Found 2 design units, including 1 entities, in source file uart_rx
     Info (12022): Found design unit 1: uart_rx-behavior File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 21
     Info (12023): Found entity 1: uart_rx File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 6
 Info (12021): Found 2 design units, including 1 entities, in source file uart.vhd
-    Info (12022): Found design unit 1: uart-behavior File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 27
+    Info (12022): Found design unit 1: uart-behavior File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 29
     Info (12023): Found entity 1: uart File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 6
 Info (12021): Found 2 design units, including 1 entities, in source file sevenseg_decoder.vhd
     Info (12022): Found design unit 1: sevenseg_decoder-behavior File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/sevenseg_decoder.vhd Line: 11
@@ -909,28 +928,27 @@ Info (12021): Found 2 design units, including 1 entities, in source file ram.vhd
     Info (12022): Found design unit 1: ram-SYN File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/ram.vhd Line: 56
     Info (12023): Found entity 1: ram File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/ram.vhd Line: 43
 Info (12127): Elaborating entity "main" for the top level hierarchy
-Warning (10540): VHDL Signal Declaration warning at main.vhd(34): used explicit default value for signal "o_led3" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 34
 Warning (10540): VHDL Signal Declaration warning at main.vhd(34): used explicit default value for signal "o_led4" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 34
 Warning (10541): VHDL Signal Declaration warning at main.vhd(39): used implicit default value for signal "o_vga_hs" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 39
 Warning (10541): VHDL Signal Declaration warning at main.vhd(39): used implicit default value for signal "o_vga_vs" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 39
-Warning (10540): VHDL Signal Declaration warning at main.vhd(166): used explicit default value for signal "note_freq" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 166
-Warning (10541): VHDL Signal Declaration warning at main.vhd(169): used implicit default value for signal "R" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 169
-Warning (10541): VHDL Signal Declaration warning at main.vhd(169): used implicit default value for signal "G" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 169
-Warning (10541): VHDL Signal Declaration warning at main.vhd(169): used implicit default value for signal "B" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 169
-Warning (10541): VHDL Signal Declaration warning at main.vhd(173): used implicit default value for signal "uart_received" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 173
-Warning (10036): Verilog HDL or VHDL warning at main.vhd(179): object "source_sel" assigned a value but never read File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 179
-Warning (10540): VHDL Signal Declaration warning at main.vhd(183): used explicit default value for signal "k" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 183
-Info (12128): Elaborating entity "controller" for hierarchy "controller:controller_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 194
+Warning (10540): VHDL Signal Declaration warning at main.vhd(168): used explicit default value for signal "note_freq" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 168
+Warning (10541): VHDL Signal Declaration warning at main.vhd(171): used implicit default value for signal "R" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 171
+Warning (10541): VHDL Signal Declaration warning at main.vhd(171): used implicit default value for signal "G" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 171
+Warning (10541): VHDL Signal Declaration warning at main.vhd(171): used implicit default value for signal "B" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 171
+Warning (10541): VHDL Signal Declaration warning at main.vhd(175): used implicit default value for signal "uart_received" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 175
+Warning (10036): Verilog HDL or VHDL warning at main.vhd(182): object "source_sel" assigned a value but never read File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 182
+Warning (10540): VHDL Signal Declaration warning at main.vhd(186): used explicit default value for signal "k" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 186
+Info (12128): Elaborating entity "controller" for hierarchy "controller:controller_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 197
 Warning (10541): VHDL Signal Declaration warning at controller.vhd(25): used implicit default value for signal "source_selector" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 25
-Info (12128): Elaborating entity "ir_decoder" for hierarchy "ir_decoder:ir_decoder_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 197
+Info (12128): Elaborating entity "ir_decoder" for hierarchy "ir_decoder:ir_decoder_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 201
 Warning (10492): VHDL Process Statement warning at IR.vhd(148): signal "changestate" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/IR.vhd Line: 148
-Info (12128): Elaborating entity "clockmodifier" for hierarchy "clockmodifier:clockmodifier_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 198
+Info (12128): Elaborating entity "clockmodifier" for hierarchy "clockmodifier:clockmodifier_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 202
 Warning (10492): VHDL Process Statement warning at clockmodifier.vhd(25): signal "clk_out_intem" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/clockmodifier.vhd Line: 25
-Info (12128): Elaborating entity "sevensegment" for hierarchy "sevensegment:sevs_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 199
+Info (12128): Elaborating entity "sevensegment" for hierarchy "sevensegment:sevs_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 203
 Warning (10492): VHDL Process Statement warning at sevseg.vhd(64): signal "curr_val" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/sevseg.vhd Line: 64
-Info (12128): Elaborating entity "buzzer" for hierarchy "buzzer:buzzer_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 200
+Info (12128): Elaborating entity "buzzer" for hierarchy "buzzer:buzzer_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 204
 Warning (10492): VHDL Process Statement warning at buzzer.vhd(57): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/buzzer.vhd Line: 57
-Info (12128): Elaborating entity "img_proc" for hierarchy "img_proc:imgprocessing_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 203
+Info (12128): Elaborating entity "img_proc" for hierarchy "img_proc:imgprocessing_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 207
 Warning (10540): VHDL Signal Declaration warning at imgprocessing.vhd(37): used explicit default value for signal "B_matrix" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/imgprocessing.vhd Line: 37
 Warning (10873): Using initial value X (don't care) for net "curr_pixel[0][1..2]" at imgprocessing.vhd(33) File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/imgprocessing.vhd Line: 33
 Warning (10873): Using initial value X (don't care) for net "curr_pixel[1][0]" at imgprocessing.vhd(33) File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/imgprocessing.vhd Line: 33
@@ -945,31 +963,14 @@ Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup
 Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "data_A" into its bus
 Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "data_B" into its bus
 Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "result" into its bus
-Info (12128): Elaborating entity "uart" for hierarchy "uart:uart_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 205
-Warning (10541): VHDL Signal Declaration warning at uart.vhd(23): used implicit default value for signal "sevseg_data" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 23
-Warning (10540): VHDL Signal Declaration warning at uart.vhd(30): used explicit default value for signal "s_RX_START" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 30
-Info (12128): Elaborating entity "uart_rx" for hierarchy "uart:uart_module|uart_rx:u_RX" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 77
-Info (12128): Elaborating entity "uart_tx" for hierarchy "uart:uart_module|uart_tx:u_TX" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 90
-Warning (10540): VHDL Signal Declaration warning at uart_tx.vhd(26): used explicit default value for signal "pixel_transmit" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_tx.vhd Line: 26
-Warning (276020): Inferred RAM node "img_proc:imgprocessing_module|temp_img_rtl_0" from synchronous design logic.  Pass-through logic has been added to match the read-during-write behavior of the original design.
-Warning (276020): Inferred RAM node "uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0" from synchronous design logic.  Pass-through logic has been added to match the read-during-write behavior of the original design.
-Info (19000): Inferred 2 megafunctions from design logic
-    Info (276029): Inferred altsyncram megafunction from the following design logic: "img_proc:imgprocessing_module|temp_img_rtl_0" 
-        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
-        Info (286033): Parameter WIDTH_A set to 24
-        Info (286033): Parameter WIDTHAD_A set to 6
-        Info (286033): Parameter NUMWORDS_A set to 64
-        Info (286033): Parameter WIDTH_B set to 24
-        Info (286033): Parameter WIDTHAD_B set to 6
-        Info (286033): Parameter NUMWORDS_B set to 64
-        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
-        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
-        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
-        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
-        Info (286033): Parameter ADDRESS_REG_B set to CLOCK0
-        Info (286033): Parameter INDATA_ACLR_A set to NONE
-        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
-        Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
+Info (12128): Elaborating entity "uart" for hierarchy "uart:uart_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 209
+Warning (10540): VHDL Signal Declaration warning at uart.vhd(32): used explicit default value for signal "s_RX_START" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 32
+Info (12128): Elaborating entity "uart_rx" for hierarchy "uart:uart_module|uart_rx:u_RX" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 80
+Warning (10492): VHDL Process Statement warning at uart_rx.vhd(104): signal "pixel_received" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 104
+Info (12128): Elaborating entity "uart_tx" for hierarchy "uart:uart_module|uart_tx:u_TX" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 93
+Warning (10492): VHDL Process Statement warning at uart_tx.vhd(80): signal "pixel_transmit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_tx.vhd Line: 80
+Warning (276027): Inferred dual-clock RAM node "uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0" from synchronous design logic.  The read-during-write behavior of a dual-clock RAM is undefined and may not match the behavior of the original design.
+Info (19000): Inferred 1 megafunctions from design logic
     Info (276029): Inferred altsyncram megafunction from the following design logic: "uart:uart_module|uart_rx:u_RX|r_MEM_rtl_0" 
         Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
         Info (286033): Parameter WIDTH_A set to 24
@@ -982,12 +983,17 @@ Info (19000): Inferred 2 megafunctions from design logic
         Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
         Info (286033): Parameter ADDRESS_ACLR_B set to NONE
         Info (286033): Parameter OUTDATA_ACLR_B set to NONE
-        Info (286033): Parameter ADDRESS_REG_B set to CLOCK0
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK1
         Info (286033): Parameter INDATA_ACLR_A set to NONE
         Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
-        Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
-Info (12130): Elaborated megafunction instantiation "img_proc:imgprocessing_module|altsyncram:temp_img_rtl_0"
-Info (12133): Instantiated megafunction "img_proc:imgprocessing_module|altsyncram:temp_img_rtl_0" with the following parameter:
+Info (278001): Inferred 5 megafunctions from design logic
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|Mod2" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 123
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|Div0" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 121
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|Mod0" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 121
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|Div1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 122
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "uart:uart_module|Mod1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 122
+Info (12130): Elaborated megafunction instantiation "uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0"
+Info (12133): Instantiated megafunction "uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0" with the following parameter:
     Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
     Info (12134): Parameter "WIDTH_A" = "24"
     Info (12134): Parameter "WIDTHAD_A" = "6"
@@ -999,21 +1005,52 @@ Info (12133): Instantiated megafunction "img_proc:imgprocessing_module|altsyncra
     Info (12134): Parameter "OUTDATA_REG_B" = "UNREGISTERED"
     Info (12134): Parameter "ADDRESS_ACLR_B" = "NONE"
     Info (12134): Parameter "OUTDATA_ACLR_B" = "NONE"
-    Info (12134): Parameter "ADDRESS_REG_B" = "CLOCK0"
+    Info (12134): Parameter "ADDRESS_REG_B" = "CLOCK1"
     Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
     Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
-    Info (12134): Parameter "READ_DURING_WRITE_MODE_MIXED_PORTS" = "OLD_DATA"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_3ci1.tdf
-    Info (12023): Found entity 1: altsyncram_3ci1 File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/altsyncram_3ci1.tdf Line: 28
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_ipd1.tdf
+    Info (12023): Found entity 1: altsyncram_ipd1 File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/altsyncram_ipd1.tdf Line: 28
+Info (12130): Elaborated megafunction instantiation "uart:uart_module|lpm_divide:Mod2" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 123
+Info (12133): Instantiated megafunction "uart:uart_module|lpm_divide:Mod2" with the following parameter: File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 123
+    Info (12134): Parameter "LPM_WIDTHN" = "8"
+    Info (12134): Parameter "LPM_WIDTHD" = "8"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_q9m.tdf
+    Info (12023): Found entity 1: lpm_divide_q9m File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/lpm_divide_q9m.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_fkh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_fkh File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/sign_div_unsign_fkh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_i4f.tdf
+    Info (12023): Found entity 1: alt_u_div_i4f File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_i4f.tdf Line: 27
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_7pc.tdf
+    Info (12023): Found entity 1: add_sub_7pc File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/add_sub_7pc.tdf Line: 23
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_8pc.tdf
+    Info (12023): Found entity 1: add_sub_8pc File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/add_sub_8pc.tdf Line: 23
+Info (12130): Elaborated megafunction instantiation "uart:uart_module|lpm_divide:Div0" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 121
+Info (12133): Instantiated megafunction "uart:uart_module|lpm_divide:Div0" with the following parameter: File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 121
+    Info (12134): Parameter "LPM_WIDTHN" = "8"
+    Info (12134): Parameter "LPM_WIDTHD" = "7"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_mhm.tdf
+    Info (12023): Found entity 1: lpm_divide_mhm File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/lpm_divide_mhm.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_ekh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_ekh File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/sign_div_unsign_ekh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_g4f.tdf
+    Info (12023): Found entity 1: alt_u_div_g4f File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_g4f.tdf Line: 27
+Info (12130): Elaborated megafunction instantiation "uart:uart_module|lpm_divide:Div1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 122
+Info (12133): Instantiated megafunction "uart:uart_module|lpm_divide:Div1" with the following parameter: File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 122
+    Info (12134): Parameter "LPM_WIDTHN" = "8"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_jhm.tdf
+    Info (12023): Found entity 1: lpm_divide_jhm File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/lpm_divide_jhm.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_bkh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_bkh File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/sign_div_unsign_bkh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_a4f.tdf
+    Info (12023): Found entity 1: alt_u_div_a4f File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_a4f.tdf Line: 27
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "sevseg[0]" is stuck at VCC File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
-    Warning (13410): Pin "sevseg[1]" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
-    Warning (13410): Pin "sevseg[2]" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
-    Warning (13410): Pin "sevseg[3]" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
-    Warning (13410): Pin "sevseg[4]" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
-    Warning (13410): Pin "sevseg[5]" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
-    Warning (13410): Pin "sevseg[6]" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 32
-    Warning (13410): Pin "o_led3" is stuck at VCC File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 34
     Warning (13410): Pin "o_led4" is stuck at VCC File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 34
     Warning (13410): Pin "o_r0" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 36
     Warning (13410): Pin "o_r1" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 36
@@ -1042,24 +1079,25 @@ Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "o_vga_hs" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 39
     Warning (13410): Pin "o_vga_vs" is stuck at GND File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 39
 Info (286030): Timing-Driven Synthesis is running
+Info (17016): Found the following redundant logic cells in design
+    Info (17048): Logic cell "uart:uart_module|lpm_divide:Mod1|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider|alt_u_div_i4f:divider|add_sub_6_result_int[0]~14" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/db/alt_u_div_i4f.tdf Line: 57
 Warning (20013): Ignored 19 assignments for entity "PLL25" -- entity does not exist in design
 Warning (20013): Ignored 74 assignments for entity "PLL25_altpll_0" -- entity does not exist in design
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 4 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "i_btn1" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 26
+Warning (21074): Design contains 3 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "i_btn2" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 26
     Warning (15610): No output dependent on input pin "i_btn3" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 26
     Warning (15610): No output dependent on input pin "i_btn4" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 26
-Info (21057): Implemented 709 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 3400 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 7 input pins
     Info (21059): Implemented 43 output pins
-    Info (21061): Implemented 611 logic cells
-    Info (21064): Implemented 48 RAM segments
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 70 warnings
-    Info: Peak virtual memory: 4882 megabytes
-    Info: Processing ended: Mon Jan 13 10:38:17 2025
-    Info: Elapsed time: 00:00:07
+    Info (21061): Implemented 3326 logic cells
+    Info (21064): Implemented 24 RAM segments
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 59 warnings
+    Info: Peak virtual memory: 4894 megabytes
+    Info: Processing ended: Tue Jan 14 20:43:21 2025
+    Info: Elapsed time: 00:00:09
     Info: Total CPU time (on all processors): 00:00:08
 
 

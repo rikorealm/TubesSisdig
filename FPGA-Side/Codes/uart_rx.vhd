@@ -37,6 +37,8 @@ architecture behavior of uart_rx is
 	signal mem_addr : integer range -1 to 63 := -1;
 	signal isFirstRun : std_logic := '1';
 
+	signal pixel_received : std_logic := '0';
+
 begin
 	process( i_CLOCK, r_MEM, i_log_ADDR )
 	begin
@@ -82,7 +84,7 @@ begin
 				
 			end if;
 
-			if rgb_elcount = 0 and isFirstRun = '0' then
+			if rgb_elcount = 0 and isFirstRun = '0' and pixel_received = '0' then
 				r_MEM(mem_addr) <= 
 					std_logic_vector(to_unsigned(rgb(0), 8))
 					&
@@ -90,7 +92,7 @@ begin
 					&
 					std_logic_vector(to_unsigned(rgb(2), 8));
 				if mem_addr >= 63 then
-					o_pixel_receive <= '1';
+					pixel_received <= '1';
 				-- else
 				-- 	o_pixel_receive <= '0';
 				end if;
@@ -99,6 +101,7 @@ begin
 		end if;
 
 		o_DATA	<= r_MEM;
+		o_pixel_receive <= pixel_received;
 		-- o_mem <= rgb;
 	end process;
 end behavior;

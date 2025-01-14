@@ -2,16 +2,16 @@
 Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow 1200mV 85C Model Setup 'i_clk'
-Slack : -8.319
-TNS   : -990.449
-
 Type  : Slow 1200mV 85C Model Setup 'clockmodifier:clockmodifier_module|clk_out_intem'
-Slack : -4.283
-TNS   : -228.478
+Slack : -14.403
+TNS   : -336.432
+
+Type  : Slow 1200mV 85C Model Setup 'i_clk'
+Slack : -7.742
+TNS   : -10173.393
 
 Type  : Slow 1200mV 85C Model Hold 'i_clk'
-Slack : 0.417
+Slack : 0.411
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'clockmodifier:clockmodifier_module|clk_out_intem'
@@ -20,46 +20,46 @@ TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'i_clk'
 Slack : -3.201
-TNS   : -497.013
+TNS   : -2616.567
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clockmodifier:clockmodifier_module|clk_out_intem'
 Slack : -1.487
-TNS   : -102.603
-
-Type  : Slow 1200mV 0C Model Setup 'i_clk'
-Slack : -7.852
-TNS   : -905.717
+TNS   : -114.499
 
 Type  : Slow 1200mV 0C Model Setup 'clockmodifier:clockmodifier_module|clk_out_intem'
-Slack : -3.882
-TNS   : -203.498
+Slack : -13.132
+TNS   : -301.560
+
+Type  : Slow 1200mV 0C Model Setup 'i_clk'
+Slack : -7.251
+TNS   : -9537.534
 
 Type  : Slow 1200mV 0C Model Hold 'i_clk'
 Slack : 0.382
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'clockmodifier:clockmodifier_module|clk_out_intem'
-Slack : 0.418
+Slack : 0.417
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'i_clk'
 Slack : -3.201
-TNS   : -497.013
+TNS   : -2616.567
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clockmodifier:clockmodifier_module|clk_out_intem'
 Slack : -1.487
-TNS   : -102.603
-
-Type  : Fast 1200mV 0C Model Setup 'i_clk'
-Slack : -3.031
-TNS   : -264.250
+TNS   : -114.499
 
 Type  : Fast 1200mV 0C Model Setup 'clockmodifier:clockmodifier_module|clk_out_intem'
-Slack : -1.230
-TNS   : -57.519
+Slack : -5.670
+TNS   : -101.612
+
+Type  : Fast 1200mV 0C Model Setup 'i_clk'
+Slack : -2.972
+TNS   : -3581.427
 
 Type  : Fast 1200mV 0C Model Hold 'i_clk'
-Slack : 0.138
+Slack : 0.141
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'clockmodifier:clockmodifier_module|clk_out_intem'
@@ -68,10 +68,10 @@ TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'i_clk'
 Slack : -3.000
-TNS   : -348.826
+TNS   : -1878.736
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clockmodifier:clockmodifier_module|clk_out_intem'
 Slack : -1.000
-TNS   : -69.000
+TNS   : -77.000
 
 ------------------------------------------------------------

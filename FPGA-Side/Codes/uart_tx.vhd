@@ -7,7 +7,7 @@ entity uart_tx is
 	port (
 		i_CLOCK	:	in std_logic;
 		i_START	:	in std_logic;
-		i_DATA	:	in std_logic_vector(7 downto 0);
+		i_DATA	:	in img_mem;
 		o_BUSY	:	out std_logic;
 		i_pixel_receive : in std_logic;
 		o_pixel_transmit : out std_logic := '0';
@@ -25,42 +25,59 @@ architecture behavior of uart_tx is
 	signal pixval_ctr : integer range 0 to 2 := 0;
 	signal pixel_transmit : std_logic := '0';
 
+	signal addr : integer range -1 to 63 := -1;
+	signal firstrun : std_logic := '0';
+
 begin
 	process(i_CLOCK, i_pixel_receive) 
 	begin
 		if rising_edge(i_CLOCK) then
-			if (s_TRANSMITING_FLAG = '0' and i_START = '1') then
-				r_DATA_BUFFER(0)                <= '0';
-				r_DATA_BUFFER(9)                <= '1';
-				r_DATA_BUFFER(8 downto 1)       <= i_DATA;
-				s_TRANSMITING_FLAG              <= '1';
-				o_BUSY                          <= '1';
-				
-				-- if i_pixel_receive = '1' and pixel_transmit = '1' then
-				-- 	pixel_transmit <= '0';
-				-- end if;
+			if addr < 63 then
+				if (s_TRANSMITING_FLAG = '0' and i_START = '1') then
+					r_DATA_BUFFER(0)                <= '0';
+					r_DATA_BUFFER(9)                <= '1';
+					s_TRANSMITING_FLAG              <= '1';
+					o_BUSY                          <= '1';
+					
+					if pixval_ctr = 0 then
+						r_DATA_BUFFER(8 downto 1)       <= i_DATA(addr+1)(23 downto 16);
+					elsif pixval_ctr = 1 then
+						r_DATA_BUFFER(8 downto 1)       <= i_DATA(addr+1)(15 downto 8);
+					elsif pixval_ctr = 2 then
+						r_DATA_BUFFER(8 downto 1)       <= i_DATA(addr+1)(7 downto 0);
+					end if;
 
-			elsif (s_TRANSMITING_FLAG = '1') then
-				if (r_PRESCALER < 433) then
-					r_PRESCALER <= r_PRESCALER + 1;
-				else
-					r_PRESCALER <= 0;
-				end if;
-
-				if (r_PRESCALER = 220) then
-					o_TX_LINE <= r_DATA_BUFFER(r_INDEX);
-					if (r_INDEX < 9) then
-						r_INDEX <= r_INDEX + 1;
+				elsif (s_TRANSMITING_FLAG = '1') then
+					if (r_PRESCALER < 433) then
+						r_PRESCALER <= r_PRESCALER + 1;
 					else
-						r_INDEX                 <= 0;
-						s_TRANSMITING_FLAG      <= '0';
-						o_BUSY                  <= '0';
+						r_PRESCALER <= 0;
+					end if;
+
+					if (r_PRESCALER = 220) then
+						o_TX_LINE <= r_DATA_BUFFER(r_INDEX);
+						if (r_INDEX < 9) then
+							r_INDEX <= r_INDEX + 1;
+						else
+							r_INDEX                 <= 0;
+							s_TRANSMITING_FLAG      <= '0';
+							o_BUSY                  <= '0';
+							if pixval_ctr < 2 then
+								pixval_ctr <= pixval_ctr + 1;
+							else
+								pixval_ctr <= 0;
+								addr <= addr + 1;
+							end if;
+						end if;
 					end if;
 				end if;
-			end if;
 
-			o_pixel_transmit <= pixel_transmit;
+			else
+				pixel_transmit <= '1';
+			end if;
 		end if;
+
+		o_pixel_transmit <= pixel_transmit;
 	end process;
 
 end behavior;

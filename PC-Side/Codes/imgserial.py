@@ -102,17 +102,65 @@ temp_rgb = []
 # write(bytes([253]))
 # write(bytes([122]))
 
-# for i in range(64):
-write(bytes([12]))
-write(bytes([76]))
-write(bytes([55]))
+for i in range(64):
+    print((23+i)*2)
+    print((34+i)*2)
+    print((12+i)*2)
+    write(bytes([23+i]))
+    write(bytes([34+i]))
+    write(bytes([12+i]))
+    print()
 
 
-while True:
-# for i in range(192):
-    processing_state = int(SerialObj.read().hex(), 16)
-    # if i >= 192:
-    print(f"{i} : {processing_state}")
+
+# id : 0
+# 46 , 
+# 68 , 
+# 24 , 
+
+# id : 1
+# 48 
+# 70
+# 26
+
+# id : 2
+# 50
+# 72
+# 28
+
+# id : 3
+# 52
+# 74
+# 30
+
+# id : 4
+# 54
+# 76
+# 32 
+
+# id : 62
+# 23+62 = 85 , 170
+# 34+62 = 96 , 192
+# 12+62 = 74 , 148
+
+# id : 63
+# 23+63 = 87 , 172
+# 34+63 = 97 , 194
+# 12+63 = 75 , 150
+
+# 132
+# 166
+# 110
+
+# j = 0
+# while True:
+# # for i in range(192):
+#     processing_state = int(SerialObj.read().hex(), 16)
+# #     # if i >= 192:
+#     print(f"{j} : {processing_state}")
+#     # time.sleep(1)
+#     j+=1
+#     if j == 192: break
 
 # write(bytes([201]))
 # write(bytes([202]))

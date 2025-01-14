@@ -1,17 +1,15 @@
-import numpy as np
+import serial
 
-# Define the 8x8 RGB image matrix (example with random RGB values)
-image_matrix = np.random.randint(0, 256, (8, 8, 3), dtype=np.uint8)  # 8x8 matrix with RGB tuples
+SerialObj = serial.Serial('COM18') # COMxx  format on Windows
+SerialObj.baudrate = 115200  # set Baud rate to 9600
+SerialObj.bytesize = 8   # Number of data bits = 8
+SerialObj.parity  ='N'   # No parity
+SerialObj.stopbits = 1   # Number of Stop bits = 1
 
-# Transformation matrix for flipping (identity matrix reversed)
-flip_matrix = np.eye(8)[::-1]
+k = 1
+while True:
+    p = int(SerialObj.read().hex(), 16)
+    print(f"{k} : {p}")
+    k+=1
 
-# Perform the flip horizontally and vertically
-flipped_image_matrix = flip_matrix @ image_matrix @ flip_matrix.T
-
-# For demonstration, let's print the original and flipped matrices
-print("Original Image Matrix:")
-print(image_matrix)
-
-print("\nFlipped Image Matrix (Horizontally and Vertically):")
-print(flipped_image_matrix)
+SerialObj.close()

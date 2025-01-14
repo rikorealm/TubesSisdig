@@ -104,11 +104,13 @@ end component controller;
         i_ADDR		  : in  std_logic_vector(5 downto 0);
         i_processing  : in 	std_logic;
         i_image		  : in img_mem;
+        i_send        : in std_logic;
         o_TX          : out std_logic := '1';
         o_image		  : out img_mem;
         o_sig_RX_BUSY : out std_logic;
         o_sig_TX_BUSY : out std_logic;
         o_img_received : out std_logic;
+        o_img_transmitted : out std_logic := '0';
         sevseg_data   : out sevsegdata_arr
     );
   end component uart;
@@ -175,6 +177,7 @@ end component controller;
   signal res_img : img_mem;
   signal rx_busy, tx_busy : std_logic;
   signal img_received : std_logic := '0';
+  signal img_transmitted : std_logic := '0';
 
   signal source_sel : std_logic := '0';
   signal sevsegdata : sevsegdata_arr;
@@ -194,6 +197,7 @@ begin
   controller_module : controller port map(i_clk, ir_data, ir_changing, uart_received, rx_busy, tx_busy, en_buzz, source_sel, addr);
   o_led1 <= processing_state;
   o_led2 <= img_received;
+  o_led3 <= img_transmitted;
   ir_decoder_module : ir_decoder port map(i_clk, i_IR, ir_frame, ir_changing);
   clockmodifier_module : clockmodifier port map(CLKFREQ, note_freq, i_clk, note_clk);
   sevs_module : sevensegment port map(note_clk, sevsegdata, dig, sevseg);
@@ -202,7 +206,7 @@ begin
   -- vga_module : vga_sync port map(pllclk, o_vga_hs, o_vga_vs, source_sel, R, G, B);
   imgprocessing_module : img_proc port map(i_clk, ori_img, k, img_received, res_img, processing_state);
   -- ps_8bit <= "0000000" & processing_state;
-  uart_module : uart port map(i_clk, i_Rx, addr, processing_state, res_img, o_Tx, ori_img, rx_busy, tx_busy, img_received, sevsegdata);
+  uart_module : uart port map(i_clk, i_Rx, addr, processing_state, res_img, i_btn1, o_Tx, ori_img, rx_busy, tx_busy, img_received, img_transmitted, sevsegdata);
 
   -- data_sig <= uart_received&uart_received&uart_received;
   -- ram_inst : ram PORT MAP (

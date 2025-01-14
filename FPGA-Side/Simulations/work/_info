@@ -9,115 +9,178 @@ z2
 !i10f 100
 cModel Technology
 dE:/Software/intelFPGA_lite/23.1std/projects/Testing
-Econtroller
-Z0 w1736347081
-Z1 DPx4 work 10 sevseg_pkg 0 22 :;JnWdUJVIF<YK@fabYZ03
-Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
-Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
-Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
-!i122 2
-Z5 dE:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Simulations
-Z6 8E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd
-Z7 FE:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd
+Pall_pkg
+Z0 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z1 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 25
+Z2 w1736839395
+Z3 dE:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Simulations
+Z4 8E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd
+Z5 FE:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd
 l0
-Z8 L13 1
-VDnVD9M<U5o2cCdllckhd=3
-!s100 V<J5jV4?haLPjR=35ozA92
-Z9 OV;C;2020.1;71
+L4 1
+VR:2UAKUfDWMfZMdYfSelQ3
+!s100 _W>8eCof7j?jo5P494?MF2
+Z6 OV;C;2020.1;71
 32
-Z10 !s110 1736347581
+Z7 !s110 1736847954
 !i10b 1
-Z11 !s108 1736347581.000000
-Z12 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd|
-Z13 !s107 E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd|
+Z8 !s108 1736847954.000000
+Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd|
+Z10 !s107 E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd|
 !i113 1
-Z14 o-work work -2002 -explicit
-Z15 tExplicit 1 CvgOpt 0
-Afsm
+Z11 o-work work -2002 -explicit
+Z12 tExplicit 1 CvgOpt 0
+Econtroller
+Z13 w1736733436
+Z14 DPx4 work 7 all_pkg 0 22 R:2UAKUfDWMfZMdYfSelQ3
+Z15 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+R0
 R1
-R2
+!i122 24
 R3
-R4
-DEx4 work 10 controller 0 22 DnVD9M<U5o2cCdllckhd=3
-!i122 2
-l44
-L29 79
-VHdm[8WA:WY7b7XBoPE6SA1
-!s100 CV@F0zQ:4_nI;Fe;cHgn`0
-R9
+Z16 8E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd
+Z17 FE:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd
+l0
+L13 1
+V;aC0WWkL;loWlYJ991JEI2
+!s100 F:i[fKg[eP?Sk`G>fCW>I2
+R6
 32
-R10
+R7
 !i10b 1
+R8
+Z18 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd|
+Z19 !s107 E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd|
+!i113 1
 R11
 R12
-R13
-!i113 1
+Afsm
 R14
 R15
-Emain
-Z16 w1736346257
+R0
 R1
-R2
-R3
-R4
-!i122 3
-R5
-Z17 8E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd
-Z18 FE:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd
-l0
+DEx4 work 10 controller 0 22 ;aC0WWkL;loWlYJ991JEI2
+!i122 24
+l34
+L31 32
+Vz;D3EX[mDCaLY9GEiQobb1
+!s100 EX>SLVdQREFA^N84`^4YF0
+R6
+32
+R7
+!i10b 1
 R8
-VGfZ_P^[[]cO?E5X3Jj5Zc0
-!s100 TBQW:ONoWIC4aP83JzNm41
-R9
-32
-R10
-!i10b 1
-R11
-Z19 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd|
-Z20 !s107 E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd|
-!i113 1
-R14
-R15
-Artl
-R1
-R2
-R3
-R4
-Z21 DEx4 work 4 main 0 22 GfZ_P^[[]cO?E5X3Jj5Zc0
-!i122 3
-l130
-Z22 L38 133
-Z23 Vez?ie:3EAUQFEin_^V;@:1
-Z24 !s100 DF<0;HgLA[GVhL=5bWGoT3
-R9
-32
-R10
-!i10b 1
-R11
-R19
-R20
-!i113 1
-R14
-R15
-Psevseg_pkg
-R3
-R4
-!i122 3
-R16
-R5
-R17
 R18
+R19
+!i113 1
+R11
+R12
+Ecounter
+Z20 w1736847933
+R0
+R1
+!i122 26
+R3
+Z21 8E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/countertest.vhd
+Z22 FE:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/countertest.vhd
+l0
+L4 1
+V2iYNE:80j]??l@kWoKZOY1
+!s100 _T30bMejV4O_S5UPDCRT43
+R6
+32
+R7
+!i10b 1
+R8
+Z23 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/countertest.vhd|
+Z24 !s107 E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/countertest.vhd|
+!i113 1
+R11
+R12
+Abehavior
+R0
+R1
+Z25 DEx4 work 7 counter 0 22 2iYNE:80j]??l@kWoKZOY1
+!i122 26
+l15
+Z26 L12 18
+VdK:G;WOdoSmo]Wog66fnN1
+!s100 SK9H^7MMzCGR<E6@Q0YVh2
+R6
+32
+R7
+!i10b 1
+R8
+R23
+R24
+!i113 1
+R11
+R12
+Emain
+R2
+R14
+R15
+R0
+R1
+!i122 25
+R3
+R4
+R5
+l0
+L21 1
+Vk:`F_LIU:[=IB4@L?AKDT3
+!s100 AN2S`ijb1@5A^Md3ZR7zW0
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Artl
+R14
+R15
+R0
+R1
+DEx4 work 4 main 0 22 k:`F_LIU:[=IB4@L?AKDT3
+!i122 25
+l194
+L46 202
+VGUGjzQho2KL`m4E;b5^Dh1
+!s100 `Ch8QgeZeEja0MEUDGbom3
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Psevseg_pkg
+R0
+R1
+!i122 3
+w1736346257
+R3
+R4
+R5
 l0
 L4 1
 V:;JnWdUJVIF<YK@fabYZ03
 !s100 mAD6Mk4A_RginWIJHkCRS3
-R9
+R6
 32
-R10
+!s110 1736347581
 !i10b 1
-R11
-R19
-R20
+!s108 1736347581.000000
+R9
+R10
 !i113 1
-R14
-R15
+R11
+R12

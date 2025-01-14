@@ -32,10 +32,10 @@ architecture rtl of img_proc is
     -- type procpix is array(0 to 2, 0 to 2) of std_logic_vector(15 downto 0);
     signal curr_pixel : matrix(0 to 2, 0 to 2);
     signal processed_pixel : matrix_result(0 to 2, 0 to 0);
-    signal pixelcounter : integer range 0 to 64 := 0;
+    signal pixelcounter : integer range -1 to 66 := -1;
     signal temp_img : img_mem;
     signal B_matrix : matrix(0 to 2, 0 to 0) := (others => (others => std_logic_vector(to_unsigned(2, 8))));
-
+    signal is_firstrun : std_logic := '1';
     signal processing_done : std_logic := '0';
     
 begin
@@ -46,28 +46,32 @@ begin
         processed_pixel
     );
 
-    getPixel : process(i_clk, i_data)
+    getPixel : process(i_clk, i_data, processing_done)
     begin
         if rising_edge(i_clk) then
-            if img_received = '1' then
-                if (pixelcounter <= 63) then
-                    -- curr_pixel <= (
-                    --     (i_data(pixelcounter)(23 downto 16), "00000000", "00000000"),
-                    --     ("00000000", i_data(pixelcounter)(15 downto 8), "00000000"),
-                    --     ("00000000", "00000000", i_data(pixelcounter)(7 downto 0))
-                    -- );
-                    curr_pixel(0,0) <= i_data(pixelcounter)(23 downto 16);
-                    curr_pixel(1,1) <= i_data(pixelcounter)(15 downto 8);
-                    curr_pixel(2,2) <= i_data(pixelcounter)(7 downto 0);
-                    pixelcounter <= pixelcounter + 1;
-                end if;
-                if pixelcounter = 64 then
-                    pixelcounter <= 0;
+            if img_received = '1' and processing_done = '0' then
+                if (pixelcounter < 66) then
+                    is_firstrun <= '0';
+
+                    if pixelcounter <= 62 then
+                        curr_pixel(0,0) <= i_data(pixelcounter+1)(23 downto 16);
+                        curr_pixel(1,1) <= i_data(pixelcounter+1)(15 downto 8);
+                        curr_pixel(2,2) <= i_data(pixelcounter+1)(7 downto 0);
+                    end if;
+
+                    if pixelcounter <= 65 then
+                        pixelcounter <= pixelcounter + 1;
+                        if pixelcounter <= 64 then
+                            if is_firstrun = '0' then
+                                temp_img(pixelcounter-1) <= processed_pixel(0,0)&processed_pixel(1,0)&processed_pixel(2,0);
+                            end if;
+                        end if;
+                    end if;
+
+                else
                     processing_done <= '1';
                 end if;
-                temp_img(pixelcounter) <= processed_pixel(0,0)&processed_pixel(1,0)&processed_pixel(2,0);
-                -- temp_img(pixelcounter) <= "101010101010111111000000";
-                end if;
+            end if;
         end if;
     end process;
     

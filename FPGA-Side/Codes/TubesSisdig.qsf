@@ -97,6 +97,11 @@ set_location_assignment PIN_121 -to sevseg[5]
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_location_assignment PIN_88 -to i_btn1
+set_location_assignment PIN_89 -to i_btn2
+set_location_assignment PIN_90 -to i_btn3
+set_location_assignment PIN_91 -to i_btn4
+set_global_assignment -name VHDL_FILE RGB_To_HSL.vhd
 set_global_assignment -name VHDL_FILE matrix_multiplier.vhd
 set_global_assignment -name VHDL_FILE uartctrl.vhd
 set_global_assignment -name VHDL_FILE matrixexpander.vhd

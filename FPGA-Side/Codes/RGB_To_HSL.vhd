@@ -7,87 +7,78 @@ entity RGB_to_HSL is
         R : in std_logic_vector(7 downto 0); -- Red channel (8-bit)
         G : in std_logic_vector(7 downto 0); -- Green channel (8-bit)
         B : in std_logic_vector(7 downto 0); -- Blue channel (8-bit)
-        H : out std_logic_vector(7 downto 0); -- Hue (8-bit, range 0-100)
-        S : out std_logic_vector(7 downto 0); -- Saturation (8-bit, range 0-100)
-        L : out std_logic_vector(7 downto 0)  -- Lightness (8-bit, range 0-100)
+        H : out std_logic_vector(7 downto 0); -- Hue (9-bit, range 0-360)
+        S : out std_logic_vector(7 downto 0); -- Saturation (7-bit, range 0-100)
+        L : out std_logic_vector(7 downto 0)  -- Lightness (7-bit, range 0-100)
     );
 end RGB_to_HSL;
 
 architecture Behavioral of RGB_to_HSL is
-
-function Max(A :real; B: real) return real is
-begin 
-    if A >= B then 
-        return A;
-    else 
-        return B;
-    end if;
-end function;
-
-function Min(A :real; B: real) return real is
-begin 
-    if A <= B then 
-        return A;
-    else 
-        return B;
-    end if;
-end function;
-
 begin
     process(R, G, B)
-        -- Intermediate variables
-        variable Rf, Gf, Bf :real;
-        variable max_val, min_val :real;
-        variable delta :real;
-        variable H_temp, S_temp, L_temp :real;
+        variable R_int, G_int, B_int : integer;
+        variable max_val, min_val : integer;
+        variable delta : integer;
+        variable H_temp, S_temp, L_temp : integer;
     begin
-        -- Convert RGB inputs from std_logic_vector to real [0, 1]
-        Rf := real(to_integer(unsigned(R))) / 255.0;
-        Gf := real(to_integer(unsigned(G))) / 255.0;
-        Bf := real(to_integer(unsigned(B))) / 255.0;
+        -- Convert RGB inputs from std_logic_vector to integer
+        R_int := to_integer(unsigned(R));
+        G_int := to_integer(unsigned(G));
+        B_int := to_integer(unsigned(B));
 
-        -- Find maximum and minimum of Rf, Gf, Bf
-        max_val := Max(Rf, Max(Gf,Bf));
-        min_val := Min(Rf, Min(Gf, Bf));
+        -- Find maximum and minimum of R_int, G_int, B_int
+        max_val := R_int;
+        if G_int > max_val then
+            max_val := G_int;
+        end if;
+        if B_int > max_val then
+            max_val := B_int;
+        end if;
+
+        min_val := R_int;
+        if G_int < min_val then
+            min_val := G_int;
+        end if;
+        if B_int < min_val then
+            min_val := B_int;
+        end if;
 
         -- Calculate Lightness
-        L_temp := (max_val + min_val) / 2.0;
+        L_temp := (max_val + min_val) * 50 / 255;
 
         -- Calculate Saturation
-        delta := max_val - min_val ;
-        if delta = 0.0 then
-            S_temp := 0.0; -- Grayscale, no saturation
+        delta := max_val - min_val;
+        if delta = 0 then
+            S_temp := 0; -- Grayscale, no saturation
         else
-            if L_temp < 0.5 then
-                S_temp := delta  / (max_val + min_val);
+            if L_temp <= 50 then
+                S_temp := (delta * 100) / (max_val + min_val);
             else
-                S_temp := delta  / (1.0 - (2.0*L_temp -1.0));
+                S_temp := (delta * 100) / (510 - max_val - min_val);
             end if;
         end if;
 
         -- Calculate Hue
-        if max_val = min_val then
-            H_temp := 0.0; -- Grayscale, no hue
+        if delta = 0 then
+            H_temp := 0; -- Grayscale, no hue
         else
-            if max_val = Rf then
-                H_temp := 60.0 * ((Gf - Bf)/delta);
-            elsif max_val = Gf then
-                H_temp := 60.0 * (2.0 + (Bf - Rf) / delta );
+            if max_val = R_int then
+                H_temp := (60 * (G_int - B_int) / delta) mod 360;
+            elsif max_val = G_int then
+                H_temp := (60 * (2 + (B_int - R_int) / delta)) mod 360;
             else
-                H_temp := 60.0 * (4.0 + (Rf - Gf) / delta );
+                H_temp := (60 * (4 + (R_int - G_int) / delta)) mod 360;
+            end if;
+            if H_temp < 0 then
+                H_temp := H_temp + 360;
             end if;
         end if;
 
-        -- Normalize Hue to range [0, 360]
-        if H_temp < 0.0 then
-            H_temp := H_temp + 360.0;
-        end if;
-
-        H_temp := H_temp / 360.0;
+        H_temp := H_temp * 100 / 360;
 
         -- Convert HSL values to std_logic_vector format
-        H <= std_logic_vector(to_unsigned(integer(H_temp * 100.0), H'length));
-        S <= std_logic_vector(to_unsigned(integer(S_temp * 100.0), S'length));
-        L <= std_logic_vector(to_unsigned(integer(L_temp * 100.0), L'length));
+        H <= std_logic_vector(to_unsigned(H_temp, H'length));
+        S <= std_logic_vector(to_unsigned(S_temp, S'length));
+        L <= std_logic_vector(to_unsigned(L_temp, L'length));
     end process;
 end Behavioral;
