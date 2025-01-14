@@ -100,14 +100,6 @@ begin
         o_TX_LINE       => o_TX
     );
 
-	-- getPixel : process(i_CLOCK)
-	-- begin
-	-- 	if rising_edge(i_CLOCK) then
-
-	-- 	end if;
-	-- end process;
-
-    -- o_DATA_recv   <= s_rx_data;
     o_sig_RX_BUSY <= s_RX_BUSY;
     o_sig_TX_BUSY <= s_TX_BUSY;
 
