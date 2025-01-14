@@ -1,103 +1,84 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-use ieee.fixed_pkg.all;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 entity RGB_to_HSL is
     port (
-        clk : in std_logic ;
-        R : in std_logic_vector(7 downto 0);
-        G : in std_logic_vector(7 downto 0);
-        B : in std_logic_vector(7 downto 0);
-        H : out std_logic_vector(7 downto 0);
-        S : out std_logic_vector(7 downto 0);
-        L : out std_logic_vector(7 downto 0)
+        R : in std_logic_vector(7 downto 0); -- Red channel (8-bit)
+        G : in std_logic_vector(7 downto 0); -- Green channel (8-bit)
+        B : in std_logic_vector(7 downto 0); -- Blue channel (8-bit)
+        H : out std_logic_vector(7 downto 0); -- Hue (9-bit, range 0-360)
+        S : out std_logic_vector(7 downto 0); -- Saturation (7-bit, range 0-100)
+        L : out std_logic_vector(7 downto 0)  -- Lightness (7-bit, range 0-100)
     );
 end RGB_to_HSL;
 
 architecture Behavioral of RGB_to_HSL is
-    subtype ufixed_range is ufixed(7 downto -4);
-
-    function Max(A, B, C : ufixed_range) return ufixed_range is
-    begin
-        if A >= B and A >= C then return A;
-        elsif B >= C then return B;
-        else return C;
-        end if;
-    end function;
-
-    function Min(A, B, C : ufixed_range) return ufixed_range is
-    begin
-        if A <= B and A <= C then return A;
-        elsif B <= C then return B;
-        else return C;
-        end if;
-    end function;
-
-    --signal debug_max, debug_min, debug_delta, debug_H_temp, debug_S_temp, debug_L_temp : ufixed_range;
-
 begin
-    process(clk)
-        variable Rf_var, Gf_var, Bf_var : ufixed_range;
-        variable max_var, min_var, delta_var : ufixed_range;
-        variable L_temp_var, S_temp_var, H_temp_var : ufixed_range;
+    process(R, G, B)
+        variable R_int, G_int, B_int : integer;
+        variable max_val, min_val : integer;
+        variable delta : integer;
+        variable H_temp, S_temp, L_temp : integer;
     begin
-        if rising_edge(clk) then
-            -- Konversi RGB ke ufixed
-            Rf_var := divide(to_ufixed(to_integer(unsigned(R)), 7, -4), to_ufixed(255, 7, -4));
-            Gf_var := divide(to_ufixed(to_integer(unsigned(G)), 7, -4), to_ufixed(255, 7, -4));
-            Bf_var := divide(to_ufixed(to_integer(unsigned(B)), 7, -4), to_ufixed(255, 7, -4));
+        -- Convert RGB inputs from std_logic_vector to integer
+        R_int := to_integer(unsigned(R));
+        G_int := to_integer(unsigned(G));
+        B_int := to_integer(unsigned(B));
 
-            -- Hitung max dan min
-            max_var := Max(Rf_var, Gf_var, Bf_var);
-            min_var := Min(Rf_var, Gf_var, Bf_var);
-
-            -- Debugging sinyal
-            --debug_max <= max_var;
-            --debug_min <= min_var;
-
-            -- Lightness
-            L_temp_var := divide((max_var + min_var), to_ufixed(2.0, 7, -4));
-            --debug_L_temp <= L_temp_var;
-
-            -- Saturation
-            delta_var := max_var - min_var;
-            --debug_delta <= delta_var;
-
-            if delta_var = to_ufixed(0, 7, -4) then
-                S_temp_var := to_ufixed(0, 7, -4);
-            else
-                if L_temp_var < to_ufixed(0.5, 7, -4) then
-                    S_temp_var := divide(delta_var, (max_var + min_var));
-                else
-                    S_temp_var := divide(delta_var, (to_ufixed(1, 7, -4) - (to_ufixed(2, 7, -4) * L_temp_var - to_ufixed(1, 7, -4))));
-                end if;
-            end if;
-            --debug_S_temp <= S_temp_var;
-
-            -- Hue
-            if delta_var = to_ufixed(0, 7, -4) then
-                H_temp_var := to_ufixed(0, 7, -4);
-            else
-                if max_var = Rf_var then
-                    H_temp_var := to_ufixed(60, 7, -4) * divide((Gf_var - Bf_var), delta_var);
-                elsif max_var = Gf_var then
-                    H_temp_var := to_ufixed(60, 7, -4) * (to_ufixed(2.0, 7, -4) + divide((Bf_var - Rf_var), delta_var));
-                else
-                    H_temp_var := to_ufixed(60, 7, -4) * (to_ufixed(4.0, 7, -4) + divide((Rf_var - Gf_var), delta_var));
-                end if;
-            end if;
-
-            if H_temp_var < to_ufixed(0, 7, -4) then
-                H_temp_var := H_temp_var + to_ufixed(360, 7, -4);
-            end if;
-            --debug_H_temp <= H_temp_var;
-
-            -- Assign ke signal
-            H <= std_logic_vector(to_unsigned(to_integer(H_temp_var * to_ufixed(255 / 360, 7, -4)), 8));
-            S <= std_logic_vector(to_unsigned(to_integer(S_temp_var * to_ufixed(100, 7, -4)), 8));
-            L <= std_logic_vector(to_unsigned(to_integer(L_temp_var * to_ufixed(100, 7, -4)), 8));
-
+        -- Find maximum and minimum of R_int, G_int, B_int
+        max_val := R_int;
+        if G_int > max_val then
+            max_val := G_int;
         end if;
+        if B_int > max_val then
+            max_val := B_int;
+        end if;
+
+        min_val := R_int;
+        if G_int < min_val then
+            min_val := G_int;
+        end if;
+        if B_int < min_val then
+            min_val := B_int;
+        end if;
+
+        -- Calculate Lightness
+        L_temp := (max_val + min_val) * 50 / 255;
+
+        -- Calculate Saturation
+        delta := max_val - min_val;
+        if delta = 0 then
+            S_temp := 0; -- Grayscale, no saturation
+        else
+            if L_temp <= 50 then
+                S_temp := (delta * 100) / (max_val + min_val);
+            else
+                S_temp := (delta * 100) / (510 - max_val - min_val);
+            end if;
+        end if;
+
+        -- Calculate Hue
+        if delta = 0 then
+            H_temp := 0; -- Grayscale, no hue
+        else
+            if max_val = R_int then
+                H_temp := (60 * (G_int - B_int) / delta) mod 360;
+            elsif max_val = G_int then
+                H_temp := (60 * (2 + (B_int - R_int) / delta)) mod 360;
+            else
+                H_temp := (60 * (4 + (R_int - G_int) / delta)) mod 360;
+            end if;
+            if H_temp < 0 then
+                H_temp := H_temp + 360;
+            end if;
+        end if;
+
+        H_temp := H_temp * 100 / 360;
+
+        -- Convert HSL values to std_logic_vector format
+        H <= std_logic_vector(to_unsigned(H_temp, H'length));
+        S <= std_logic_vector(to_unsigned(S_temp, S'length));
+        L <= std_logic_vector(to_unsigned(L_temp, L'length));
     end process;
 end Behavioral;
