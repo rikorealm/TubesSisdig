@@ -1,5 +1,5 @@
 Analysis & Synthesis report for TubesSisdig
-Tue Jan 14 20:43:21 2025
+Wed Jan 15 01:25:05 2025
 Quartus Prime Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
 
 
@@ -68,15 +68,15 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Jan 14 20:43:21 2025          ;
+; Analysis & Synthesis Status        ; Successful - Wed Jan 15 01:25:05 2025          ;
 ; Quartus Prime Version              ; 23.1std.1 Build 993 05/14/2024 SC Lite Edition ;
 ; Revision Name                      ; TubesSisdig                                    ;
 ; Top-level Entity Name              ; main                                           ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; 3,324                                          ;
-;     Total combinational functions  ; 1,752                                          ;
-;     Dedicated logic registers      ; 1,826                                          ;
-; Total registers                    ; 1826                                           ;
+; Total logic elements               ; 3,339                                          ;
+;     Total combinational functions  ; 1,767                                          ;
+;     Dedicated logic registers      ; 1,834                                          ;
+; Total registers                    ; 1834                                           ;
 ; Total pins                         ; 50                                             ;
 ; Total virtual pins                 ; 0                                              ;
 ; Total memory bits                  ; 1,536                                          ;
@@ -187,10 +187,9 @@ https://fpgasoftware.intel.com/eula.
 ;     Processor 2            ;   0.1%      ;
 ;     Processor 3            ;   0.1%      ;
 ;     Processor 4            ;   0.1%      ;
-;     Processor 5            ;   0.1%      ;
-;     Processor 6            ;   0.1%      ;
-;     Processor 7            ;   0.1%      ;
-;     Processors 8-14        ;   0.1%      ;
+;     Processor 5            ;   0.0%      ;
+;     Processor 6            ;   0.0%      ;
+;     Processors 7-14        ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -242,20 +241,20 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+-------------+
 ; Resource                                    ; Usage       ;
 +---------------------------------------------+-------------+
-; Estimated Total logic elements              ; 3,324       ;
+; Estimated Total logic elements              ; 3,339       ;
 ;                                             ;             ;
-; Total combinational functions               ; 1752        ;
+; Total combinational functions               ; 1767        ;
 ; Logic element usage by number of LUT inputs ;             ;
-;     -- 4 input functions                    ; 1279        ;
-;     -- 3 input functions                    ; 102         ;
-;     -- <=2 input functions                  ; 371         ;
+;     -- 4 input functions                    ; 1281        ;
+;     -- 3 input functions                    ; 108         ;
+;     -- <=2 input functions                  ; 378         ;
 ;                                             ;             ;
 ; Logic elements by mode                      ;             ;
-;     -- normal mode                          ; 1525        ;
-;     -- arithmetic mode                      ; 227         ;
+;     -- normal mode                          ; 1532        ;
+;     -- arithmetic mode                      ; 235         ;
 ;                                             ;             ;
-; Total registers                             ; 1826        ;
-;     -- Dedicated logic registers            ; 1826        ;
+; Total registers                             ; 1834        ;
+;     -- Dedicated logic registers            ; 1834        ;
 ;     -- I/O registers                        ; 0           ;
 ;                                             ;             ;
 ; I/O pins                                    ; 50          ;
@@ -264,9 +263,9 @@ https://fpgasoftware.intel.com/eula.
 ; Embedded Multiplier 9-bit elements          ; 0           ;
 ;                                             ;             ;
 ; Maximum fan-out node                        ; i_clk~input ;
-; Maximum fan-out                             ; 1773        ;
-; Total fan-out                               ; 11976       ;
-; Average fan-out                             ; 3.24        ;
+; Maximum fan-out                             ; 1781        ;
+; Total fan-out                               ; 12048       ;
+; Average fan-out                             ; 3.23        ;
 +---------------------------------------------+-------------+
 
 
@@ -275,15 +274,15 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
 ; Compilation Hierarchy Node                   ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                    ; Entity Name         ; Library Name ;
 +----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
-; |main                                        ; 1752 (1)            ; 1826 (0)                  ; 1536        ; 0            ; 0       ; 0         ; 50   ; 0            ; |main                                                                                                                  ; main                ; work         ;
+; |main                                        ; 1767 (1)            ; 1834 (0)                  ; 1536        ; 0            ; 0       ; 0         ; 50   ; 0            ; |main                                                                                                                  ; main                ; work         ;
 ;    |buzzer:buzzer_module|                    ; 43 (43)             ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|buzzer:buzzer_module                                                                                             ; buzzer              ; work         ;
 ;    |clockmodifier:clockmodifier_module|      ; 50 (50)             ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|clockmodifier:clockmodifier_module                                                                               ; clockmodifier       ; work         ;
 ;    |controller:controller_module|            ; 20 (20)             ; 8 (8)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|controller:controller_module                                                                                     ; controller          ; work         ;
 ;    |img_proc:imgprocessing_module|           ; 120 (99)            ; 1570 (1546)               ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|img_proc:imgprocessing_module                                                                                    ; img_proc            ; work         ;
 ;       |matrix_multiplier:multiplier|         ; 21 (21)             ; 24 (24)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|img_proc:imgprocessing_module|matrix_multiplier:multiplier                                                       ; matrix_multiplier   ; work         ;
-;    |ir_decoder:ir_decoder_module|            ; 83 (83)             ; 43 (43)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|ir_decoder:ir_decoder_module                                                                                     ; ir_decoder          ; work         ;
+;    |ir_decoder:ir_decoder_module|            ; 84 (84)             ; 43 (43)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|ir_decoder:ir_decoder_module                                                                                     ; ir_decoder          ; work         ;
 ;    |sevensegment:sevs_module|                ; 98 (98)             ; 44 (44)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|sevensegment:sevs_module                                                                                         ; sevensegment        ; work         ;
-;    |uart:uart_module|                        ; 1337 (1)            ; 95 (1)                    ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module                                                                                                 ; uart                ; work         ;
+;    |uart:uart_module|                        ; 1351 (1)            ; 103 (1)                   ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module                                                                                                 ; uart                ; work         ;
 ;       |lpm_divide:Div0|                      ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Div0                                                                                 ; lpm_divide          ; work         ;
 ;          |lpm_divide_mhm:auto_generated|     ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Div0|lpm_divide_mhm:auto_generated                                                   ; lpm_divide_mhm      ; work         ;
 ;             |sign_div_unsign_ekh:divider|    ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Div0|lpm_divide_mhm:auto_generated|sign_div_unsign_ekh:divider                       ; sign_div_unsign_ekh ; work         ;
@@ -300,10 +299,10 @@ https://fpgasoftware.intel.com/eula.
 ;          |lpm_divide_q9m:auto_generated|     ; 74 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Mod2|lpm_divide_q9m:auto_generated                                                   ; lpm_divide_q9m      ; work         ;
 ;             |sign_div_unsign_fkh:divider|    ; 74 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Mod2|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider                       ; sign_div_unsign_fkh ; work         ;
 ;                |alt_u_div_i4f:divider|       ; 74 (74)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|lpm_divide:Mod2|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider|alt_u_div_i4f:divider ; alt_u_div_i4f       ; work         ;
-;       |uart_rx:u_RX|                         ; 73 (73)             ; 59 (59)                   ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX                                                                                    ; uart_rx             ; work         ;
+;       |uart_rx:u_RX|                         ; 81 (81)             ; 63 (63)                   ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX                                                                                    ; uart_rx             ; work         ;
 ;          |altsyncram:r_MEM_rtl_0|            ; 0 (0)               ; 0 (0)                     ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0                                                             ; altsyncram          ; work         ;
 ;             |altsyncram_ipd1:auto_generated| ; 0 (0)               ; 0 (0)                     ; 1536        ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_rx:u_RX|altsyncram:r_MEM_rtl_0|altsyncram_ipd1:auto_generated                              ; altsyncram_ipd1     ; work         ;
-;       |uart_tx:u_TX|                         ; 1081 (1081)         ; 35 (35)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_tx:u_TX                                                                                    ; uart_tx             ; work         ;
+;       |uart_tx:u_TX|                         ; 1087 (1087)         ; 39 (39)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|uart:uart_module|uart_tx:u_TX                                                                                    ; uart_tx             ; work         ;
 +----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -348,12 +347,12 @@ Note: All cells listed above may not be present at the end of synthesis due to v
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 1826  ;
-; Number of registers using Synchronous Clear  ; 74    ;
+; Total registers                              ; 1834  ;
+; Number of registers using Synchronous Clear  ; 82    ;
 ; Number of registers using Synchronous Load   ; 7     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 1699  ;
+; Number of registers using Clock Enable       ; 1707  ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -450,14 +449,14 @@ Note: All cells listed above may not be present at the end of synthesis due to v
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                           ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------+
 ; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |main|buzzer:buzzer_module|counter[26]               ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|r_INDEX[2]       ;
-; 5:1                ; 8 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; Yes        ; |main|sevensegment:sevs_module|curr_val[6]           ;
-; 4:1                ; 9 bits    ; 18 LEs        ; 9 LEs                ; 9 LEs                  ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|r_PRESCALER[2]   ;
-; 7:1                ; 18 bits   ; 72 LEs        ; 18 LEs               ; 54 LEs                 ; Yes        ; |main|ir_decoder:ir_decoder_module|cycleCounter[12]  ;
-; 129:1              ; 6 bits    ; 516 LEs       ; 6 LEs                ; 510 LEs                ; Yes        ; |main|controller:controller_module|k[0]              ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|r_INDEX[3]       ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; Yes        ; |main|sevensegment:sevs_module|curr_val[5]           ;
+; 4:1                ; 13 bits   ; 26 LEs        ; 13 LEs               ; 13 LEs                 ; Yes        ; |main|uart:uart_module|uart_rx:u_RX|r_PRESCALER[0]   ;
+; 7:1                ; 18 bits   ; 72 LEs        ; 18 LEs               ; 54 LEs                 ; Yes        ; |main|ir_decoder:ir_decoder_module|cycleCounter[14]  ;
+; 129:1              ; 6 bits    ; 516 LEs       ; 6 LEs                ; 510 LEs                ; Yes        ; |main|controller:controller_module|k[3]              ;
 ; 4:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; Yes        ; |main|ir_decoder:ir_decoder_module|NB[3]             ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |main|sevensegment:sevs_module|dig[3]                ;
-; 193:1              ; 8 bits    ; 1024 LEs      ; 1024 LEs             ; 0 LEs                  ; Yes        ; |main|uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[2] ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |main|sevensegment:sevs_module|dig[1]                ;
+; 193:1              ; 8 bits    ; 1024 LEs      ; 1024 LEs             ; 0 LEs                  ; Yes        ; |main|uart:uart_module|uart_tx:u_TX|r_DATA_BUFFER[3] ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------+
 
 
@@ -822,28 +821,28 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 50                          ;
-; cycloneiii_ff         ; 1826                        ;
+; cycloneiii_ff         ; 1834                        ;
 ;     ENA               ; 1625                        ;
-;     ENA SCLR          ; 68                          ;
+;     ENA SCLR          ; 76                          ;
 ;     ENA SLD           ; 6                           ;
 ;     SCLR              ; 6                           ;
 ;     SLD               ; 1                           ;
 ;     plain             ; 120                         ;
-; cycloneiii_lcell_comb ; 1761                        ;
-;     arith             ; 227                         ;
+; cycloneiii_lcell_comb ; 1776                        ;
+;     arith             ; 235                         ;
 ;         1 data inputs ; 3                           ;
-;         2 data inputs ; 174                         ;
+;         2 data inputs ; 182                         ;
 ;         3 data inputs ; 50                          ;
-;     normal            ; 1534                        ;
+;     normal            ; 1541                        ;
 ;         0 data inputs ; 17                          ;
 ;         1 data inputs ; 50                          ;
-;         2 data inputs ; 136                         ;
-;         3 data inputs ; 52                          ;
-;         4 data inputs ; 1279                        ;
+;         2 data inputs ; 135                         ;
+;         3 data inputs ; 58                          ;
+;         4 data inputs ; 1281                        ;
 ; cycloneiii_ram_block  ; 24                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 13.50                       ;
-; Average LUT depth     ; 6.36                        ;
+; Average LUT depth     ; 6.34                        ;
 +-----------------------+-----------------------------+
 
 
@@ -862,7 +861,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
-    Info: Processing started: Tue Jan 14 20:43:12 2025
+    Info: Processing started: Wed Jan 15 01:24:57 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off TubesSisdig -c TubesSisdig
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
@@ -938,17 +937,17 @@ Warning (10541): VHDL Signal Declaration warning at main.vhd(171): used implicit
 Warning (10541): VHDL Signal Declaration warning at main.vhd(175): used implicit default value for signal "uart_received" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 175
 Warning (10036): Verilog HDL or VHDL warning at main.vhd(182): object "source_sel" assigned a value but never read File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 182
 Warning (10540): VHDL Signal Declaration warning at main.vhd(186): used explicit default value for signal "k" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 186
-Info (12128): Elaborating entity "controller" for hierarchy "controller:controller_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 197
+Info (12128): Elaborating entity "controller" for hierarchy "controller:controller_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 191
 Warning (10541): VHDL Signal Declaration warning at controller.vhd(25): used implicit default value for signal "source_selector" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/controller.vhd Line: 25
-Info (12128): Elaborating entity "ir_decoder" for hierarchy "ir_decoder:ir_decoder_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 201
+Info (12128): Elaborating entity "ir_decoder" for hierarchy "ir_decoder:ir_decoder_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 195
 Warning (10492): VHDL Process Statement warning at IR.vhd(148): signal "changestate" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/IR.vhd Line: 148
-Info (12128): Elaborating entity "clockmodifier" for hierarchy "clockmodifier:clockmodifier_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 202
+Info (12128): Elaborating entity "clockmodifier" for hierarchy "clockmodifier:clockmodifier_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 196
 Warning (10492): VHDL Process Statement warning at clockmodifier.vhd(25): signal "clk_out_intem" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/clockmodifier.vhd Line: 25
-Info (12128): Elaborating entity "sevensegment" for hierarchy "sevensegment:sevs_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 203
+Info (12128): Elaborating entity "sevensegment" for hierarchy "sevensegment:sevs_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 197
 Warning (10492): VHDL Process Statement warning at sevseg.vhd(64): signal "curr_val" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/sevseg.vhd Line: 64
-Info (12128): Elaborating entity "buzzer" for hierarchy "buzzer:buzzer_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 204
+Info (12128): Elaborating entity "buzzer" for hierarchy "buzzer:buzzer_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 198
 Warning (10492): VHDL Process Statement warning at buzzer.vhd(57): signal "state" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/buzzer.vhd Line: 57
-Info (12128): Elaborating entity "img_proc" for hierarchy "img_proc:imgprocessing_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 207
+Info (12128): Elaborating entity "img_proc" for hierarchy "img_proc:imgprocessing_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 201
 Warning (10540): VHDL Signal Declaration warning at imgprocessing.vhd(37): used explicit default value for signal "B_matrix" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/imgprocessing.vhd Line: 37
 Warning (10873): Using initial value X (don't care) for net "curr_pixel[0][1..2]" at imgprocessing.vhd(33) File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/imgprocessing.vhd Line: 33
 Warning (10873): Using initial value X (don't care) for net "curr_pixel[1][0]" at imgprocessing.vhd(33) File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/imgprocessing.vhd Line: 33
@@ -963,7 +962,7 @@ Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup
 Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "data_A" into its bus
 Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "data_B" into its bus
 Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "result" into its bus
-Info (12128): Elaborating entity "uart" for hierarchy "uart:uart_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 209
+Info (12128): Elaborating entity "uart" for hierarchy "uart:uart_module" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 203
 Warning (10540): VHDL Signal Declaration warning at uart.vhd(32): used explicit default value for signal "s_RX_START" because signal was never assigned a value File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 32
 Info (12128): Elaborating entity "uart_rx" for hierarchy "uart:uart_module|uart_rx:u_RX" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart.vhd Line: 80
 Warning (10492): VHDL Process Statement warning at uart_rx.vhd(104): signal "pixel_received" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/uart_rx.vhd Line: 104
@@ -1089,15 +1088,15 @@ Warning (21074): Design contains 3 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "i_btn2" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 26
     Warning (15610): No output dependent on input pin "i_btn3" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 26
     Warning (15610): No output dependent on input pin "i_btn4" File: E:/Studies/ITB/Matkul/Sems 3/Sisdig/Tubes/FPGA-Side/Codes/main.vhd Line: 26
-Info (21057): Implemented 3400 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 3415 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 7 input pins
     Info (21059): Implemented 43 output pins
-    Info (21061): Implemented 3326 logic cells
+    Info (21061): Implemented 3341 logic cells
     Info (21064): Implemented 24 RAM segments
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 59 warnings
-    Info: Peak virtual memory: 4894 megabytes
-    Info: Processing ended: Tue Jan 14 20:43:21 2025
-    Info: Elapsed time: 00:00:09
+    Info: Peak virtual memory: 4891 megabytes
+    Info: Processing ended: Wed Jan 15 01:25:05 2025
+    Info: Elapsed time: 00:00:08
     Info: Total CPU time (on all processors): 00:00:08
 
 

@@ -17,7 +17,6 @@ import serial
 import serial.tools.list_ports
 ports = serial.tools.list_ports.comports()
 
-
 # === FUNCTION ===
 
 # convert binary to bit
@@ -69,13 +68,6 @@ def flattenrow(matrix):
             temp_matrix.append(element)
     return temp_matrix
 
-def flattenrow(matrix):
-    temp_matrix = []
-    for row in matrix:
-        for element in row:
-            temp_matrix.append(element)
-    return temp_matrix
-
 # flatten array
 def flatten(matrix):
     flatten = []
@@ -90,6 +82,11 @@ def write(data : int):
     if 0 <= data <= 255:
           SerialObj.write(bytes([data]))
 
+# === CONSTANTS ===
+# UART
+
+# canvas size (8 x 8)
+
 # === ALGORITHM ===
 
 con_verify = False
@@ -97,45 +94,42 @@ con_serial = True
 
 # running home menu until the right choice is picked
 while True:
+    global max_width, max_height
     # to clear screen
     os.system('cls')
     print("=== Presets Images ===")
-    print("1. Creepy.png (5x5 pixels)")
-    print("2. Memario.png (10x10 pixels)")
-    print("3. car.png (4:3)")
-    print("4. jamur.png (6:4)")
-    print("5. stiv.png (4:6)")
-    print("6. Rainbow (8x8)")
-    print("7. Orange (8x8)")
-    print("7. Orange (8x8)")
+    print("0.  Block.png (8x8 pixels)")
+    print("1.  Calico.png (4x4 pixels)")
+    print("2.  Cookie.png (2x2 pixels)")
+    print("3.  Face.png (5x5)")
+    print("4.  Luigi.png (8x8)")
+    print("5.  Mario.png (8x8)")
+    print("6.  Midnight (4x4)")
+    print("7.  Mine (7x7)")
+    print("8.  Rubik's (3x3)")
+    print("9.  Shirt (6x6)")
+    print("10. Tree (5x5)")
+
+    imgpaths = {
+        0  : "PC-Side\Codes\TestImages\mblock.png",
+        1  : "PC-Side\Codes\TestImages\mcalico.png",
+        2  : "PC-Side\Codes\TestImages\mcookie.png",
+        3  : "PC-Side\Codes\TestImages\mface.png",
+        4  : "PC-Side\Codes\TestImages\luigi.png",
+        5  : "PC-Side\Codes\TestImages\shortmario.png",
+        6  : "PC-Side\Codes\TestImages\mmidnight.png",
+        7  : "PC-Side\Codes\TestImages\minepaint.png",
+        8  : "PC-Side\Codes\TestImages\mrubik.png",
+        9  : "PC-Side\Codes\TestImages\marioshirt.png",
+        10 : "PC-Side\Codes\TestImages\mtree.png"
+    }
+
     # to pick which image to choose
     image_choice = int(input("Input Preset Image Number = "))
-    if image_choice == 1:
-        image = Image.open("Creepy.png").convert("RGB")
-        image = Image.open("Creepy.png").convert("RGB")
-    elif image_choice == 2:
-        image = Image.open("TubesSisdig\PC-Side\Images\Memario.png").convert("RGB")
-        image = Image.open("TubesSisdig\PC-Side\Images\Memario.png").convert("RGB")
-    elif image_choice == 3:
-        image = Image.open("TubesSisdig\PC-Side\Images\car.png").convert("RGB")
-        image = Image.open("TubesSisdig\PC-Side\Images\car.png").convert("RGB")
-    elif image_choice == 4:
-        image = Image.open("TubesSisdig\PC-Side\Images\jamur.png").convert("RGB")
-        image = Image.open("TubesSisdig\PC-Side\Images\jamur.png").convert("RGB")
-    elif image_choice == 5:
-        image = Image.open("TubesSisdig\PC-Side\Images\stiv.png").convert("RGB")
-        image = Image.open("TubesSisdig\PC-Side\Images\stiv.png").convert("RGB")
-    elif image_choice == 6:
-        image = Image.open("PC-Side\Codes\mrainbow.png").convert("RGB")
-    elif image_choice == 7:
-        image = Image.open("TubesSisdig\PC-Side\Images\orange.png").convert("RGB")
+    image = Image.open(imgpaths.get(image_choice)).convert("RGB")
 
     # get data for width and height of picture
     width, height = image.size
-
-    # image size final and max
-    max_width = 8
-    max_height = 8
 
     # image size final and max
     max_width = 8
@@ -148,53 +142,32 @@ while True:
 
 # Serial Communication
 # Python code transmits a byte to Arduino /Microcontroller
-if con_serial == True : 
-    print()
-    print("PORT DESCRIPTION")
-    portar = []
-    for port, desc, hwid in sorted(ports):
-            print("{}: {} [{}]".format(port, desc, hwid))
-            portar.append(port)
-if con_serial == True : 
-    print()
-    print("PORT DESCRIPTION")
-    portar = []
-    for port, desc, hwid in sorted(ports):
-            print("{}: {} [{}]".format(port, desc, hwid))
-            portar.append(port)
+if con_serial == True:
+    baudrate = 9600
+    byte_size = 8
+    parity = 'N'
+    stop_bit = 1
 
-    print()
-    print("PORTS")
+    os.system("cls")
+    portar = []
+    for port, desc, hwid in sorted(ports):
+        portar.append(port)
+    
+    print("=== Ports ===")
     for number, letter in enumerate(portar):
         print(number+1, letter)
     # /Get avail ports then select port
-    print()
-    print("PORTS")
-    for number, letter in enumerate(portar):
-        print(number+1, letter)
-    # /Get avail ports then select port
-
     serpick = int(input("Input Choice Number = "))
     SerialObj = serial.Serial(portar[serpick-1])
                                         # ttyUSBx format on Linux
-    SerialObj.baudrate = 115200           # set Baud rate to 9600
-    SerialObj.bytesize = 8              # Number of data bits = 8
-    SerialObj.parity  ='N'              # No parity
-    SerialObj.stopbits = 1              # Number of Stop bits = 1
-    # SerialObj.close()
-    serpick = int(input("Input Choice Number = "))
-    SerialObj = serial.Serial(portar[serpick-1])
-                                        # ttyUSBx format on Linux
-    SerialObj.baudrate = 115200           # set Baud rate to 9600
-    SerialObj.bytesize = 8              # Number of data bits = 8
-    SerialObj.parity  ='N'              # No parity
-    SerialObj.stopbits = 1              # Number of Stop bits = 1
-    # SerialObj.close()
+    SerialObj.baudrate = baudrate           # set Baud rate to 9600
+    SerialObj.bytesize = byte_size              # Number of data bits = 8
+    SerialObj.parity  = parity              # No parity
+    SerialObj.stopbits = stop_bit              # Number of Stop bits = 1
 
 # find pixel data for the picture
 imgdata_lokal = []
 
-# data in array of 3 integers. parsed by pixels and not columnn
 # data in array of 3 integers. parsed by pixels and not columnn
 for y in range(height):
     for x in range(width):
@@ -202,33 +175,19 @@ for y in range(height):
         matrix_rgb = [r, g, b]
         imgdata_lokal.append(matrix_rgb)
 
-# print(imgdata_lokal)
-
 imgdata_lokal = rowparser(imgdata_lokal, width)
-# print(imgdata_lokal)
 
-imgdata_lokal = rowparser(imgdata_lokal, width)
+scaled_width = 8
+scaled_height = 8
 
 # image scaler
-# canvas size (8 x 8)
-scaled_width = 8
-scaled_height = 8
-imgdata_scaled = [[[0, 0, 0] for i in range(0, scaled_width)] for j in range (0, scaled_height)]
-scaled_width = 8
-scaled_height = 8
 imgdata_scaled = [[[0, 0, 0] for i in range(0, scaled_width)] for j in range (0, scaled_height)]
 
 original_width = width
 original_height = height
 final_width = scaled_width
 final_height = scaled_height
-original_width = width
-original_height = height
-final_width = scaled_width
-final_height = scaled_height
 
-width_ratio = final_width/original_width
-height_ratio = final_height/original_height
 width_ratio = final_width/original_width
 height_ratio = final_height/original_height
 
@@ -237,18 +196,7 @@ test_ww = original_width * width_ratio
 test_hw = original_height * width_ratio
 test_wh = original_width * height_ratio
 test_hh = original_height * height_ratio
-# condition
-test_ww = original_width * width_ratio
-test_hw = original_height * width_ratio
-test_wh = original_width * height_ratio
-test_hh = original_height * height_ratio
 
-if test_ww < final_width and test_hw < final_width:
-    ratio = int(width_ratio)
-elif test_wh < final_width and test_hh < final_width:
-    ratio = int(height_ratio)
-else:
-    ratio = int(width_ratio)
 if test_ww < final_width and test_hw < final_width:
     ratio = int(width_ratio)
 elif test_wh < final_width and test_hh < final_width:
@@ -262,21 +210,7 @@ expected_height = int(original_height *ratio)
 center_width = int((final_width - expected_width) / 2)
 center_height = int((final_height - expected_height) / 2)
 # expected_img_array = np.zeros((expected_height, expected_width, channels), dtype=original_img_array.dtype)
-# output scaling algorithm
-expected_width = int(original_width * ratio)
-expected_height = int(original_height *ratio)
-center_width = int((final_width - expected_width) / 2)
-center_height = int((final_height - expected_height) / 2)
-# expected_img_array = np.zeros((expected_height, expected_width, channels), dtype=original_img_array.dtype)
 
-for heightnow in range (0, expected_height, ratio):
-    for widthnow in range (0, expected_width, ratio):
-        original_height_now = int((heightnow/ratio))
-        original_width_now = int((widthnow/ratio))
-        # print(original_height_now, original_width_now)
-        for i in range (heightnow, heightnow + ratio):
-            for j in range (widthnow, widthnow + ratio):
-                imgdata_scaled[center_height + i][center_width + j] = imgdata_lokal[original_height_now][original_width_now]
 for heightnow in range (0, expected_height, ratio):
     for widthnow in range (0, expected_width, ratio):
         original_height_now = int((heightnow/ratio))
@@ -303,7 +237,6 @@ for i in range(0, scaled_width*scaled_height):
     write(b_send)
 
 for j in range (0, scaled_width*scaled_height):
-for j in range (0, scaled_width*scaled_height):
     element = []
     for z in range(3):
         e = int(SerialObj.read().hex(), 16)
@@ -312,9 +245,6 @@ for j in range (0, scaled_width*scaled_height):
         element.append(e)
     imgdata_edited.append(element)
  
-# image data display
-# print(imgdata_scaled)
-
 img_pyver = []
 for k in range(len(flatten_imgdata_scaled)):
     pix = []
@@ -330,37 +260,22 @@ imgdata_final = rowparser(imgdata_edited, 8)
 
 plt.subplot(1,3,1)
 plt.imshow(imgdata_lokal)
-plt.axis("off")
+plt.axis("on")
 plt.title("Original Image")
 
 plt.subplot(1,3,2)
 plt.imshow(imgdata_final_pyver)
-plt.axis("off")
+plt.axis("on")
 plt.title("Python Processed Version")
 
 plt.subplot(1,3,3)
 plt.imshow(imgdata_final)
-plt.axis("off")
+plt.axis("on")
 plt.title("FPGA Processed Version")
 
 plt.show()
 
 # Verification Data
-if con_verify == True:
-    # print()
-    # print("=== VERIFICATION ===")
-    # print("image data lokal")
-    # for element in imgdata_lokal:
-    #     print(element)
-    print()
-    print("=== VERIFICATION ===")
-    print("image data lokal")
-    for element in flatten_imgdata_scaled:
-        print(element)
-#     # print("parsed data")
-#     # for element in imgdata_final:
-#     #     print(element)
-
 if con_verify == True:
     # print()
     # print("=== VERIFICATION ===")

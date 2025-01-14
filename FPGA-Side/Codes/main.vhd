@@ -185,12 +185,6 @@ end component controller;
 
   signal k : integer range 0 to 100 := 50;
   signal addr : std_logic_vector(5 downto 0) := "000000";
-  -- signal img_memory : img_memory_type := (others => (others => '0'));
-  -- signal address_sig : std_logic_vector(7 downto 0);
-  -- signal data_sig : std_logic_vector(23 downto 0);
-  -- signal rden_sig : std_logic;
-  -- signal wren_sig : std_logic;
-  -- signal q_sig : std_logic_vector(23 downto 0);
 
 begin
   ir_data <= '0'&ir_frame(7 downto 1);

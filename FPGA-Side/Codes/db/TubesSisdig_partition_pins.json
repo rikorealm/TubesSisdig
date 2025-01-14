@@ -72,11 +72,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "i_btn1",
+					"name" : "i_Rx",
 					"strict" : false
 				},
 				{
-					"name" : "i_Rx",
+					"name" : "i_btn1",
 					"strict" : false
 				},
 				{

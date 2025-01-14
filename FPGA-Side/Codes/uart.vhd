@@ -122,37 +122,12 @@ begin
         to_integer(unsigned(i_image(0)(15 downto 8))) / 10 mod 10,
         to_integer(unsigned(i_image(0)(7 downto 0))) mod 10
     );
-    
-    -- sevseg_data <= (
-    --     0,
-    --     to_integer(unsigned(s_rx_data(63)(23 downto 16))) / 100 mod 10,
-    --     to_integer(unsigned(s_rx_data(63)(15 downto 8))) / 10 mod 10,
-    --     to_integer(unsigned(s_rx_data(63)(7 downto 0))) mod 10
-    -- );
 
     transmission : process(i_CLOCK, i_image, i_processing, pixval_count)
     begin
 		if rising_edge(i_CLOCK) then
-			-- if Sendi calc ok, proceed
 			if s_TX_BUSY = '0' and i_processing = '1' and i_send = '0' and s_pixel_transmit = '0' then
                 s_TX_START <= '1';
-				-- if s_mem_addr >= 63 then
-				-- 	s_mem_addr <= 0;
-                --     s_TX_START <= '0';
-    			-- else
-                --     s_TX_START <= '1';
-                --     if pixval_count = 0 then
-        		-- 		s_tx_data <= i_image(s_mem_addr)(23 downto 16);
-        		-- 		pixval_count <= pixval_count + 1;
-        		-- 	elsif pixval_count = 1 then
-        		-- 		s_tx_data <= i_image(s_mem_addr)(15 downto 8);
-        		-- 		pixval_count <= pixval_count + 1;
-        		-- 	elsif pixval_count = 2 then
-        		-- 		s_tx_data <= i_image(s_mem_addr)(7 downto 0);
-        		-- 		pixval_count <= 0;
-        		-- 		s_mem_addr <= s_mem_addr + 1;
-        		-- 	end if;
-				-- end if;
 			else
 				s_TX_START <= '0';
 			end if;	

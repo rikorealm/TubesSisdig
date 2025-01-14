@@ -20,7 +20,7 @@ end uart_rx;
 
 architecture behavior of uart_rx is
 
-	signal r_PRESCALER			:	integer range 0 to 433 := 0	;----433 = ( 50MHz[clock] / 115200[bitrate] )
+	signal r_PRESCALER			:	integer range 0 to 5207 := 0	;----433 = ( 50MHz[clock] / 115200[bitrate] )
 	signal r_INDEX				:	integer range 0 to 9 := 0		;----Used to select bits from vector		
 	signal r_DATA_BUFFER		:	std_logic_vector(9 downto 0)	;----Data register, needs to be padded with [0] on the beggining and [1] at the end
 	signal s_RECIEVING_FLAG		:	std_logic := '0'				;----Signal holding the current state [ 1 if recieving, 0 if not recieving ]
@@ -52,13 +52,13 @@ begin
 
 			if( s_RECIEVING_FLAG = '1') then
 				r_DATA_BUFFER(r_INDEX)	<= i_RX;
-				if( r_PRESCALER < 433 ) then
+				if( r_PRESCALER < 5207 ) then
 					r_PRESCALER	<=	r_PRESCALER + 1;
 				else
 					r_PRESCALER <= 0;
 				end if;
 				
-				if( r_PRESCALER = 220 ) then
+				if( r_PRESCALER = 2607 ) then
 					if( r_INDEX < 9 ) then
 						r_INDEX <= r_INDEX + 1;
 					else	
