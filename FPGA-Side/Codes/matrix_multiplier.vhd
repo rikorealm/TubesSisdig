@@ -4,8 +4,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 package matrix_multiplier_pkg is
     type matrix is array (natural range <>, natural range <>) of std_logic_vector (7 downto 0);
-    type matrix_result is array (natural range <>, natural range <>) of std_logic_vector (15 downto 0);
-
+    type matrix_temp is array (natural range <>, natural range <>) of real;
 end package;
 
 library IEEE;
@@ -23,15 +22,15 @@ entity matrix_multiplier is
         clk : in std_logic ;
         data_A : in matrix (0 to size_A_row-1, 0 to size_A_col-1);
         data_B : in matrix (0 to size_B_row-1, 0 to size_B_col-1);
-        result : out matrix_result (0 to size_A_row-1, 0 to size_B_col-1)
+        result : out matrix (0 to size_A_row-1, 0 to size_B_col-1)
     );
 end entity;
 
 architecture behavior of matrix_multiplier is
 
-signal temp_data_A : matrix (0 to size_A_row-1, 0 to size_A_col-1);
 
-signal H_temp, S_temp, L_temp : std_logic_vector(7 downto 0);
+    signal temp_data_A : matrix (0 to size_A_row-1, 0 to size_A_col-1);
+    signal H_temp, S_temp, L_temp : std_logic_vector(7 downto 0);
 
 component RGB_to_HSL
     port(
@@ -47,18 +46,26 @@ end component;
 begin
 
     process (clk)
-        variable temp_result : unsigned (15 downto 0);
+        variable temp_A : integer;
+        variable temp_B : integer;
+        variable temp_new_B : integer;
+        variable temp_result : integer;
     begin
         if rising_edge(clk) then
             -- Perkalian matriks
             for i in 0 to size_A_row-1 loop
                 for j in 0 to size_B_col-1 loop
-                    temp_result := (others => '0'); -- Inisialisasi ulang
+                    temp_result := 0;
                     for k in 0 to size_A_col-1 loop
-                        temp_result := temp_result + 
-                                       unsigned(temp_data_A(i, k)) * unsigned(data_B(k, j));
+                        temp_A := to_integer(unsigned(temp_data_A(i,k)));
+                        temp_B := to_integer(unsigned(data_B(k,j))) * 200 / 100 - 100;
+                        temp_new_B := 100 + (temp_B * 95 /100);
+                        temp_result := temp_result + (temp_A * temp_new_B)/100;
                     end loop;
-                    result(i, j) <= std_logic_vector(temp_result);
+                    if temp_result > 100 then
+                        temp_result := 100;
+                    end if;
+                    result(i, j) <= std_logic_vector(to_unsigned(integer(temp_result * 255 / 100), 8));
                 end loop;
             end loop;
         end if;
@@ -81,5 +88,4 @@ begin
             temp_data_A(2, 1) <= "00000000"; -- Baris 3: Lightness
             temp_data_A(2, 2) <= L_temp; -- Baris 3: Lightness
 end behavior;
-
 
