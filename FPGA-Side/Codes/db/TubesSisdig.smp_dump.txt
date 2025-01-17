@@ -1,8 +1,0 @@
-
-State Machine - |main|uart:uart_module|curr_state
-Name curr_state.finished curr_state.transmitted curr_state.readytotransmit curr_state.received curr_state.readytoreceive 
-curr_state.readytoreceive 0 0 0 0 0 
-curr_state.received 0 0 0 1 1 
-curr_state.readytotransmit 0 0 1 0 1 
-curr_state.transmitted 0 1 0 0 1 
-curr_state.finished 1 0 0 0 1 
